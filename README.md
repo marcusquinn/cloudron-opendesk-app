@@ -63,9 +63,10 @@ cloudron install --location support.example.com
 
 `cloudron update --app support.example.com` rebuilds from a newer checkout.
 
-To move a source-built install onto the catalog so it gets updates
-automatically, keeping its data, address and mailboxes (Cloudron CLI 9.0 or
-later; the update takes a backup first):
+To move a source-built install onto the catalog, keeping its data, address and
+mailboxes, run this (Cloudron CLI 9.0 or later; the update takes a backup
+first). New catalog versions then show up as updates, which Cloudron installs
+automatically or leaves for you to apply, depending on the app's update setting.
 
 ```sh
 cloudron update --app support.example.com --force \
