@@ -1,5 +1,16 @@
 # opendesk for Cloudron
 
+<!-- aidevops:badges:start -->
+<!-- managed by aidevops badges; edit the template, not this block -->
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/marcusquinn/cloudron-opendesk-app/blob/main/LICENSE)
+[![Latest release](https://img.shields.io/badge/release-latest-blue.svg)](https://github.com/marcusquinn/cloudron-opendesk-app/releases/latest)
+
+[![Lines of code](docs/metrics/badges/loc.svg)](docs/metrics/repo-metrics.md)
+[![Dependencies](docs/metrics/badges/dependencies.svg)](docs/metrics/repo-metrics.md)
+
+[![Languages by lines of code](docs/metrics/badges/languages.svg)](docs/metrics/repo-metrics.md)
+<!-- aidevops:badges:end -->
+
 Cloudron package for [opendesk](https://github.com/useopendesk/opendesk), the
 open-source helpdesk: a shared inbox for email and live chat, an embeddable
 chat widget, a public help center, automations, SLAs and reports.
@@ -245,3 +256,18 @@ mailbox passwords. Without it, every mailbox must be reconnected.
 
 Packaging: MIT ([LICENSE](LICENSE)). opendesk: Apache-2.0, © its authors.
 This package is maintained independently of the opendesk project.
+
+<!-- aidevops:managed-readme:start -->
+<!-- managed by aidevops; refresh with managed-readme-helper.sh sync -->
+## Star History
+
+![marcusquinn/cloudron-opendesk-app stars over time](docs/assets/star-history.svg)
+
+## Built with aidevops
+
+This project was created and is maintained with
+[aidevops.sh](https://aidevops.sh).
+
+[View marcusquinn on GitHub](https://github.com/marcusquinn) ·
+[aidevops repository](https://github.com/marcusquinn/aidevops)
+<!-- aidevops:managed-readme:end -->

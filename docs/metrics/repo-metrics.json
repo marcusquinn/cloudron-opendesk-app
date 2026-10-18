@@ -1,0 +1,100 @@
+{
+  "schema": "aidevops.repo-metrics.v1",
+  "schema_version": 1,
+  "generated_at": "2026-10-18T12:02:46Z",
+  "tool": {
+    "name": "aidevops repo-metrics",
+    "version": "1.0.0"
+  },
+  "repo": {
+    "name": "cloudron-opendesk-app",
+    "slug": "marcusquinn/cloudron-opendesk-app"
+  },
+  "summary": {
+    "source_files": 31,
+    "code": 1759,
+    "comments": 129,
+    "blanks": 358,
+    "languages": 7,
+    "dependencies": 0
+  },
+  "languages": [
+    {
+      "name": "Markdown",
+      "files": 17,
+      "code": 903,
+      "comments": 0,
+      "blanks": 285,
+      "percentage": 51.34,
+      "color": "#083fa1"
+    },
+    {
+      "name": "Shell",
+      "files": 5,
+      "code": 295,
+      "comments": 62,
+      "blanks": 43,
+      "percentage": 16.77,
+      "color": "#89e051"
+    },
+    {
+      "name": "YAML",
+      "files": 4,
+      "code": 285,
+      "comments": 49,
+      "blanks": 19,
+      "percentage": 16.2,
+      "color": "#cb171e"
+    },
+    {
+      "name": "JSON",
+      "files": 2,
+      "code": 119,
+      "comments": 0,
+      "blanks": 0,
+      "percentage": 6.77,
+      "color": "#292929"
+    },
+    {
+      "name": "Dockerfile",
+      "files": 1,
+      "code": 73,
+      "comments": 16,
+      "blanks": 11,
+      "percentage": 4.15,
+      "color": "#384d54"
+    },
+    {
+      "name": "HTML",
+      "files": 1,
+      "code": 57,
+      "comments": 2,
+      "blanks": 0,
+      "percentage": 3.24,
+      "color": "#e34c26"
+    },
+    {
+      "name": "SVG",
+      "files": 1,
+      "code": 27,
+      "comments": 0,
+      "blanks": 0,
+      "percentage": 1.53,
+      "color": "#6e7781"
+    }
+  ],
+  "dependencies": {
+    "direct": 0,
+    "runtime": 0,
+    "dev": 0,
+    "locked": 0,
+    "total": 0,
+    "ecosystems": [],
+    "manifests": []
+  },
+  "refresh": {
+    "default_policy": "weekly scheduled refresh plus manual runs; skip generated outputs younger than 24h in managed workflows",
+    "cost_profile": "fast local git/unignored-file scan; no network by default",
+    "top_languages": 6
+  }
+}
