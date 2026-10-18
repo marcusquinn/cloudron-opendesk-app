@@ -9,9 +9,9 @@
 ARG OPENDESK_COMMIT=898e5943a232b72331daeef76678bf9093b9a210
 
 # ── source: the pinned upstream checkout with the Cloudron patches applied ───
-FROM golang:1.27-alpine@sha256:f92b6ef800e499660581efdabdf25d9d817a9d124eaf900924f0504e7e27e12d AS src
+# The Debian golang image ships git, so no unpinned package install is needed.
+FROM golang:1.27@sha256:820153096fda4de6ac1b7194d12e416b7dd8f4e9a33d17e0345b111b945162d8 AS src
 ARG OPENDESK_COMMIT
-RUN apk add --no-cache git
 WORKDIR /src
 RUN git init -q . \
     && git remote add origin https://github.com/useopendesk/opendesk.git \
@@ -29,8 +29,9 @@ WORKDIR /src
 COPY --from=src /src/brand/ brand/
 COPY --from=src /src/contracts/ contracts/
 COPY --from=src /src/web/ web/
+WORKDIR /src/web
 RUN npm install -g --silent corepack@0.36.0 && corepack enable \
-    && cd web && pnpm install --frozen-lockfile && pnpm build && test -f dist/index.html
+    && pnpm install --frozen-lockfile && pnpm build && test -f dist/index.html
 
 # ── admin: the instance admin panel, served at /admin/ ──────────────────────
 FROM node:24-alpine@sha256:44fce696f38ba8c987c4db89954051000bbd05ffd8d8659ba15ed4a8602e937f AS admin
@@ -39,16 +40,17 @@ WORKDIR /src
 COPY --from=src /src/brand/ brand/
 COPY --from=src /src/contracts/ contracts/
 COPY --from=src /src/admin/ admin/
+WORKDIR /src/admin
 RUN npm install -g --silent corepack@0.36.0 && corepack enable \
-    && cd admin && pnpm install --frozen-lockfile && pnpm build:embed && test -f dist/index.html
+    && pnpm install --frozen-lockfile && pnpm build:embed && test -f dist/index.html
 
 # ── go: one static binary with both web builds embedded ─────────────────────
 FROM golang:1.27-alpine@sha256:f92b6ef800e499660581efdabdf25d9d817a9d124eaf900924f0504e7e27e12d AS go
 ARG OPENDESK_COMMIT
 WORKDIR /src
 COPY --from=src /src/ ./
-RUN go mod download
-RUN rm -rf internal/webui/dist internal/adminui/dist \
+RUN go mod download \
+    && rm -rf internal/webui/dist internal/adminui/dist \
     && mkdir -p internal/webui/dist internal/adminui/dist
 COPY --from=web /src/web/dist/ internal/webui/dist/
 COPY --from=admin /src/admin/dist/ internal/adminui/dist/
@@ -62,7 +64,7 @@ RUN CGO_ENABLED=0 go build -trimpath \
 # the crypto NIF links against the runtime's own libssl.
 FROM hexpm/elixir:1.20.4-erlang-29.1.1-ubuntu-resolute-20260927@sha256:27891ab37c7677f921899bc2b9e8e2e47ac0cae17cae28bd5979839ba6b0a479 AS realtime
 RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends build-essential git ca-certificates \
+    && apt-get install -y --no-install-recommends build-essential ca-certificates git \
     && rm -rf /var/lib/apt/lists/*
 ENV MIX_ENV=prod
 WORKDIR /build
@@ -80,7 +82,7 @@ ARG OPENDESK_COMMIT
 LABEL org.opencontainers.image.source="https://github.com/marcusquinn/cloudron-opendesk-app"
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends nginx supervisor libncurses6 libsctp1 openssl \
+    && apt-get install -y --no-install-recommends libncurses6 libsctp1 nginx openssl supervisor \
     && rm -rf /var/lib/apt/lists/* /etc/nginx/sites-enabled/default
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 \

@@ -95,13 +95,119 @@ commented examples for:
   default). `OIDC_NAME` renames the sign-in button.
 - **Platform email:** `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`,
   `SMTP_PASSWORD`, `SMTP_TLS`, `MAIL_FROM` to send through another server.
-- **AI drafting and triage:** set one of `ANTHROPIC_API_KEY`,
-  `OPENAI_API_KEY` or `OPENROUTER_API_KEY`.
+- **AI:** a provider key, or an OpenAI-compatible endpoint such as LM Studio
+  or NanoGPT. See [AI](#ai).
 - **Attachments on S3:** `STORAGE_DRIVER=s3` and the `S3_*` keys.
 
 The full reference is <https://docs.opendesk.sh/self-hosting/>. The package
 owns the database, URLs, secrets, SSO and the internal mail route; those keys
 are ignored in `/app/data/env` and the log says so.
+
+## AI
+
+AI features (reply drafts, summaries, triage, the chat answer bot, semantic
+search) are off until you configure a provider. A self-hosted instance has no
+AI balance or usage limits: you pay the provider directly, or nothing with a
+local model. Customer content goes only to the provider you configure, each
+request carries only what that feature needs, and prompts and completions are
+not logged. Workspace admins can still turn AI off for their workspace.
+Upstream guide: <https://docs.opendesk.sh/self-hosting/ai/>.
+
+Set one of the options below in `/app/data/env` and restart the app. Then,
+while signed in to opendesk, open `https://<app>/v1/ai/config`: it should
+report `enabled: true` with your models. If not, the app log explains why
+(for example, an OpenAI-compatible provider without `AI_MODEL` stays off).
+
+| Provider | Keys | Notes |
+|---|---|---|
+| Anthropic | `ANTHROPIC_API_KEY` | Models default to Claude Sonnet (drafts) and Haiku (triage). |
+| OpenRouter | `OPENROUTER_API_KEY` | Routes only to providers that do not retain or train on prompts. |
+| Any OpenAI-compatible API | `AI_PROVIDER=openai`, `OPENAI_BASE_URL`, `OPENAI_API_KEY`, `AI_MODEL` | OpenAI, LM Studio, NanoGPT, Ollama, vLLM. `AI_MODEL` is required; `AI_FAST_MODEL` is optional (defaults to `AI_MODEL`). |
+
+**Semantic search.** With an OpenAI-compatible provider, opendesk also asks
+the same endpoint for embeddings, using `text-embedding-3-small` unless you set
+`EMBEDDINGS_MODEL`. Set `EMBEDDINGS_MODEL` to an embedding model your endpoint
+serves, or `EMBEDDINGS_DRIVER=none` to keep Postgres full-text search. The
+package's PostgreSQL has the `vector` extension. Changing the embeddings model
+reindexes existing content.
+
+### Private AI on your own computer: LM Studio + NetBird
+
+Run the models on a computer you own, so customer content never reaches an AI
+company, even when Cloudron runs on a rented VPS.
+
+1. **Install [LM Studio](https://lmstudio.ai/download)** on the computer with
+   the GPU or Apple Silicon, download a chat model (and optionally an
+   embedding model such as `nomic-embed-text-v1.5`) and load it.
+2. **Start its server** (*Developer* tab, *Start server*; port 1234). In
+   *Server Settings* turn on
+   [Serve on Local Network](https://lmstudio.ai/docs/developer/core/server/serve-on-network),
+   then turn on
+   [Require Authentication](https://lmstudio.ai/docs/developer/core/authentication)
+   and create an API token for opendesk.
+3. **Join both machines to one [NetBird](https://netbird.io) network**, a
+   WireGuard mesh that needs no open ports at home:
+   - install NetBird on the LM Studio computer
+     ([macOS](https://docs.netbird.io/get-started/install/macos),
+     [Windows](https://docs.netbird.io/get-started/install/windows),
+     [Linux](https://docs.netbird.io/get-started/install/linux));
+   - install it on the Cloudron server itself (the host, over SSH;
+     [Linux](https://docs.netbird.io/get-started/install/linux), registered
+     with a [setup key](https://docs.netbird.io/how-to/register-machines-using-setup-keys)).
+     Apps cannot run a VPN, but their outgoing traffic is routed through the
+     host, so opendesk reaches NetBird peers once the host has joined.
+     Cloudron does not manage host software: keep NetBird updated yourself and
+     confirm it is connected after reboots and Cloudron updates.
+4. **Restrict access.** In the NetBird dashboard, replace the default
+   allow-all rule with an
+   [access policy](https://docs.netbird.io/how-to/manage-network-access)
+   that lets only the Cloudron server reach the LM Studio computer on TCP
+   1234.
+5. **Point opendesk at it.** Find the LM Studio computer's NetBird IP
+   (`netbird status`, or the dashboard) and use the IP, not the NetBird DNS
+   name: Cloudron apps use Cloudron's DNS resolver, which does not know NetBird
+   names. In `/app/data/env`:
+
+   ```sh
+   AI_PROVIDER=openai
+   OPENAI_BASE_URL=http://100.x.y.z:1234/v1
+   OPENAI_API_KEY=<the LM Studio API token>
+   AI_MODEL=<a chat model ID from /v1/models>
+   EMBEDDINGS_MODEL=<an embedding model ID from /v1/models>
+   ```
+
+6. **Check from the app**, then restart it:
+
+   ```sh
+   cloudron exec --app support.example.com -- curl -sS -H "Authorization: Bearer <token>" http://100.x.y.z:1234/v1/models
+   ```
+
+The traffic is encrypted end to end by WireGuard. AI features only work while
+that computer is awake with LM Studio's server running; otherwise drafts and
+triage fail until it is back, and the rest of opendesk keeps working.
+
+Configure this instance-wide in `/app/data/env`, as above. A workspace's own
+key in its AI settings may point at a custom OpenAI-compatible URL too, but
+opendesk only lets those reach public HTTPS addresses, so a NetBird IP is
+refused there by design.
+
+### Privacy-focused hosted models: NanoGPT
+
+[NanoGPT](https://nano-gpt.com/r/CMPVGAgY) gives pay-as-you-go access to many
+open and commercial models through one OpenAI-compatible API, with no
+subscription. That's a referral link: you get 5% off eligible usage. Create an
+API key in NanoGPT, then:
+
+```sh
+AI_PROVIDER=openai
+OPENAI_BASE_URL=https://nano-gpt.com/api/v1
+OPENAI_API_KEY=<your NanoGPT API key>
+AI_MODEL=<a model ID from NanoGPT's model list>
+EMBEDDINGS_MODEL=<an embedding model ID from NanoGPT's model list>
+```
+
+Because NanoGPT is a public HTTPS endpoint, a workspace admin can instead add
+it as that workspace's own key in its AI settings.
 
 ## Backups
 

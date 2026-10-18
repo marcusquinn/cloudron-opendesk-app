@@ -23,5 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Email password (patch 0004).
 - `opendesk-cli` wrapper, operator settings in `/app/data/env` with
   package-owned keys protected, generated instance secrets.
+- AI setup guide: Anthropic, OpenRouter, any OpenAI-compatible API (NanoGPT
+  example), and private local models with LM Studio reached over NetBird.
 - Store description, post-install guide, setup README, five listing slides,
   publishing workflow with image and catalog provenance, static package test.
