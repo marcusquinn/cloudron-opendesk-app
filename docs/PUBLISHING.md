@@ -35,8 +35,10 @@ Before enabling it:
 5. The pinned Cloudron CLI (8.2.6, registry integrity checked) adds the version
    as `testing` with the digest-pinned image, promotes it to `published` and
    verifies the catalog. Never hand-edit `CloudronVersions.json`.
-6. The workflow attests the catalog, commits only that file with a skip-CI
-   marker and pushes `main` and the `vX.Y.Z` tag atomically. A concurrent
+6. The workflow attests the catalog in a read-only job. A separate job, the
+   only one that can write to the repository, verifies that attestation,
+   commits only that file with a skip-CI marker and pushes `main` and the
+   `vX.Y.Z` tag atomically. A concurrent
    change to `main` rejects the push instead of overwriting it.
 7. The release job creates the GitHub release from the tag after checking the
    tag is on `main`, the image pulls anonymously and the catalog carries this
