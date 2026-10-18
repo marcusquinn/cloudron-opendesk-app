@@ -87,3 +87,27 @@ every user-supplied host and adds one operator-pinned exception:
 - `GET /v1/auth/oauth/oidc/start` → 302 to `https://my.<domain>/openid/auth`
 - WebSocket upgrade on `/socket/websocket` reaches Phoenix (403 without token)
 - `opendesk-cli admin list` runs
+
+## Build inputs
+
+Every `FROM` image is pinned by digest, the upstream commit is pinned in
+`OPENDESK_COMMIT` and checked after fetch, and corepack is pinned; pnpm comes
+from each web project's `packageManager` field with a frozen lockfile.
+`test/package-test.sh` enforces these. To move a pin, resolve the new digest
+with `docker buildx imagetools inspect <image:tag>` and rebuild a test install.
+
+## Qualification status
+
+Recorded on a server-built test install (Cloudron 9.1, `httpPort` 8000):
+
+| Check | Result |
+|---|---|
+| Patches 0001–0004 apply to `898e594`; web `tsc -b` on patched source | Pass |
+| `/healthz`, `/readyz`, `/admin/` | 200 |
+| `/v1/auth/config` | Cloudron provider listed, `signup_enabled:false` |
+| OIDC start | Redirects to Cloudron |
+| Internal IMAPS/SMTPS certificate from the app container | Verifies against the public mail host name |
+| Mailbox wizard with forwarding off | Email password recommended, forwarding hidden |
+| Cloudron sign-in and workspace creation by a user | Not yet recorded |
+| Mailbox receive/reply, aliases, invitation email | Not yet recorded |
+| Backup/restore, catalog install and update | Not yet recorded (needs a published version) |

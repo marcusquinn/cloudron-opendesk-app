@@ -9,7 +9,7 @@
 ARG OPENDESK_COMMIT=898e5943a232b72331daeef76678bf9093b9a210
 
 # ── source: the pinned upstream checkout with the Cloudron patches applied ───
-FROM golang:1.27-alpine AS src
+FROM golang:1.27-alpine@sha256:f92b6ef800e499660581efdabdf25d9d817a9d124eaf900924f0504e7e27e12d AS src
 ARG OPENDESK_COMMIT
 RUN apk add --no-cache git
 WORKDIR /src
@@ -23,27 +23,27 @@ RUN for p in /patches/*.patch; do git apply --recount -v "$p"; done \
     && rm -rf .git
 
 # ── web: the React app, chat widget and help center ─────────────────────────
-FROM node:24-alpine AS web
+FROM node:24-alpine@sha256:44fce696f38ba8c987c4db89954051000bbd05ffd8d8659ba15ed4a8602e937f AS web
 ENV CI=true
 WORKDIR /src
 COPY --from=src /src/brand/ brand/
 COPY --from=src /src/contracts/ contracts/
 COPY --from=src /src/web/ web/
-RUN npm install -g --silent corepack@latest && corepack enable \
+RUN npm install -g --silent corepack@0.36.0 && corepack enable \
     && cd web && pnpm install --frozen-lockfile && pnpm build && test -f dist/index.html
 
 # ── admin: the instance admin panel, served at /admin/ ──────────────────────
-FROM node:24-alpine AS admin
+FROM node:24-alpine@sha256:44fce696f38ba8c987c4db89954051000bbd05ffd8d8659ba15ed4a8602e937f AS admin
 ENV CI=true
 WORKDIR /src
 COPY --from=src /src/brand/ brand/
 COPY --from=src /src/contracts/ contracts/
 COPY --from=src /src/admin/ admin/
-RUN npm install -g --silent corepack@latest && corepack enable \
+RUN npm install -g --silent corepack@0.36.0 && corepack enable \
     && cd admin && pnpm install --frozen-lockfile && pnpm build:embed && test -f dist/index.html
 
 # ── go: one static binary with both web builds embedded ─────────────────────
-FROM golang:1.27-alpine AS go
+FROM golang:1.27-alpine@sha256:f92b6ef800e499660581efdabdf25d9d817a9d124eaf900924f0504e7e27e12d AS go
 ARG OPENDESK_COMMIT
 WORKDIR /src
 COPY --from=src /src/ ./

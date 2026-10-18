@@ -1,23 +1,28 @@
 opendesk is running. Open the app and sign in.
 
 <sso>
-Sign in with **Cloudron**. Every Cloudron user allowed to use this app can sign
-in; the first one creates the workspace and invites teammates.
+Choose **Continue with** your Cloudron. Every Cloudron user allowed by this
+app's access control can sign in; the first one creates the workspace and
+invites the team.
 
-Make yourself an instance admin (opens `/admin/`) from the Cloudron web terminal:
+To open the instance admin panel (`/admin/`), grant yourself admin in the app's
+Terminal:
 
     opendesk-cli admin grant you@example.com
 </sso>
 
 <nosso>
-Create an account with your email address. Public signup is off by default,
-so set `SIGNUP_ENABLED=true` in `/app/data/env` and restart the app first, then
-turn it off again after the team has joined (or invite people from the app).
+Password registration is off by default. Set `SIGNUP_ENABLED=true` in
+`/app/data/env`, restart the app, create your account, then turn it off again
+and invite the rest of the team from opendesk.
 </nosso>
 
 **Support mailbox on Cloudron Mail:** create the mailbox (and any aliases) in
-Cloudron, then in opendesk add a mailbox with that address and its Cloudron
-password. The IMAP and SMTP settings fill in automatically.
+Cloudron, then in opendesk open **Settings → Mailboxes → Add mailbox**, enter
+the address, choose **Email password** and enter its Cloudron password. The
+IMAP and SMTP settings fill in automatically.
 
-Settings live in `/app/data/env` (see the comments there). Keep backups:
-`/app/data/.secrets.env` holds the key that decrypts stored mailbox passwords.
+Settings live in `/app/data/env`. Keep backups: `/app/data/.secrets.env` holds
+the key that decrypts stored mailbox passwords.
+
+Setup guide: [README](https://github.com/marcusquinn/cloudron-opendesk-app/blob/main/README.md).

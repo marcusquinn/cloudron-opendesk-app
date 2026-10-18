@@ -12,7 +12,19 @@
   "website": "https://opendesk.sh",
   "contactEmail": "marcus@marcusquinn.com",
   "icon": "file://logo.png",
-  "documentationUrl": "https://docs.opendesk.sh/self-hosting/",
+  "iconUrl": "https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/f6e44e24f81d9ed501cbcd8a3f821d61be261c49/logo.png",
+  "mediaLinks": [
+    "https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/98b89d4eaf8a0c9e8d2745e1f42afa2d501ad0cf/media/listing-1-inbox.png",
+    "https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/98b89d4eaf8a0c9e8d2745e1f42afa2d501ad0cf/media/listing-2-chat.png",
+    "https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/98b89d4eaf8a0c9e8d2745e1f42afa2d501ad0cf/media/listing-3-help-center.png",
+    "https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/98b89d4eaf8a0c9e8d2745e1f42afa2d501ad0cf/media/listing-4-automations.png",
+    "https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/98b89d4eaf8a0c9e8d2745e1f42afa2d501ad0cf/media/listing-5-reports.png"
+  ],
+  "documentationUrl": "https://github.com/marcusquinn/cloudron-opendesk-app/blob/main/README.md",
+  "upstreamLicense": {
+    "name": "Apache-2.0",
+    "url": "https://github.com/useopendesk/opendesk/blob/898e5943a232b72331daeef76678bf9093b9a210/LICENSE"
+  },
   "minBoxVersion": "9.1.0",
   "memoryLimit": 1073741824,
   "optionalSso": true,

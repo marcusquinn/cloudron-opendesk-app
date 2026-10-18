@@ -1,7 +1,10 @@
 .git
 .github
 docs
+media
+scripts
 test
+CloudronVersions.json
 *.md
 !DESCRIPTION.md
 !POSTINSTALL.md
