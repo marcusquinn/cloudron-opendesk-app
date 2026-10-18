@@ -13,9 +13,11 @@ Before enabling it:
 1. Make this repository public. The store reads `iconUrl` and `mediaLinks`
    from `raw.githubusercontent.com`, Cloudron servers fetch the catalog from
    there, and both return 404 while the repository is private.
-2. Add the repository secret `CLOUDRON_RELEASE_PAT`, scoped to push the
-   generated catalog commit and tag to `main` under its protection rules. Never
-   put it in Git or an issue. GHCR pushes use the workflow's `GITHUB_TOKEN`.
+2. While `main` has no push protection, the workflow's `GITHUB_TOKEN` pushes
+   the generated catalog commit and tag. If you protect `main`, add the
+   repository secret `CLOUDRON_RELEASE_PAT`, scoped to push past those rules;
+   the workflow then uses it instead. Never put it in Git or an issue. GHCR
+   pushes always use `GITHUB_TOKEN`.
 
 ## Pipeline
 

@@ -143,7 +143,8 @@ jobs:
     if: needs.preflight.outputs.publish == 'true'
     runs-on: ubuntu-24.04
     permissions:
-      contents: read
+      # Write is used only by the final push step; earlier steps never push.
+      contents: write
       attestations: write
       id-token: write
     steps:
@@ -181,7 +182,9 @@ jobs:
         run: gh attestation verify CloudronVersions.json --bundle "$BUNDLE" --repo "$GITHUB_REPOSITORY" --signer-workflow "$GITHUB_REPOSITORY/.github/workflows/cloudron-catalog-publish.yml" --source-ref refs/heads/main
       - name: Commit catalog and tag atomically
         env:
-          GH_TOKEN: ${{ secrets.CLOUDRON_RELEASE_PAT }}
+          # The job token pushes to an unprotected main. If main gets push
+          # protection, add CLOUDRON_RELEASE_PAT with permission to push past it.
+          GH_TOKEN: ${{ secrets.CLOUDRON_RELEASE_PAT || github.token }}
           VERSION: ${{ needs.preflight.outputs.version }}
           SOURCE: ${{ needs.preflight.outputs.source }}
         run: |
