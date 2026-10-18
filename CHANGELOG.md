@@ -6,6 +6,20 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - Unreleased
+
+### Changed
+
+- Update opendesk from `898e594` to the immutable upstream commit
+  `bb2b56b5cd6df6c501d04d3efaa61519d6cf3237`.
+- Include upstream's unified customer email templates, team and agent signatures,
+  per-brand email designs and satisfaction emails, live previews and template
+  helpers.
+- Include integration and import-source logos, updated AI defaults and reply
+  guidance, and upstream dependency updates.
+- Retain the pinned Cloudron 6.0.0 base image, Cloudron 9.1 minimum, and existing
+  SSO and mail patches. Publication and deployment require separate authorization.
+
 ## [0.1.1] - 2026-10-18
 
 ### Added
