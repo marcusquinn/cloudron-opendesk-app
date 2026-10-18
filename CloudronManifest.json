@@ -1,0 +1,42 @@
+{
+  "id": "sh.opendesk.cloudronapp",
+  "title": "opendesk",
+  "author": "Marcus Quinn <marcus@marcusquinn.com>",
+  "description": "file://DESCRIPTION.md",
+  "tagline": "Open-source helpdesk: shared inbox, live chat and help center",
+  "version": "0.1.0",
+  "upstreamVersion": "898e594",
+  "healthCheckPath": "/healthz",
+  "httpPort": 8000,
+  "manifestVersion": 2,
+  "website": "https://opendesk.sh",
+  "contactEmail": "marcus@marcusquinn.com",
+  "icon": "file://logo.png",
+  "documentationUrl": "https://docs.opendesk.sh/self-hosting/",
+  "minBoxVersion": "9.1.0",
+  "memoryLimit": 2147483648,
+  "optionalSso": true,
+  "addons": {
+    "localstorage": {},
+    "postgresql": {},
+    "oidc": {
+      "loginRedirectUri": "/v1/auth/oauth/oidc/callback",
+      "tokenSignatureAlgorithm": "RS256"
+    },
+    "sendmail": {
+      "supportsDisplayName": true
+    },
+    "email": {}
+  },
+  "tags": [
+    "helpdesk",
+    "support",
+    "email",
+    "chat",
+    "crm"
+  ],
+  "postInstallMessage": "file://POSTINSTALL.md",
+  "changelog": "file://CHANGELOG",
+  "packagerName": "Marcus Quinn",
+  "packagerUrl": "https://github.com/marcusquinn"
+}

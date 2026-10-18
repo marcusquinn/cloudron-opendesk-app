@@ -1,0 +1,53 @@
+Detect the mail server the instance runs beside from the domain's MX records.
+
+MAILHOST_SELF names that server (on Cloudron, the server's own mail host). A
+domain whose MX points at it gets IMAP on 993 (TLS) and submission on 587
+(STARTTLS) pre-filled in the mailbox wizard, so every mailbox and alias hosted
+on the Cloudron mail server connects without typing server settings.
+
+--- a/internal/email/mailhost/detect.go
++++ b/internal/email/mailhost/detect.go
+@@ -5,6 +5,7 @@ import (
+ 	"errors"
+ 	"net"
+ 	"net/http"
++	"os"
+ 	"sort"
+ 	"strings"
+ 	"time"
+@@ -151,6 +152,11 @@ func (d *Detector) detect(ctx context.Context, domain string) (Detection, bool)
+ 			return detection(domain, Refine(h, domain), v, SourceMX, mx), true
+ 		}
+ 	}
++	// The mail server this instance runs beside (MAILHOST_SELF, such as the
++	// Cloudron mail server) serves every domain whose MX names it.
++	if s := selfSettings(mx); s != nil {
++		return fromSettings(domain, SourceMX, s, mx), true
++	}
+ 
+ 	if s := d.autoconfig(ctx, domain); s != nil {
+ 		return fromSettings(domain, SourceAutoconfig, s, mx), true
+@@ -228,5 +234,22 @@ func notFound(err error) bool {
+ 	return errors.As(err, &dnsErr) && dnsErr.IsNotFound
+ }
+ 
++// selfSettings returns the MAILHOST_SELF server's IMAP (993, TLS) and submission
++// (587, STARTTLS) endpoints when one of the domain's MX hosts is that server.
++func selfSettings(mx []string) *Settings {
++	self := normHost(os.Getenv("MAILHOST_SELF"))
++	if self == "" || !validHostname(self) {
++		return nil
++	}
++	for _, h := range mx {
++		if h == self {
++			return &Settings{
++				SMTP: Endpoint{Host: self, Port: 587, Security: SecurityStartTLS},
++				IMAP: Endpoint{Host: self, Port: 993, Security: SecurityTLS},
++			}
++		}
++	}
++	return nil
++}
++
+ // registrableDomain is host's eTLD+1.
+ func registrableDomain(host string) (string, bool) {

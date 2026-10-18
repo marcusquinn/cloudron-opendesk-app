@@ -1,0 +1,7 @@
+.git
+.github
+docs
+test
+*.md
+!DESCRIPTION.md
+!POSTINSTALL.md

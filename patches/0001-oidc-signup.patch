@@ -1,0 +1,38 @@
+Let the instance's own OIDC provider create accounts while public signup is off.
+
+On Cloudron the OIDC provider is the server's user directory and its access
+control decides who may use the app, so SIGNUP_ENABLED=false (no public
+password registration) plus OIDC_SIGNUP_ENABLED=true lets every permitted
+Cloudron user sign in without an invitation.
+
+--- a/internal/core/oauth.go
++++ b/internal/core/oauth.go
+@@ -11,6 +11,7 @@ import (
+ 	"io"
+ 	"net/http"
+ 	"net/url"
++	"os"
+ 	"regexp"
+ 	"strconv"
+ 	"strings"
+@@ -553,6 +554,6 @@ func (s *svc) resolveIdentity(ctx context.Context, id *fedIdentity, redirectTo,
+ 				return err
+ 			}
+ 		case db.IsNotFound(err):
+-			if !s.d.Cfg.SignupEnabled {
++			if !s.d.Cfg.SignupEnabled && !oidcSignup(id.Provider) {
+ 				var invited bool
+ 				if err := tx.QueryRow(ctx, `SELECT EXISTS (SELECT 1 FROM invitations WHERE email = $1 AND accepted_at IS NULL AND expires_at > now())`,
+@@ -593,4 +594,12 @@ func (s *svc) resolveIdentity(ctx context.Context, id *fedIdentity, redirectTo,
+ 	return code, errCode
+ }
+ 
++// oidcSignup reports whether a new account may come from the instance's own OIDC
++// provider while public signup is off (OIDC_SIGNUP_ENABLED=true): that provider,
++// such as a Cloudron server's user directory, decides who may sign in.
++func oidcSignup(provider string) bool {
++	on, _ := strconv.ParseBool(os.Getenv("OIDC_SIGNUP_ENABLED"))
++	return on && provider == "oidc"
++}
++
+ func insertIdentity(ctx context.Context, tx pgx.Tx, uid uuid.UUID, id *fedIdentity) error {
