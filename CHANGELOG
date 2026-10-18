@@ -9,3 +9,9 @@
 [0.1.1]
 * Link the Cloudron forum topic for questions and feedback
 * No change to the app; opendesk is still at upstream commit 898e594
+
+[0.1.2]
+* Update opendesk to upstream commit bb2b56b
+* Unified customer email templates, team and agent signatures, per-brand email designs and satisfaction emails, with live previews and template helpers
+* Integration and import-source logos, updated AI defaults and reply guidance, and upstream dependency updates
+* Keep the Cloudron base image and existing SSO and mail patches unchanged
