@@ -44,7 +44,7 @@ Cloudron store. See [DESIGN.md](DESIGN.md).
 
 ## Install
 
-**From the catalog (once published).** In the Cloudron dashboard, open
+**From the catalog.** In the Cloudron dashboard, open
 *Settings → Community apps*, add the catalog URL below and install opendesk
 from the App Store, or use the CLI:
 
@@ -62,6 +62,16 @@ cloudron install --location support.example.com
 ```
 
 `cloudron update --app support.example.com` rebuilds from a newer checkout.
+
+To move a source-built install onto the catalog, keeping its data, address and
+mailboxes, run this (Cloudron CLI 9.0 or later; the update takes a backup
+first). New catalog versions then show up as updates, which Cloudron installs
+automatically or leaves for you to apply, depending on the app's update setting.
+
+```sh
+cloudron update --app support.example.com --force \
+  --versions-url https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/main/CloudronVersions.json
+```
 
 Requirements: Cloudron 9.1 or later, 1 GiB of memory for the app (raise it in
 the app's *Resources* for large teams or heavy AI use).
