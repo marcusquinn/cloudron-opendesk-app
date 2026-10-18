@@ -14,7 +14,7 @@
   "icon": "file://logo.png",
   "documentationUrl": "https://docs.opendesk.sh/self-hosting/",
   "minBoxVersion": "9.1.0",
-  "memoryLimit": 2147483648,
+  "memoryLimit": 1073741824,
   "optionalSso": true,
   "addons": {
     "localstorage": {},
