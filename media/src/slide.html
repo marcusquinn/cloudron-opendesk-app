@@ -1,0 +1,59 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: MIT -->
+<!-- Store slide template: render with scripts/render-store-media.sh (1200x400 at 2x). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; width: 1200px; height: 400px; overflow: hidden; }
+  body {
+    background: #141416;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+  }
+  .copy { position: absolute; left: 56px; top: 0; bottom: 0; width: 330px;
+          display: flex; flex-direction: column; justify-content: center; }
+  .eyebrow { color: #7c9cff; font-size: 12.5px; font-weight: 600;
+             letter-spacing: .14em; text-transform: uppercase; }
+  .rule { width: 36px; height: 2px; background: #7c9cff; margin: 14px 0 18px; }
+  h1 { color: #f4f4f5; font-size: 34px; line-height: 1.15; font-weight: 700;
+       margin: 0 0 14px; letter-spacing: -.01em; }
+  p { color: #a1a1aa; font-size: 16.5px; line-height: 1.5; margin: 0; }
+  .frame { position: absolute; left: 440px; top: 48px; width: 820px; height: 420px;
+           overflow: hidden; border-radius: 12px 0 0 0; border: 1px solid #2c2c31;
+           background: #fff; box-shadow: 0 24px 60px -12px rgba(0,0,0,.6); }
+  .frame img { position: absolute; left: 0; top: 0; display: block; }
+</style>
+</head>
+<body>
+  <div class="copy">
+    <div class="eyebrow">opendesk on Cloudron</div>
+    <div class="rule"></div>
+    <h1 id="title"></h1>
+    <p id="body"></p>
+  </div>
+  <div class="frame"><img id="shot" alt=""></div>
+<script>
+  // Slides: image, rendered image width (CSS px), headline, body line.
+  var slides = {
+    "1": ["hero.webp", 1100, "One inbox for email and live chat",
+          "Assign, label, prioritise and answer every conversation as a team, with SLAs and internal notes."],
+    "2": ["chat.webp", 640, "Live chat on your website",
+          "Embed the chat widget. Conversations land in the same shared inbox as email."],
+    "3": ["kb.webp", 900, "A help center for your customers",
+          "Write articles in collections and publish them to a public help center."],
+    "4": ["automations.webp", 790, "Rules that run on their own",
+          "Route, tag, escalate and reopen tickets automatically as they change."],
+    "5": ["reports.webp", 820, "Know how support is going",
+          "Track tickets created and solved each day, your busiest days and the solve rate."]
+  };
+  var s = slides[location.hash.slice(1)] || slides["1"];
+  var img = document.getElementById("shot");
+  img.src = "../upstream/" + s[0];
+  img.style.width = s[1] + "px";
+  document.getElementById("title").textContent = s[2];
+  document.getElementById("body").textContent = s[3];
+</script>
+</body>
+</html>
