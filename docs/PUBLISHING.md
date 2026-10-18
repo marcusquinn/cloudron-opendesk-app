@@ -21,11 +21,16 @@ Before enabling it:
 
 ## Pipeline
 
-1. In a PR: bump `version` in `CloudronManifest.json`, update the upstream pin
-   (`OPENDESK_COMMIT` in the `Dockerfile` and `upstreamVersion`), and add the
-   version's section to both `CHANGELOG` (store format, `[X.Y.Z]`) and
-   `CHANGELOG.md`. Rebase the patches if they no longer apply.
-2. Qualify the build on a test install (below), review, merge.
+1. In a PR: bump `version` in `CloudronManifest.json` and add the version's
+   section to both `CHANGELOG` (store format, `[X.Y.Z]`) and `CHANGELOG.md`.
+   To move to a newer opendesk, also update the upstream pin
+   (`OPENDESK_COMMIT` in the `Dockerfile` and `upstreamVersion`, always
+   together) and rebase the patches if they no longer apply. A package-only
+   release, such as a manifest or listing change, keeps the pin; say so in
+   the changelog.
+2. Qualify the build on a test install (below), review, merge. A package-only
+   release that leaves the `Dockerfile`, patches and scripts unchanged needs
+   only the PR checks.
 3. The catalog workflow builds `linux/amd64`, pushes
    `ghcr.io/marcusquinn/cloudron-opendesk-app:<version>` and attests the image
    digest with GitHub keyless provenance.
