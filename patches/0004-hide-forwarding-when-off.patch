@@ -1,0 +1,84 @@
+Offer forwarding only where the instance receives forwarded mail.
+
+The API already reports forwarding.enabled in /v1/mailboxes/connect-options
+(INBOUND_SECRET or INBOUND_SMTP_ADDR set), but the mailbox wizard always offered
+"Forward mail to opendesk" first and marked it Recommended. On an instance with
+no inbound route that address never receives anything. When forwarding is off
+and IMAP is on, the wizard leaves it out, recommends the first sign-in that needs
+no server settings (Email password on a detected host), and the mailbox page
+hides "switch to forwarding". With IMAP off, forwarding stays the only way in.
+
+diff --git a/web/src/components/mailboxes/AddMailboxWizard.tsx b/web/src/components/mailboxes/AddMailboxWizard.tsx
+--- a/web/src/components/mailboxes/AddMailboxWizard.tsx
++++ b/web/src/components/mailboxes/AddMailboxWizard.tsx
+@@ -27,6 +27,7 @@ import {
+   connectFailure,
+   DetectionCard,
+   ExternalButton,
++  forwardingOn,
+   imapOn,
+   isGuideHost,
+   NotConfiguredPanel,
+@@ -163,18 +164,20 @@ type Way = { id: Method; recommended?: boolean; advanced?: boolean };
+  * where the instance receives over IMAP, syncing the mailbox.
+  */
+ function suggestedWays(det: MailDetection | undefined, opts: MailboxConnectOptions | undefined): Way[] {
+-  const out: Way[] = [{ id: "forwarding", recommended: true }];
++  const out: Way[] = forwardingOn(opts) ? [{ id: "forwarding", recommended: true }] : [];
+   if (!imapOn(opts)) return out;
+   if (det?.oauth && oauthOffered(opts, det.oauth)) out.push({ id: det.oauth });
+   if (det?.settings && det.password_auth === "app_password") out.push({ id: "app_password" });
+   if (det?.settings && det.password_auth === "password") out.push({ id: "password" });
+   out.push({ id: "imap", advanced: true });
++  // Without forwarding, the first sign-in that needs no server settings is the one to pick.
++  if (!out.some((w) => w.recommended) && out[0] && !out[0].advanced) out[0] = { ...out[0], recommended: true };
+   return out;
+ }
+ 
+ /** Every way in, when the suggested ones don't fit. */
+ function allWays(det: MailDetection | undefined, opts: MailboxConnectOptions | undefined): Way[] {
+-  const out: Way[] = [{ id: "forwarding" }];
++  const out: Way[] = forwardingOn(opts) ? [{ id: "forwarding" }] : [];
+   if (!imapOn(opts)) return out;
+   if (oauthOffered(opts, "google")) out.push({ id: "google" });
+   if (oauthOffered(opts, "microsoft")) out.push({ id: "microsoft" });
+diff --git a/web/src/components/mailboxes/connect.tsx b/web/src/components/mailboxes/connect.tsx
+--- a/web/src/components/mailboxes/connect.tsx
++++ b/web/src/components/mailboxes/connect.tsx
+@@ -39,6 +39,15 @@ export function imapOn(opts?: MailboxConnectOptions): boolean {
+   return config.mailboxImap && opts?.mailbox_imap !== false;
+ }
+ 
++/**
++ * Receiving by forwarding is offered when the instance receives forwarded mail
++ * (INBOUND_SECRET or INBOUND_SMTP_ADDR), and always where IMAP is off, since it is
++ * then the only way in.
++ */
++export function forwardingOn(opts?: MailboxConnectOptions): boolean {
++  return opts?.forwarding?.enabled !== false || !imapOn(opts);
++}
++
+ /** Sending through opendesk is offered unless the API has it off. */
+ export function systemSendOn(opts?: MailboxConnectOptions): boolean {
+   return opts?.system_send !== false;
+diff --git a/web/src/pages/settings/MailboxDetail.tsx b/web/src/pages/settings/MailboxDetail.tsx
+--- a/web/src/pages/settings/MailboxDetail.tsx
++++ b/web/src/pages/settings/MailboxDetail.tsx
+@@ -22,7 +22,7 @@ import { connectionLabel, GoogleGlyph, MailboxIcon, MailboxStatus, MicrosoftGlyp
+ import { ForwardingInstructions } from "@/components/mailboxes/forwarding";
+ import { PortInput, validPort } from "@/components/mailboxes/PortInput";
+ import { useMailboxActions } from "@/components/mailboxes/useMailboxActions";
+-import { CauseCallout, connectFailure, imapOn, sendProviders, systemSendOn, useConnectOptions, useMailDetection, type ConnectFailure, type Provider } from "@/components/mailboxes/connect";
++import { CauseCallout, connectFailure, forwardingOn, imapOn, sendProviders, systemSendOn, useConnectOptions, useMailDetection, type ConnectFailure, type Provider } from "@/components/mailboxes/connect";
+ import { SmtpPresets } from "@/components/mailboxes/smtpPresets";
+ import { MailboxOllieSection } from "@/components/mailboxes/MailboxOllie";
+ import {
+@@ -397,7 +397,7 @@ function MailboxEditor({ mailbox }: { mailbox: Mailbox }) {
+           </Row>
+         )}
+         {provider && !sendingOnly && openedInBrowser && <InBrowserNote name={providerName(provider)} opened className="my-3" />}
+-        {receivesOverImap(mailbox) && !off && (
++        {receivesOverImap(mailbox) && !off && forwardingOn(opts) && (
+           <Row label={t("receiving.title")} description={t("receiving.imapHint")}>
+             <Button size="sm" icon={<Forward className="size-3.5" />} loading={toForwarding.isPending} onClick={switchToForwarding}>
+               {t("receiving.switch")}

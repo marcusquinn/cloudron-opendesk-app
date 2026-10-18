@@ -2,3 +2,4 @@
 * Initial package of opendesk at upstream commit 898e594
 * Cloudron single sign-on, Cloudron mail relay for platform email
 * Mailboxes on the Cloudron mail server connect over the internal network
+* Mailbox wizard recommends Email password and hides forwarding, which needs an inbound route this package does not provide

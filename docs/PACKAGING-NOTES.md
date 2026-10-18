@@ -20,7 +20,7 @@ and `CHECK_ORIGINS` limits browser origins to the app's own.
 
 | Path | Contents |
 |------|----------|
-| `/app/data/.secrets.env` | `AUTH_SECRET`, `CREDENTIALS_KEY`, `NATS_TOKEN`, `SECRET_KEY_BASE`, `INBOUND_SECRET`, generated on first start. `CREDENTIALS_KEY` decrypts stored mailbox passwords. |
+| `/app/data/.secrets.env` | `AUTH_SECRET`, `CREDENTIALS_KEY`, `NATS_TOKEN`, `SECRET_KEY_BASE`, generated on first start. `CREDENTIALS_KEY` decrypts stored mailbox passwords. |
 | `/app/data/env` | Operator settings (`KEY=value`, literal). Package-owned keys are ignored. |
 | `/app/data/files` | Attachments (`STORAGE_DRIVER=local`) |
 | `/app/data/nats` | JetStream store |
@@ -38,6 +38,12 @@ Applied to the pinned upstream commit at build time with `git apply --recount`.
 3. **0003-mailhost-self-route** — connections to exactly `MAILHOST_SELF` on the
    ports listed in `MAILHOST_SELF_ROUTE` dial the internal `mail` service
    instead of the public IP.
+4. **0004-hide-forwarding-when-off** — the mailbox wizard honours the API's
+   `forwarding.enabled` (set by `INBOUND_SECRET` or `INBOUND_SMTP_ADDR`). With
+   forwarding off and IMAP on, "Forward mail to opendesk" is not offered, the
+   first sign-in that needs no server settings (Email password on a detected
+   host) is marked Recommended, and the mailbox page hides "switch to
+   forwarding". `start.sh` leaves both variables unset.
 
 ### Security design for 0003
 
@@ -69,8 +75,9 @@ every user-supplied host and adds one operator-pinned exception:
   over IMAP/SMTP. Aliases: add the alias in Cloudron to the mailbox, then add it
   as an address of the opendesk mailbox so replies go out from it.
 - **Forwarding inbound** (`<token>@INBOUND_DOMAIN`) needs opendesk's own SMTP
-  listener on port 25 reachable from the internet; this package does not expose
-  it. Use IMAP.
+  listener on port 25 reachable from the internet, or an inbound relay posting
+  to the API with `INBOUND_SECRET`; this package provides neither, so the option
+  is hidden (patch 0004). Use IMAP.
 
 ## Verification checklist
 
