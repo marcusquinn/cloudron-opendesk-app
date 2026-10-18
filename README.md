@@ -254,6 +254,10 @@ mailbox passwords. Without it, every mailbox must be reconnected.
 | Sign-in emails do not arrive | *Email → Outbound* status in Cloudron; the log line at start shows `platform mail: smtp`. |
 | Mailbox shows *Needs attention* | The mailbox password changed in Cloudron; open the mailbox and reconnect. |
 
+Questions and feedback: the
+[Cloudron forum topic](https://forum.cloudron.io/topic/16150/opendesk-open-source-helpdesk-shared-inbox-live-chat-help-center-with-cloudron-sso-and-cloudron-mail).
+Packaging bugs: [GitHub issues](https://github.com/marcusquinn/cloudron-opendesk-app/issues).
+
 ## Documentation
 
 - [docs/PACKAGING-NOTES.md](docs/PACKAGING-NOTES.md): processes, data, patches

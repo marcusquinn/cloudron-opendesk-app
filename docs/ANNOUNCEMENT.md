@@ -1,10 +1,11 @@
 # Forum announcement
 
-Draft for the Cloudron forum's
+Posted on 2026-10-18 as
+[topic 16150](https://forum.cloudron.io/topic/16150/opendesk-open-source-helpdesk-shared-inbox-live-chat-help-center-with-cloudron-sso-and-cloudron-mail)
+in the Cloudron forum's
 [Community Apps](https://forum.cloudron.io/category/220/community-apps)
-category. Post it after the catalog has a published version and the repository
-is public, then add the topic URL as `forumUrl` in the manifest for the next
-release.
+category. The manifest's `forumUrl` points there. Kept as the record of the
+original post.
 
 ---
 
