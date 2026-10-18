@@ -6,6 +6,15 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2026-10-18
+
+### Added
+
+- `forumUrl` in the manifest, so the store links the
+  [Cloudron forum topic](https://forum.cloudron.io/topic/16150/opendesk-open-source-helpdesk-shared-inbox-live-chat-help-center-with-cloudron-sso-and-cloudron-mail).
+  No change to the app image contents; opendesk stays at upstream commit
+  `898e594`.
+
 ## [0.1.0] - 2026-10-18
 
 ### Added
