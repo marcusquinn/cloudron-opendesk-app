@@ -40,6 +40,11 @@ or `cloudron install --versions-url <that URL> --location support.example.com`.
   verified, and opendesk's SSRF guard stays on for every other host. Aliases
   work too.
 - PostgreSQL addon and `/app/data`, so everything is in Cloudron backups.
+- **AI, your choice of provider:** Anthropic, OpenRouter or any
+  OpenAI-compatible API, including fully private local models: the README walks
+  through running LM Studio on your own computer and reaching it from a
+  Cloudron VPS over NetBird, with access locked to the one server.
+  ([AI setup guide](https://github.com/marcusquinn/cloudron-opendesk-app#ai))
 
 **Good to know**
 
