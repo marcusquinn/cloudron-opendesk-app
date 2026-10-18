@@ -5,3 +5,7 @@
 * Mailbox wizard recommends Email password and hides forwarding, which needs an inbound route this package does not provide
 * AI setup guide: hosted providers, NanoGPT, or private local models with LM Studio over NetBird
 * App store description, setup guide and five listing screenshots
+
+[0.1.1]
+* Link the Cloudron forum topic for questions and feedback
+* No change to the app; opendesk is still at upstream commit 898e594
