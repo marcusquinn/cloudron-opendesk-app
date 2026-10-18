@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2026 Marcus Quinn
+#
+# Runs the opendesk CLI with the running app's configuration, for example:
+#   cloudron exec --app <app> -- opendesk-cli admin grant you@example.com
+#   cloudron exec --app <app> -- opendesk-cli admin list
+set -euo pipefail
+
+readonly ENV_FILE=/run/opendesk/env
+
+if [[ ! -r "${ENV_FILE}" ]]; then
+	printf 'opendesk-cli: %s is missing; is the app running? (run as root via cloudron exec)\n' "${ENV_FILE}" >&2
+	exit 1
+fi
+
+# shellcheck source=/dev/null
+source "${ENV_FILE}"
+exec /usr/local/bin/gosu cloudron:cloudron /app/code/opendesk "$@"

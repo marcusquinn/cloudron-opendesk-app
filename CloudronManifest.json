@@ -1,0 +1,54 @@
+{
+  "id": "sh.opendesk.cloudronapp",
+  "title": "opendesk",
+  "author": "Marcus Quinn <marcus@marcusquinn.com>",
+  "description": "file://DESCRIPTION.md",
+  "tagline": "Open-source helpdesk: shared inbox, live chat and help center",
+  "version": "0.1.0",
+  "upstreamVersion": "898e594",
+  "healthCheckPath": "/healthz",
+  "httpPort": 8000,
+  "manifestVersion": 2,
+  "website": "https://opendesk.sh",
+  "contactEmail": "marcus@marcusquinn.com",
+  "icon": "file://logo.png",
+  "iconUrl": "https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/f6e44e24f81d9ed501cbcd8a3f821d61be261c49/logo.png",
+  "mediaLinks": [
+    "https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/98b89d4eaf8a0c9e8d2745e1f42afa2d501ad0cf/media/listing-1-inbox.png",
+    "https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/98b89d4eaf8a0c9e8d2745e1f42afa2d501ad0cf/media/listing-2-chat.png",
+    "https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/98b89d4eaf8a0c9e8d2745e1f42afa2d501ad0cf/media/listing-3-help-center.png",
+    "https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/98b89d4eaf8a0c9e8d2745e1f42afa2d501ad0cf/media/listing-4-automations.png",
+    "https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/98b89d4eaf8a0c9e8d2745e1f42afa2d501ad0cf/media/listing-5-reports.png"
+  ],
+  "documentationUrl": "https://github.com/marcusquinn/cloudron-opendesk-app/blob/main/README.md",
+  "upstreamLicense": {
+    "name": "Apache-2.0",
+    "url": "https://github.com/useopendesk/opendesk/blob/898e5943a232b72331daeef76678bf9093b9a210/LICENSE"
+  },
+  "minBoxVersion": "9.1.0",
+  "memoryLimit": 1073741824,
+  "optionalSso": true,
+  "addons": {
+    "localstorage": {},
+    "postgresql": {},
+    "oidc": {
+      "loginRedirectUri": "/v1/auth/oauth/oidc/callback",
+      "tokenSignatureAlgorithm": "RS256"
+    },
+    "sendmail": {
+      "supportsDisplayName": true
+    },
+    "email": {}
+  },
+  "tags": [
+    "helpdesk",
+    "support",
+    "email",
+    "chat",
+    "crm"
+  ],
+  "postInstallMessage": "file://POSTINSTALL.md",
+  "changelog": "file://CHANGELOG",
+  "packagerName": "Marcus Quinn",
+  "packagerUrl": "https://github.com/marcusquinn"
+}

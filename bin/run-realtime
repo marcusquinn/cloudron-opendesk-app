@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2026 Marcus Quinn
+#
+# Starts the realtime gateway once the embedded NATS (run by opendesk serve) is
+# accepting connections, so the first socket subscriptions do not fail.
+set -euo pipefail
+
+wait_for_nats() {
+	local tries=0
+	while ((tries < 120)); do
+		if (exec 3<>/dev/tcp/127.0.0.1/4222) 2>/dev/null; then
+			return 0
+		fi
+		tries=$((tries + 1))
+		sleep 1
+	done
+	printf 'realtime: NATS on 127.0.0.1:4222 is not up after 120s; starting anyway\n' >&2
+	return 0
+}
+
+wait_for_nats
+exec /app/code/realtime/bin/realtime start

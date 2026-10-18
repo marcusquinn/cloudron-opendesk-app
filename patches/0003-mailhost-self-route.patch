@@ -1,0 +1,65 @@
+Reach the operator's own mail server on its internal route.
+
+Mailbox connections refuse private addresses outside development (SSRF guard).
+The Cloudron mail server is reachable from apps only on the internal `mail`
+service (a private address) or by hairpinning through the public IP, which many
+hosts do not route. MAILHOST_SELF names the server's public host and
+MAILHOST_SELF_ROUTE maps its public ports to internal addresses, for example
+"993=mail:9993,465=mail:2465,587=mail:2587". Only those exact host:port pairs
+are rerouted; both variables come from the operator (the package start script),
+never from users, and TLS is still verified against the public host name. Every
+other user-supplied host keeps the guard.
+
+--- a/internal/email/netguard.go
++++ b/internal/email/netguard.go
+@@ -8,8 +8,10 @@ import (
+ 	"net"
+ 	"net/http"
+ 	"net/netip"
++	"os"
+ 	"strconv"
+ 	"strings"
++	"sync"
+ 	"syscall"
+ 	"time"
+ )
+@@ -74,8 +76,38 @@ func (g *netGuard) control(_, address string, _ syscall.RawConn) error {
+ 	return nil
+ }
+ 
+-// dial connects to host:port with the guard and a connect timeout.
++// selfRoutes maps "<MAILHOST_SELF>:<public port>" to an internal address, read once
++// from MAILHOST_SELF_ROUTE ("993=mail:9993,587=mail:2587"). Both variables are set
++// by the operator, never by users, so they name the one mail server this instance
++// runs beside (such as the Cloudron mail server on its internal network).
++var selfRoutes = sync.OnceValue(func() map[string]string {
++	self := strings.TrimSuffix(strings.ToLower(strings.TrimSpace(os.Getenv("MAILHOST_SELF"))), ".")
++	if self == "" {
++		return nil
++	}
++	out := map[string]string{}
++	for _, r := range strings.Split(os.Getenv("MAILHOST_SELF_ROUTE"), ",") {
++		pub, addr, ok := strings.Cut(strings.TrimSpace(r), "=")
++		if _, err := strconv.Atoi(pub); !ok || err != nil {
++			continue
++		}
++		if h, p, err := net.SplitHostPort(addr); err != nil || h == "" || p == "" {
++			continue
++		}
++		out[net.JoinHostPort(self, pub)] = addr
++	}
++	return out
++})
++
++// dial connects to host:port with the guard and a connect timeout. The operator's
++// own mail server (MAILHOST_SELF) is reached on its internal route instead; TLS is
++// still verified against host.
+ func (g *netGuard) dial(ctx context.Context, host string, port int) (net.Conn, error) {
++	key := net.JoinHostPort(strings.TrimSuffix(strings.ToLower(host), "."), strconv.Itoa(port))
++	if addr, ok := selfRoutes()[key]; ok {
++		d := &net.Dialer{Timeout: dialTimeout, KeepAlive: 30 * time.Second}
++		return d.DialContext(ctx, "tcp", addr)
++	}
+ 	d := &net.Dialer{Timeout: dialTimeout, KeepAlive: 30 * time.Second, Control: g.control}
+ 	return d.DialContext(ctx, "tcp", net.JoinHostPort(host, strconv.Itoa(port)))
+ }
