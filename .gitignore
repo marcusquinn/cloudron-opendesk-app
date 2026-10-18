@@ -1,0 +1,19 @@
+# aidevops runtime artifacts
+.agents/loop-state/
+.agents/tmp/
+.agents/memory/
+.agents/commands
+.windsurf/
+.aidevops.json
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+
+# aidevops keywords: search-target data lives in the private team hub (aidevops keywords sync)
+context/keywords.md
+context/keywords.md.hub
+context/keywords/
