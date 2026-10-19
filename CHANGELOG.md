@@ -6,7 +6,25 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.2] - Unreleased
+## [0.1.3] - Unreleased
+
+### Changed
+
+- Update opendesk from `bb2b56b` to the immutable upstream commit
+  `952cb592d5a6b7a2bd01016d934c6d8ef5a207a0`.
+- Include copying and resending invitation links, plus upstream's admin
+  update-status support and its database migrations.
+- Keep updates managed by Cloudron: upstream's self-host installer and update
+  timer are not installed, and the `cloudron-<commit>` binary version disables
+  upstream release checks.
+- Retain the pinned Cloudron 6.0.0 base image, Cloudron 9.1 minimum, and existing
+  SSO and mail patches.
+- Keep manifest package version `0.1.2` until publication is separately authorized.
+  The main-branch workflow has publication enabled and would automatically
+  publish an unpublished manifest version; the `0.1.3` notes are prepared only.
+  No new tag, image, catalog entry or deployment is authorized by this update.
+
+## [0.1.2] - 2026-10-18
 
 ### Changed
 
