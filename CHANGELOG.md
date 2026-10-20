@@ -6,7 +6,17 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.3] - Unreleased
+## [0.1.3] - 2026-10-20
+
+### Fixed
+
+- IMAP mailboxes stopped syncing after their first pass. In `bb2b56b` the
+  per-mailbox sync job was unique by arguments with River's default states,
+  which include `completed`, so a finished sync blocked every later
+  one-minute poll until River pruned it (about 24 hours). Upstream `9c7cc1a`
+  excludes `completed` and versions the uniqueness key, so existing installs
+  resume polling on update.
+  ([forum report](https://forum.cloudron.io/post/131294))
 
 ### Changed
 
@@ -15,8 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `952cb59` pin before publication).
 - Include copying and resending invitation links, plus upstream's admin
   update-status support and its database migrations.
-- Keep IMAP mailbox sync jobs recurring and include upstream Collab mail accounts,
-  integration sign-in support, and their database migrations.
+- Include upstream Collab mail accounts, integration sign-in support, and their
+  database migrations.
 - Name newly connected Gmail accounts from the Google profile, falling back to
   the Gmail send-as name.
 - Keep updates managed by Cloudron: upstream's self-host installer and update
@@ -26,10 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   direct-provider receiving and hiding forwarding when no inbound route exists.
 - Retain the pinned Cloudron 6.0.0 base image, Cloudron 9.1 minimum, SSO and
   internal mail routing patches.
-- Keep manifest package version `0.1.2` until publication is separately authorized.
-  The main-branch workflow has publication enabled and would automatically
-  publish an unpublished manifest version; the `0.1.3` notes are prepared only.
-  No new tag, image, catalog entry or deployment is authorized by this update.
+- Qualification now checks that a mailbox keeps receiving after its first sync.
 
 ## [0.1.2] - 2026-10-18
 

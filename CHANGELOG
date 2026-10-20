@@ -17,10 +17,11 @@
 * Keep the Cloudron base image and existing SSO and mail patches unchanged
 
 [0.1.3]
+* Fix IMAP mailboxes that stopped syncing after their first pass: a finished sync no longer blocks the next one-minute poll (upstream fix 9c7cc1a)
 * Update opendesk to upstream commit f9471ba
 * Let admins copy and resend invitation links
 * Include upstream update-status support; Cloudron remains responsible for package updates, with no upstream self-updater installed
-* Keep IMAP mailbox syncs recurring and include upstream Collab mail accounts, integration sign-in support, and database migrations
+* Include upstream Collab mail accounts, integration sign-in support, and database migrations
 * Name newly connected Gmail accounts from the Google profile, falling back to the Gmail send-as name
 * Refresh the forwarding-disabled mailbox UI patch for upstream's Collab connection options
 * Keep the Cloudron base image, SSO and internal mail routing unchanged

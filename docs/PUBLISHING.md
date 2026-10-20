@@ -78,6 +78,9 @@ the package, not the catalog. Check:
 - Sign in with Cloudron, create a workspace, invite a second Cloudron user.
 - Connect a Cloudron Mail mailbox with Email password; receive a message,
   reply, and receive mail sent to an alias. Confirm forwarding is not offered.
+- Send another message at least five minutes after the mailbox's first sync and
+  confirm it arrives within two minutes: the sync must keep polling, not only
+  run once when the mailbox is added.
 - Platform mail: an invitation email arrives.
 - Live chat: install the widget on a test page, chat, and see the ticket.
 - Restart; back up and restore to a disposable app; confirm data and stored
