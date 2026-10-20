@@ -11,9 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Update opendesk from `bb2b56b` to the immutable upstream commit
-  `952cb592d5a6b7a2bd01016d934c6d8ef5a207a0`.
+  `f9471ba9cf3b5d551f34ea23cb1a5c5ca86c0316` (superseding the prepared
+  `952cb59` pin before publication).
 - Include copying and resending invitation links, plus upstream's admin
   update-status support and its database migrations.
+- Keep IMAP mailbox sync jobs recurring and include upstream Collab mail accounts,
+  integration sign-in support, and their database migrations.
+- Name newly connected Gmail accounts from the Google profile, falling back to
+  the Gmail send-as name.
 - Keep updates managed by Cloudron: upstream's self-host installer and update
   timer are not installed, and the `cloudron-<commit>` binary version disables
   upstream release checks.
