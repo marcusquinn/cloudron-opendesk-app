@@ -22,8 +22,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Keep updates managed by Cloudron: upstream's self-host installer and update
   timer are not installed, and the `cloudron-<commit>` binary version disables
   upstream release checks.
-- Retain the pinned Cloudron 6.0.0 base image, Cloudron 9.1 minimum, and existing
-  SSO and mail patches.
+- Refresh patch `0004` for upstream's Collab connection options, preserving
+  direct-provider receiving and hiding forwarding when no inbound route exists.
+- Retain the pinned Cloudron 6.0.0 base image, Cloudron 9.1 minimum, SSO and
+  internal mail routing patches.
 - Keep manifest package version `0.1.2` until publication is separately authorized.
   The main-branch workflow has publication enabled and would automatically
   publish an unpublished manifest version; the `0.1.3` notes are prepared only.

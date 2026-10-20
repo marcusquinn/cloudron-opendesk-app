@@ -22,4 +22,5 @@
 * Include upstream update-status support; Cloudron remains responsible for package updates, with no upstream self-updater installed
 * Keep IMAP mailbox syncs recurring and include upstream Collab mail accounts, integration sign-in support, and database migrations
 * Name newly connected Gmail accounts from the Google profile, falling back to the Gmail send-as name
-* Keep the Cloudron base image and existing SSO and mail patches unchanged
+* Refresh the forwarding-disabled mailbox UI patch for upstream's Collab connection options
+* Keep the Cloudron base image, SSO and internal mail routing unchanged
