@@ -25,3 +25,10 @@
 * Name newly connected Gmail accounts from the Google profile, falling back to the Gmail send-as name
 * Refresh the forwarding-disabled mailbox UI patch for upstream's Collab connection options
 * Keep the Cloudron base image, SSO and internal mail routing unchanged
+
+[0.2.0]
+* Help centers on your own domain: add an alias such as help.example.com to the app, then connect it to a brand in opendesk
+* A wildcard alias such as *.help.example.com gives every brand's help center its own subdomain, <slug>.help.example.com
+* Cloudron issues the certificates; mail addresses are unaffected
+* Fix help centers at /help/<slug>, which showed the opendesk app instead of the help center
+* No change to opendesk itself; it is still at upstream commit f9471ba

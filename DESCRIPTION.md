@@ -23,6 +23,9 @@ public help center, automations, SLAs and reports.
 * **Mailboxes on Cloudron Mail:** connect a support address hosted on this
   Cloudron with its password. The server settings fill in, and the connection
   stays on the internal network with TLS verified.
+* **Help centers on your own domain:** add `help.example.com` as an alias of
+  the app, or `*.help.example.com` to give every brand its own subdomain.
+  Cloudron issues the certificates.
 * **Backups:** the PostgreSQL database and attachments are in Cloudron backups.
 
 Receiving mail by forwarding to opendesk is not available in this package; use

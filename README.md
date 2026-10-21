@@ -105,6 +105,70 @@ the app's *Resources* for large teams or heavy AI use).
 4. **Add the chat widget** to your website: *Settings → Brands and widgets*,
    pick the brand, then its *Chat widgets* tab, and copy the install snippet.
    Publish help-center articles from *Knowledge base*.
+5. **Put help centers on your own domain** (optional): see
+   [Help center addresses](#help-center-addresses).
+
+## Help center addresses
+
+Each brand's help center starts at `https://<app>/help/<slug>`, where the slug
+is the brand's *Default address* on its *Help center* tab. Cloudron serves only
+the domains in the app's *Location*, so another address starts with an alias
+there. Aliases are web addresses only. They change nothing about mail: a
+brand's support mailbox stays where it is, usually on your main domain (for
+example `support@example.com`). You only need to add a domain to Cloudron with
+email enabled if you want mail addresses on the subdomain itself.
+
+### A custom domain for one brand
+
+For example, `help.example.com`.
+
+1. **Add the alias in Cloudron.** In the app's *Location*, add an alias with
+   subdomain `help` on `example.com`. `example.com` must already be in
+   Cloudron's *Domains*. How `help.example.com` gets its address record
+   depends on that domain's DNS provider in Cloudron:
+   - **A DNS API provider** (Cloudflare, Route 53 and so on): Cloudron creates
+     the record when you add the alias.
+   - ***Wildcard*:** the domain's existing `*.example.com` record already
+     covers it.
+   - ***Manual*:** create it yourself at your DNS provider before adding the
+     alias: an A record for the server, or a CNAME to the app's domain.
+
+   Wait until `https://help.example.com/healthz` loads with a valid
+   certificate.
+2. **Connect it in opendesk.** Go to *Settings → Brands and widgets*, pick the
+   brand, open its *Help center* tab, and under *Custom domain* enter
+   `help.example.com` and click *Connect*. Admins manage custom domains.
+3. **Add the DNS records** that opendesk shows:
+   - **TXT `_opendesk-verify.help.example.com`:** always add this at your DNS
+     provider. It proves the domain is yours, and Cloudron does not create it.
+   - **CNAME `help.example.com` to the app's domain:** skip this. The address
+     record from step 1 already resolves to the same server, and opendesk
+     accepts that.
+4. **Check now.** Once both records are found, the domain is *Active*.
+   opendesk then links the help center there everywhere, and the old
+   `/help/<slug>` address redirects to it.
+
+To remove a custom domain, click *Remove domain* in opendesk first, then remove
+the alias in Cloudron. The other way round, the old address keeps redirecting
+to a host Cloudron no longer serves.
+
+### A subdomain for every brand
+
+For example, `https://<slug>.help.example.com`.
+
+1. In the app's *Location*, add the alias `*.help` on `example.com`. Wildcard
+   certificates need DNS validation, so `example.com` must use a DNS API
+   provider in Cloudron's *Domains*. They do not work with *Wildcard* or
+   *Manual* DNS.
+2. Cloudron restarts the app with the new location. The package sets
+   opendesk's `HELP_DOMAIN` to `help.example.com` from that alias, and the
+   start log shows `help centers: <slug>.help.example.com`.
+
+Every brand's help center is then at `https://<slug>.help.example.com`, and
+`/help/<slug>` redirects there. A brand with an active custom domain uses that
+domain instead. Only one wildcard alias can name help centers: with two, the
+log says so and help centers stay at `/help/<slug>`. Removing the wildcard
+alias moves them back to `/help/<slug>`.
 
 ## Configuration
 
@@ -121,8 +185,10 @@ commented examples for:
 - **Attachments on S3:** `STORAGE_DRIVER=s3` and the `S3_*` keys.
 
 The full reference is <https://docs.opendesk.sh/self-hosting/>. The package
-owns the database, URLs, secrets, SSO and the internal mail route; those keys
-are ignored in `/app/data/env` and the log says so.
+owns the database, URLs, secrets, SSO, the internal mail route and
+`HELP_DOMAIN` (it follows the app's wildcard alias; see
+[Help center addresses](#help-center-addresses)). Those keys are ignored in
+`/app/data/env` and the log says so.
 
 ## AI
 
@@ -253,6 +319,8 @@ mailbox passwords. Without it, every mailbox must be reconnected.
 | No *Continue with Cloudron* button | The app was installed without Cloudron user management; use password sign-in (`SIGNUP_ENABLED=true` to register, then turn it off). |
 | Sign-in emails do not arrive | *Email → Outbound* status in Cloudron; the log line at start shows `platform mail: smtp`. |
 | Mailbox shows *Needs attention* | The mailbox password changed in Cloudron; open the mailbox and reconnect. |
+| Custom domain stays *Waiting for DNS* | The `_opendesk-verify` TXT record is missing, or the host does not resolve to this server. `dig +short TXT _opendesk-verify.help.example.com` and `dig +short help.example.com`. |
+| Help center domain shows Cloudron's "no app" page or a certificate error | The alias is not in the app's *Location*, or its certificate is still being issued. For `*.help` aliases, the domain needs a DNS API provider. |
 
 Questions and feedback: the
 [Cloudron forum topic](https://forum.cloudron.io/topic/16150/opendesk-open-source-helpdesk-shared-inbox-live-chat-help-center-with-cloudron-sso-and-cloudron-mail).

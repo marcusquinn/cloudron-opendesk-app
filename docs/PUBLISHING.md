@@ -83,6 +83,11 @@ the package, not the catalog. Check:
   run once when the mailbox is added.
 - Platform mail: an invitation email arrives.
 - Live chat: install the widget on a test page, chat, and see the ticket.
+- Help center addresses: add an exact alias and connect it to a brand as a
+  custom domain, and confirm it serves that brand's help center. Add a
+  `*.<sub>` alias and confirm the start log names `<slug>.<sub>.<domain>`, that
+  `https://<slug>.<sub>.<domain>/` serves the brand, and that `/help/<slug>`
+  redirects there.
 - Restart; back up and restore to a disposable app; confirm data and stored
   mailbox passwords still work.
 
