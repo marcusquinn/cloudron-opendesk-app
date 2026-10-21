@@ -39,7 +39,7 @@ diff --git a/web/src/components/mailboxes/AddMailboxWizard.tsx b/web/src/compone
 +  const out: Way[] = forwardingOn(opts) ? [{ id: "forwarding" }] : [];
    for (const p of ["google", "microsoft"] as const) if (apiOn(opts, p)) out.push({ id: apiMethod(p) });
    if (!imapOn(opts)) return out;
-    for (const p of ["google", "microsoft"] as const) if (!apiOn(opts, p) && syncOn(opts) && oauthOffered(opts, p)) out.push({ id: p });
+   for (const p of ["google", "microsoft"] as const) if (!apiOn(opts, p) && syncOn(opts) && oauthOffered(opts, p)) out.push({ id: p });
 @@ -546,7 +550,12 @@ export function AddMailboxWizard
                {lookup && (
                  <div className="flex flex-col gap-3">
@@ -81,8 +81,8 @@ diff --git a/web/src/pages/settings/MailboxDetail.tsx b/web/src/pages/settings/M
    connectFailure,
 +  forwardingOn,
    imapOn,
-    sendProviders,
-    syncOn,
+   sendProviders,
+   syncOn,
 @@ -475,9 +476,11 @@ function MailboxEditor({ mailbox }: { mailbox: Mailbox }) {
              <div className="min-w-0 flex-1">
                <div className="text-[13px] font-medium">{t("receiving.offTitle")}</div>
