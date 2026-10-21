@@ -32,3 +32,10 @@
 * Cloudron issues the certificates; mail addresses are unaffected
 * Fix help centers at /help/<slug>, which showed the opendesk app instead of the help center
 * No change to opendesk itself; it is still at upstream commit f9471ba
+
+[0.2.1]
+* Update opendesk to upstream commit 66b15e5
+* Include upstream session, sign-in, webhook and inbound-email security controls
+* Add side conversations, browser and Web Push notifications, and chat-widget voice messages and attachment controls
+* Include import threading improvements, editing and deleting internal notes, and changing a ticket's contact
+* Keep the pinned Cloudron base image, SSO, internal mail routing and help-center domain support unchanged
