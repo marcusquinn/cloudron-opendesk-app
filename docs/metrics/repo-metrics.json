@@ -1,7 +1,7 @@
 {
   "schema": "aidevops.repo-metrics.v1",
   "schema_version": 1,
-  "generated_at": "2026-10-20T02:28:07Z",
+  "generated_at": "2026-10-21T06:11:51Z",
   "tool": {
     "name": "aidevops repo-metrics",
     "version": "1.0.0"
@@ -12,9 +12,9 @@
   },
   "summary": {
     "source_files": 32,
-    "code": 1949,
-    "comments": 133,
-    "blanks": 373,
+    "code": 2235,
+    "comments": 142,
+    "blanks": 397,
     "languages": 7,
     "dependencies": 0
   },
@@ -22,11 +22,29 @@
     {
       "name": "Markdown",
       "files": 17,
-      "code": 959,
+      "code": 1091,
       "comments": 0,
-      "blanks": 297,
-      "percentage": 49.2,
+      "blanks": 320,
+      "percentage": 48.81,
       "color": "#083fa1"
+    },
+    {
+      "name": "JSON",
+      "files": 2,
+      "code": 366,
+      "comments": 0,
+      "blanks": 0,
+      "percentage": 16.38,
+      "color": "#292929"
+    },
+    {
+      "name": "Shell",
+      "files": 5,
+      "code": 325,
+      "comments": 71,
+      "blanks": 44,
+      "percentage": 14.54,
+      "color": "#89e051"
     },
     {
       "name": "YAML",
@@ -34,26 +52,8 @@
       "code": 296,
       "comments": 53,
       "blanks": 22,
-      "percentage": 15.19,
+      "percentage": 13.24,
       "color": "#cb171e"
-    },
-    {
-      "name": "Shell",
-      "files": 5,
-      "code": 295,
-      "comments": 62,
-      "blanks": 43,
-      "percentage": 15.14,
-      "color": "#89e051"
-    },
-    {
-      "name": "JSON",
-      "files": 2,
-      "code": 242,
-      "comments": 0,
-      "blanks": 0,
-      "percentage": 12.42,
-      "color": "#292929"
     },
     {
       "name": "Dockerfile",
@@ -61,7 +61,7 @@
       "code": 73,
       "comments": 16,
       "blanks": 11,
-      "percentage": 3.75,
+      "percentage": 3.27,
       "color": "#384d54"
     },
     {
@@ -70,7 +70,7 @@
       "code": 57,
       "comments": 2,
       "blanks": 0,
-      "percentage": 2.92,
+      "percentage": 2.55,
       "color": "#e34c26"
     },
     {
@@ -79,7 +79,7 @@
       "code": 27,
       "comments": 0,
       "blanks": 0,
-      "percentage": 1.39,
+      "percentage": 1.21,
       "color": "#6e7781"
     }
   ],
