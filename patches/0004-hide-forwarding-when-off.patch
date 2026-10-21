@@ -4,8 +4,8 @@ The API reports forwarding.enabled in /v1/mailboxes/connect-options
 (INBOUND_SECRET or INBOUND_SMTP_ADDR set). Hide forwarding where there is no
 inbound route, recommend the first non-advanced connection, and hide switching
 an existing mailbox to forwarding. Preserve upstream's Collab API connections
-and their priority. Forwarding remains the fallback only when neither IMAP nor
-direct provider receiving is offered.
+and their priority. Missing or disabled forwarding options never imply an inbound
+route, even when no other receiving method is available.
 
 diff --git a/web/src/components/mailboxes/AddMailboxWizard.tsx b/web/src/components/mailboxes/AddMailboxWizard.tsx
 --- a/web/src/components/mailboxes/AddMailboxWizard.tsx
@@ -39,7 +39,21 @@ diff --git a/web/src/components/mailboxes/AddMailboxWizard.tsx b/web/src/compone
 +  const out: Way[] = forwardingOn(opts) ? [{ id: "forwarding" }] : [];
    for (const p of ["google", "microsoft"] as const) if (apiOn(opts, p)) out.push({ id: apiMethod(p) });
    if (!imapOn(opts)) return out;
-   for (const p of ["google", "microsoft"] as const) if (!apiOn(opts, p) && syncOn(opts) && oauthOffered(opts, p)) out.push({ id: p });
+    for (const p of ["google", "microsoft"] as const) if (!apiOn(opts, p) && syncOn(opts) && oauthOffered(opts, p)) out.push({ id: p });
+@@ -546,7 +550,12 @@ export function AddMailboxWizard
+               {lookup && (
+                 <div className="flex flex-col gap-3">
+                   <DetectionCard domain={domain} detection={det} loading={detect.isLoading} failed={detect.isError} />
+-                  {!detect.isLoading && !choices(opts.data) && <ForwardingWay email={form.email.trim()} />}
++                  {!detect.isLoading && !choices(opts.data) && forwardingOn(opts.data) && <ForwardingWay email={form.email.trim()} />}
++                  {!detect.isLoading && !opts.isLoading && !choices(opts.data) && !forwardingOn(opts.data) && (
++                    <p role="status" className="text-sm text-fg-2">
++                      {t("wizard.noReceiving", { defaultValue: "No receiving method is available. Ask your administrator to configure mail receiving on this instance." })}
++                    </p>
++                  )}
+                   {!detect.isLoading && choices(opts.data) && (
+                     <WayPicker
+                       ways={ways}
 diff --git a/web/src/components/mailboxes/connect.tsx b/web/src/components/mailboxes/connect.tsx
 --- a/web/src/components/mailboxes/connect.tsx
 +++ b/web/src/components/mailboxes/connect.tsx
@@ -48,11 +62,11 @@ diff --git a/web/src/components/mailboxes/connect.tsx b/web/src/components/mailb
  }
  
 +/**
-+ * Offer forwarding when an inbound route exists, or as the last receiving option
-+ * when neither IMAP nor a direct provider API is available.
++ * Offer forwarding only when the API confirms an inbound route is enabled.
++ * Missing connect options must not offer an unusable receiving method.
 + */
 +export function forwardingOn(opts?: MailboxConnectOptions): boolean {
-+  return opts?.forwarding?.enabled !== false || (!imapOn(opts) && !apiOn(opts, "google") && !apiOn(opts, "microsoft"));
++  return opts?.forwarding?.enabled === true;
 +}
 +
  /** Sending through opendesk is offered unless the API has it off. */
@@ -67,8 +81,23 @@ diff --git a/web/src/pages/settings/MailboxDetail.tsx b/web/src/pages/settings/M
    connectFailure,
 +  forwardingOn,
    imapOn,
-   sendProviders,
-   syncOn,
+    sendProviders,
+    syncOn,
+@@ -475,9 +476,11 @@ function MailboxEditor({ mailbox }: { mailbox: Mailbox }) {
+             <div className="min-w-0 flex-1">
+               <div className="text-[13px] font-medium">{t("receiving.offTitle")}</div>
+               <p className="mt-0.5 text-[12.5px] leading-5 text-fg-2">{t("receiving.offBody", { email: mailbox.email })}</p>
+-              <Button variant="primary" size="sm" className="mt-3" icon={<Forward className="size-3.5" />} loading={toForwarding.isPending} onClick={switchToForwarding}>
+-                {t("receiving.switch")}
+-              </Button>
++              {forwardingOn(opts) && (
++                <Button variant="primary" size="sm" className="mt-3" icon={<Forward className="size-3.5" />} loading={toForwarding.isPending} onClick={switchToForwarding}>
++                  {t("receiving.switch")}
++                </Button>
++              )}
+             </div>
+           </div>
+         )}
 @@ -536,7 +537,7 @@ function MailboxEditor({ mailbox }: { mailbox: Mailbox }) {
            </Row>
          )}
