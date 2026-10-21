@@ -124,19 +124,26 @@ For example, `help.example.com`.
 
 1. **Add the alias in Cloudron.** In the app's *Location*, add an alias with
    subdomain `help` on `example.com`. `example.com` must already be in
-   Cloudron's *Domains*. Wait until `https://help.example.com/healthz` loads
-   with a valid certificate.
+   Cloudron's *Domains*. How `help.example.com` gets its address record
+   depends on that domain's DNS provider in Cloudron:
+   - **A DNS API provider** (Cloudflare, Route 53 and so on): Cloudron creates
+     the record when you add the alias.
+   - ***Wildcard*:** the domain's existing `*.example.com` record already
+     covers it.
+   - ***Manual*:** create it yourself at your DNS provider before adding the
+     alias: an A record for the server, or a CNAME to the app's domain.
+
+   Wait until `https://help.example.com/healthz` loads with a valid
+   certificate.
 2. **Connect it in opendesk.** Go to *Settings → Brands and widgets*, pick the
    brand, open its *Help center* tab, and under *Custom domain* enter
    `help.example.com` and click *Connect*. Admins manage custom domains.
 3. **Add the DNS records** that opendesk shows:
    - **TXT `_opendesk-verify.help.example.com`:** always add this at your DNS
      provider. It proves the domain is yours, and Cloudron does not create it.
-   - **CNAME `help.example.com` to the app's domain:** skip this when Cloudron
-     manages DNS for `example.com` (any DNS API provider), because Cloudron
-     already created a record for the alias. opendesk accepts that record
-     because it resolves to the same server. With Cloudron's *Wildcard* or
-     *Manual* DNS, add the CNAME, or an A record for the server.
+   - **CNAME `help.example.com` to the app's domain:** skip this. The address
+     record from step 1 already resolves to the same server, and opendesk
+     accepts that.
 4. **Check now.** Once both records are found, the domain is *Active*.
    opendesk then links the help center there everywhere, and the old
    `/help/<slug>` address redirects to it.

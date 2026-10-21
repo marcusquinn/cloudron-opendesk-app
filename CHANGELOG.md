@@ -15,8 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   manifest sets `multiDomain`, so the app takes Cloudron alias domains:
   - An exact alias such as `help.example.com` serves the custom domain that a
     brand connects under *Help center → Custom domain*. opendesk's DNS check
-    accepts Cloudron's record for the alias, because it resolves to the app's
-    own address. Only the `_opendesk-verify` TXT record is added by hand.
+    accepts the alias's address record in place of its CNAME, because it
+    resolves to the app's own address. With a DNS API provider, Cloudron
+    creates that record and only the `_opendesk-verify` TXT record is added by
+    hand. With *Manual* DNS, the operator also creates the address record.
   - A single wildcard alias such as `*.help.example.com` sets opendesk's
     `HELP_DOMAIN`, putting every brand's help center at
     `<slug>.help.example.com`. `start.sh` derives it from
