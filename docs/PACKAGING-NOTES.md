@@ -66,6 +66,36 @@ every user-supplied host and adds one operator-pinned exception:
 - Mailbox credentials are still required; the route grants no access the public
   ports do not.
 
+## Help center hosts
+
+Upstream's Caddy issues certificates on demand for any host that its
+`/v1/public/help-domains/tls` check accepts. Here Cloudron's proxy terminates
+TLS and serves only the app's *Location*, so `multiDomain` lets operators add
+aliases, and Cloudron issues each certificate.
+
+- nginx passes `Host` through, and opendesk picks the help center from it
+  (`internal/helpdesk/helpsite`): the app's own hosts serve `/help/<slug>`,
+  `<slug>.HELP_DOMAIN` serves that brand, and any other host serves the brand
+  whose custom domain is `active` there, else falls through to the web app.
+- Every `proxy_set_header` in `nginx.conf` is at `server` level. nginx drops
+  all inherited `proxy_set_header` lines in a `location` that sets any of its
+  own. Up to 0.1.3, `location /` set `Connection` and so sent
+  `Host: opendesk` (the upstream name), and `/help/<slug>` fell through to the
+  web app. `test/package-test.sh` rejects a `proxy_set_header` in a
+  `location`.
+- Custom domains need no package setting. `HELP_CNAME_TARGET` defaults to the
+  `APP_URL` host, which is the app's own domain. The DNS check passes on a
+  CNAME to it or on matching addresses (`helpdomains/dns.go`), so a Cloudron
+  A record for the alias counts. Without Cloudflare for SaaS, a verified
+  domain turns `active` right away, so the alias must exist first.
+- `HELP_DOMAIN` is package-owned. `start.sh` sets it from the only wildcard
+  entry in `CLOUDRON_ALIAS_DOMAINS` (`*.help.example.com` gives
+  `help.example.com`). With none, or more than one, or a name opendesk would
+  reject, it stays unset, because opendesk redirects `/help/<slug>` to
+  `<slug>.HELP_DOMAIN` and must never point at a host Cloudron does not route.
+- Help-center pages are same-origin (`connect-src 'self'`), so `CORS_ORIGINS`
+  and `CHECK_ORIGINS` stay on the app's own origin.
+
 ## Mail
 
 - **Platform email** (`MAIL_DRIVER=smtp`) uses the `sendmail` addon relay

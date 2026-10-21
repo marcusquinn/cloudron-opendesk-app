@@ -16,7 +16,7 @@ main() {
     cd "$root"
 
     jq -e '.manifestVersion == 2 and .httpPort == 8000 and .healthCheckPath == "/healthz"
-        and .minBoxVersion == "9.1.0" and .optionalSso == true
+        and .minBoxVersion == "9.1.0" and .optionalSso == true and .multiDomain == true
         and (.addons | has("localstorage") and has("postgresql") and has("oidc") and has("sendmail") and has("email"))
         and .addons.oidc.loginRedirectUri == "/v1/auth/oauth/oidc/callback"' CloudronManifest.json >/dev/null ||
         fail "manifest contract changed"
@@ -38,6 +38,16 @@ main() {
     grep -Fq 'export SIGNUP_ENABLED=false' start.sh || fail "public signup must default off"
     grep -Fq 'unset INBOUND_SECRET INBOUND_SMTP_ADDR' start.sh || fail "forwarding must default off"
     grep -Fq 'PROTECTED_KEYS=' start.sh || fail "package-owned keys must be protected"
+    # HELP_DOMAIN follows Cloudron's wildcard alias, never a host Cloudron does not route.
+    grep -Eq '^readonly PROTECTED_KEYS=.* HELP_DOMAIN ' start.sh || fail "HELP_DOMAIN must be package-owned"
+    grep -Fq 'CLOUDRON_ALIAS_DOMAINS' start.sh || fail "HELP_DOMAIN must come from the app's alias domains"
+    # opendesk routes help centers by Host. A proxy_set_header inside a location
+    # drops the server-level ones, so Host would become the upstream name.
+    awk '/^[[:space:]]*location[[:space:]]/ { inloc = 1 }
+        inloc && /proxy_set_header/ { bad = 1 }
+        inloc && /^[[:space:]]*}[[:space:]]*$/ { inloc = 0 }
+        END { exit bad }' nginx.conf || fail "nginx.conf: proxy_set_header inside a location drops Host"
+    grep -Fq "proxy_set_header Host \$http_host;" nginx.conf || fail "nginx.conf must pass Host through"
 
     for file in CHANGELOG CHANGELOG.md DESCRIPTION.md POSTINSTALL.md README.md logo.png \
         docs/PACKAGING-NOTES.md docs/PUBLISHING.md docs/ANNOUNCEMENT.md DESIGN.md media/src/slide.html; do

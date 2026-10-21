@@ -6,6 +6,43 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-10-21
+
+### Added
+
+- Help centers on their own domains
+  ([#12](https://github.com/marcusquinn/cloudron-opendesk-app/issues/12)). The
+  manifest sets `multiDomain`, so the app takes Cloudron alias domains:
+  - An exact alias such as `help.example.com` serves the custom domain that a
+    brand connects under *Help center → Custom domain*. opendesk's DNS check
+    accepts Cloudron's record for the alias, because it resolves to the app's
+    own address. Only the `_opendesk-verify` TXT record is added by hand.
+  - A single wildcard alias such as `*.help.example.com` sets opendesk's
+    `HELP_DOMAIN`, putting every brand's help center at
+    `<slug>.help.example.com`. `start.sh` derives it from
+    `CLOUDRON_ALIAS_DOMAINS` on every start, so it never names a host Cloudron
+    does not route. `HELP_DOMAIN` is now package-owned and ignored in
+    `/app/data/env`.
+- Cloudron's proxy issues the certificates in place of upstream's on-demand
+  Caddy TLS. Aliases carry web traffic only and leave mailbox addresses
+  unchanged.
+- The start log reports where help centers are served.
+
+### Fixed
+
+- Help centers at `/help/<slug>` showed the opendesk web app. nginx's
+  `location /` set its own `proxy_set_header`, which dropped the server-level
+  `Host` pass-through, so opendesk saw `Host: opendesk` and never matched a
+  help center. All proxy headers are now set once at server level, and the
+  package test rejects a `proxy_set_header` inside a `location`. The
+  `CF-Connecting-IP`/`True-Client-IP` resets apply again; opendesk ignored
+  them anyway because `TRUSTED_PROXY_HOPS=1`.
+
+### Changed
+
+- No change to the opendesk image contents; opendesk stays at upstream commit
+  `f9471ba`.
+
 ## [0.1.3] - 2026-10-20
 
 ### Fixed

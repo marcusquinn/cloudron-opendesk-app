@@ -73,7 +73,7 @@ export INBOUND_DOMAIN=in.localhost
 export NOTIFY_EMAIL_PACING=relaxed
 
 # Settings the package owns: addon wiring, URLs and secrets.
-readonly PROTECTED_KEYS=" OPENDESK_ENV OPENDESK_ROLE SERVE_WEB HTTP_ADDR DATA_DIR API_URL APP_URL SITE_URL GATEWAY_URL CORS_ORIGINS TRUST_PROXY DATABASE_URL DATABASE_URL_DIRECT AUTH_SECRET CREDENTIALS_KEY NATS_URL NATS_TOKEN NATS_LISTEN NATS_STORE_DIR SECRET_KEY_BASE INBOUND_SMTP_ADDR OIDC_ISSUER OIDC_CLIENT_ID OIDC_CLIENT_SECRET STRIPE_SECRET_KEY STRIPE_API_URL PUSH_RELAY_SERVE MAILHOST_SELF MAILHOST_SELF_ROUTE PORT CHECK_ORIGINS TRUSTED_PROXY_HOPS RELEASE_COOKIE RELEASE_TMP RELEASE_DISTRIBUTION "
+readonly PROTECTED_KEYS=" OPENDESK_ENV OPENDESK_ROLE SERVE_WEB HTTP_ADDR DATA_DIR API_URL APP_URL SITE_URL GATEWAY_URL CORS_ORIGINS TRUST_PROXY DATABASE_URL DATABASE_URL_DIRECT AUTH_SECRET CREDENTIALS_KEY NATS_URL NATS_TOKEN NATS_LISTEN NATS_STORE_DIR SECRET_KEY_BASE INBOUND_SMTP_ADDR OIDC_ISSUER OIDC_CLIENT_ID OIDC_CLIENT_SECRET STRIPE_SECRET_KEY STRIPE_API_URL PUSH_RELAY_SERVE MAILHOST_SELF MAILHOST_SELF_ROUTE HELP_DOMAIN PORT CHECK_ORIGINS TRUSTED_PROXY_HOPS RELEASE_COOKIE RELEASE_TMP RELEASE_DISTRIBUTION "
 
 # KEY=value lines, values literal (never evaluated); optional matching quotes removed.
 while IFS= read -r line || [[ -n "${line}" ]]; do
@@ -111,6 +111,36 @@ export GATEWAY_URL="wss://${CLOUDRON_APP_DOMAIN}/socket"
 export TRUST_PROXY=true
 export NATS_LISTEN=127.0.0.1:4222
 unset NATS_URL NATS_STORE_DIR DATABASE_URL_DIRECT STRIPE_SECRET_KEY STRIPE_API_URL PUSH_RELAY_SERVE
+
+# Help centers on their own hosts. Cloudron serves only the app's Location, so
+# HELP_DOMAIN follows its aliases (CLOUDRON_ALIAS_DOMAINS: exact hosts and
+# single-label wildcards). One wildcard alias *.help.example.com puts each
+# brand's help center at <slug>.help.example.com; without one, help centers
+# stay at /help/<slug>. Exact aliases need no setting: opendesk serves a custom
+# domain connected to a brand once its DNS checks pass.
+help_domain=""
+help_wildcards=0
+IFS=',' read -r -a aliases <<<"${CLOUDRON_ALIAS_DOMAINS:-}"
+for alias in "${aliases[@]}"; do
+	alias="${alias//[[:space:]]/}"
+	alias="${alias,,}"
+	if [[ "${alias}" == '*.'* ]]; then
+		help_wildcards=$((help_wildcards + 1))
+		help_domain="${alias#\*.}"
+	fi
+done
+if [[ ${help_wildcards} -gt 1 ]]; then
+	printf 'opendesk start: %s wildcard aliases; help center subdomains need exactly one, so HELP_DOMAIN stays off\n' "${help_wildcards}" >&2
+	help_domain=""
+elif [[ -n "${help_domain}" && ! "${help_domain}" =~ ^([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]([a-z0-9-]{0,61}[a-z0-9])?$ ]]; then
+	printf 'opendesk start: wildcard alias *.%s is not a domain name opendesk accepts; HELP_DOMAIN stays off\n' "${help_domain}" >&2
+	help_domain=""
+fi
+if [[ -n "${help_domain}" ]]; then
+	export HELP_DOMAIN="${help_domain}"
+else
+	unset HELP_DOMAIN
+fi
 
 case "${CLOUDRON_POSTGRESQL_URL}" in
 *\?*) export DATABASE_URL="${CLOUDRON_POSTGRESQL_URL}&sslmode=disable" ;;
@@ -175,7 +205,7 @@ mv "${RUNDIR}/env.tmp" "${RUNDIR}/env"
 
 sso=off
 [[ -n "${OIDC_ISSUER:-}" ]] && sso=on
-log "opendesk $(cat /app/code/upstream-commit) at ${CLOUDRON_APP_ORIGIN} (platform mail: ${MAIL_DRIVER}, sso: ${sso}, cloudron mail server: ${MAILHOST_SELF:-off})"
+log "opendesk $(cat /app/code/upstream-commit) at ${CLOUDRON_APP_ORIGIN} (platform mail: ${MAIL_DRIVER}, sso: ${sso}, cloudron mail server: ${MAILHOST_SELF:-off}, help centers: ${HELP_DOMAIN:+<slug>.}${HELP_DOMAIN:-/help/<slug>})"
 
 chown -R cloudron:cloudron "${DATA}" /run/realtime /run/nginx
 chown root:root "${RUNDIR}" "${RUNDIR}/env"
