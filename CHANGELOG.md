@@ -6,6 +6,22 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2] - 2026-10-22
+
+### Fixed
+
+- Platform email (invitations, sign-in links, password resets and
+  notifications) timed out in 0.2.1
+  ([#25](https://github.com/marcusquinn/cloudron-opendesk-app/issues/25)).
+  Cloudron maps the mail server's FQDN to the Docker host, which forwards only
+  the STARTTLS relay port, so the SMTPS port was unreachable. Platform mail now
+  uses STARTTLS on `CLOUDRON_MAIL_STARTTLS_PORT`. Upstream still verifies the
+  certificate against the FQDN, requires TLS and keeps SMTP authentication.
+- Without a STARTTLS port from Cloudron, platform email stays on the log driver
+  with a start-log warning instead of stopping the app; it never falls back to
+  cleartext.
+- No change to opendesk itself; it is still at upstream commit `809b80d`.
+
 ## [0.2.1] - 2026-10-22
 
 ### Changed
