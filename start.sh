@@ -163,11 +163,12 @@ fi
 if [[ -z "${SMTP_HOST:-}" && "${MAIL_DRIVER:-}" != "ses" && "${MAIL_DRIVER:-}" != "log" && -n "${CLOUDRON_MAIL_SMTP_SERVER:-}" ]]; then
 	export MAIL_DRIVER=smtp
 	export SMTP_HOST="${CLOUDRON_MAIL_SMTP_SERVER}"
-	export SMTP_PORT="${CLOUDRON_MAIL_SMTP_PORT}"
+	export SMTP_PORT="${CLOUDRON_MAIL_SMTPS_PORT:?Cloudron sendmail SMTPS port is required}"
 	export SMTP_USERNAME="${CLOUDRON_MAIL_SMTP_USERNAME}"
 	export SMTP_PASSWORD="${CLOUDRON_MAIL_SMTP_PASSWORD}"
-	# The relay's internal port has no STARTTLS and never leaves the server.
-	export SMTP_TLS=none
+	# requiresValidCertificate supplies the mail FQDN for SNI and verification.
+	# Use implicit TLS: the separate plain relay port does not offer STARTTLS.
+	export SMTP_TLS=tls
 	export MAIL_FROM="${CLOUDRON_MAIL_FROM_DISPLAY_NAME:-opendesk} <${CLOUDRON_MAIL_FROM}>"
 fi
 export MAIL_DRIVER="${MAIL_DRIVER:-log}"

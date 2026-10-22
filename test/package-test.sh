@@ -18,7 +18,8 @@ main() {
     jq -e '.manifestVersion == 2 and .httpPort == 8000 and .healthCheckPath == "/healthz"
         and .minBoxVersion == "9.1.0" and .optionalSso == true and .multiDomain == true
         and (.addons | has("localstorage") and has("postgresql") and has("oidc") and has("sendmail") and has("email"))
-        and .addons.oidc.loginRedirectUri == "/v1/auth/oauth/oidc/callback"' CloudronManifest.json >/dev/null ||
+        and .addons.oidc.loginRedirectUri == "/v1/auth/oauth/oidc/callback"
+        and .addons.sendmail.requiresValidCertificate == true' CloudronManifest.json >/dev/null ||
         fail "manifest contract changed"
 
     # Every build input is pinned: upstream commit and each stage image digest.
@@ -28,7 +29,7 @@ main() {
     if grep -E '^FROM ' Dockerfile | grep -vEq '@sha256:[0-9a-f]{64}'; then
         fail "every FROM image must be digest-pinned"
     fi
-    grep -Fq 'FROM cloudron/base:6.0.0@sha256:9bed4c8fa880645f8e669041ee28febe941481d00e9445e3e5a5483cb541d09b' Dockerfile ||
+    grep -Fq 'FROM cloudron/base:6.0.1@sha256:7b1e729960c3ca312d26e886917ba89483241bba0219ff292858e10d9d5768ee' Dockerfile ||
         fail "final stage must be the pinned Cloudron base image"
     if grep -Fq '@latest' Dockerfile; then
         fail "floating @latest dependency in Dockerfile"
@@ -38,6 +39,13 @@ main() {
     grep -Fq 'export SIGNUP_ENABLED=false' start.sh || fail "public signup must default off"
     grep -Fq 'unset INBOUND_SECRET INBOUND_SMTP_ADDR' start.sh || fail "forwarding must default off"
     grep -Fq 'PROTECTED_KEYS=' start.sh || fail "package-owned keys must be protected"
+    # Platform relay authentication must use verified implicit TLS, never port 2525.
+    grep -Fq "export SMTP_PORT=\"\${CLOUDRON_MAIL_SMTPS_PORT:?" start.sh || fail "relay must require the SMTPS port"
+    grep -Fq "export SMTP_HOST=\"\${CLOUDRON_MAIL_SMTP_SERVER}\"" start.sh || fail "relay must use the addon FQDN"
+    grep -Fq 'export SMTP_TLS=tls' start.sh || fail "relay must use implicit TLS"
+    if grep -Fq 'export SMTP_TLS=none' start.sh; then
+        fail "relay must not fall back to cleartext"
+    fi
     # HELP_DOMAIN follows Cloudron's wildcard alias, never a host Cloudron does not route.
     grep -Eq '^readonly PROTECTED_KEYS=.* HELP_DOMAIN ' start.sh || fail "HELP_DOMAIN must be package-owned"
     grep -Fq 'CLOUDRON_ALIAS_DOMAINS' start.sh || fail "HELP_DOMAIN must come from the app's alias domains"

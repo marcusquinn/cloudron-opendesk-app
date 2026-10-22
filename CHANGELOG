@@ -32,3 +32,13 @@
 * Cloudron issues the certificates; mail addresses are unaffected
 * Fix help centers at /help/<slug>, which showed the opendesk app instead of the help center
 * No change to opendesk itself; it is still at upstream commit f9471ba
+
+[0.2.1]
+* Update opendesk to upstream commit 809b80d
+* Include upstream session, sign-in, webhook and inbound-email security controls
+* Add side conversations, browser and Web Push notifications, and chat-widget voice messages and attachment controls
+* Include import threading improvements, editing and deleting internal notes, and changing a ticket's contact
+* Include resumable attachment imports, NUL-safe imports, shared reply drafts, chat intro settings and Azerbaijani language support
+* Send platform mail through authenticated SMTPS with verified server certificates, compatible with upstream production security validation
+* Update the pinned Cloudron base to 6.0.1 with its patched CA bundle; keep SSO, mailbox routing and help-center domain support
+* Fix mailbox setup offering email forwarding when the server has no inbound route; the wizard now says when no receiving method is available
