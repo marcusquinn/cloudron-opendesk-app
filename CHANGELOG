@@ -40,4 +40,4 @@
 * Include import threading improvements, editing and deleting internal notes, and changing a ticket's contact
 * Include resumable attachment imports, NUL-safe imports, shared reply drafts, chat intro settings and Azerbaijani language support
 * Send platform mail through authenticated SMTPS with verified server certificates, compatible with upstream production security validation
-* Keep the pinned Cloudron base image, SSO, mailbox routing and help-center domain support unchanged
+* Update the pinned Cloudron base to 6.0.1 with its patched CA bundle; keep SSO, mailbox routing and help-center domain support

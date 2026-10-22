@@ -23,7 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use authenticated implicit TLS for the Cloudron platform-mail relay. Request
   a valid certificate hostname from the sendmail addon and use its SMTPS port;
   upstream's certificate verification and production validation remain enabled.
-- Retain the pinned Cloudron 6.0.0 base image, Cloudron 9.1 minimum, SSO,
+- Update the pinned Cloudron base to 6.0.1 with its patched CA bundle, retaining
+  the Cloudron 9.1 minimum, SSO,
   mailbox routing and help-center domain support. Upstream's installer
   and release tooling are not installed; Cloudron manages package updates.
 - Prepare source only: release, image, catalog publication and deployment

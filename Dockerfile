@@ -60,7 +60,7 @@ RUN CGO_ENABLED=0 go build -trimpath \
     && /out/opendesk version
 
 # ── realtime: the Phoenix gateway as a self-contained release (ERTS included) ─
-# Built on the same Ubuntu release as cloudron/base:6.0.0 (26.04 "resolute"), so
+# Built on the same Ubuntu release as cloudron/base:6.0.1 (26.04 "resolute"), so
 # the crypto NIF links against the runtime's own libssl.
 FROM hexpm/elixir:1.20.4-erlang-29.1.1-ubuntu-resolute-20260927@sha256:27891ab37c7677f921899bc2b9e8e2e47ac0cae17cae28bd5979839ba6b0a479 AS realtime
 RUN apt-get update -y \
@@ -77,7 +77,7 @@ COPY --from=src /src/realtime/ ./
 RUN mix compile && mix release realtime --overwrite
 
 # ── runtime ─────────────────────────────────────────────────────────────────
-FROM cloudron/base:6.0.0@sha256:9bed4c8fa880645f8e669041ee28febe941481d00e9445e3e5a5483cb541d09b
+FROM cloudron/base:6.0.1@sha256:7b1e729960c3ca312d26e886917ba89483241bba0219ff292858e10d9d5768ee
 ARG OPENDESK_COMMIT
 LABEL org.opencontainers.image.source="https://github.com/marcusquinn/cloudron-opendesk-app"
 

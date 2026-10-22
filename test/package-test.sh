@@ -29,7 +29,7 @@ main() {
     if grep -E '^FROM ' Dockerfile | grep -vEq '@sha256:[0-9a-f]{64}'; then
         fail "every FROM image must be digest-pinned"
     fi
-    grep -Fq 'FROM cloudron/base:6.0.0@sha256:9bed4c8fa880645f8e669041ee28febe941481d00e9445e3e5a5483cb541d09b' Dockerfile ||
+    grep -Fq 'FROM cloudron/base:6.0.1@sha256:7b1e729960c3ca312d26e886917ba89483241bba0219ff292858e10d9d5768ee' Dockerfile ||
         fail "final stage must be the pinned Cloudron base image"
     if grep -Fq '@latest' Dockerfile; then
         fail "floating @latest dependency in Dockerfile"
