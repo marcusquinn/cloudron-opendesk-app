@@ -18,7 +18,8 @@ main() {
     jq -e '.manifestVersion == 2 and .httpPort == 8000 and .healthCheckPath == "/healthz"
         and .minBoxVersion == "9.1.0" and .optionalSso == true and .multiDomain == true
         and (.addons | has("localstorage") and has("postgresql") and has("oidc") and has("sendmail") and has("email"))
-        and .addons.oidc.loginRedirectUri == "/v1/auth/oauth/oidc/callback"' CloudronManifest.json >/dev/null ||
+        and .addons.oidc.loginRedirectUri == "/v1/auth/oauth/oidc/callback"
+        and .addons.sendmail.requiresValidCertificate == true' CloudronManifest.json >/dev/null ||
         fail "manifest contract changed"
 
     # Every build input is pinned: upstream commit and each stage image digest.
@@ -38,6 +39,13 @@ main() {
     grep -Fq 'export SIGNUP_ENABLED=false' start.sh || fail "public signup must default off"
     grep -Fq 'unset INBOUND_SECRET INBOUND_SMTP_ADDR' start.sh || fail "forwarding must default off"
     grep -Fq 'PROTECTED_KEYS=' start.sh || fail "package-owned keys must be protected"
+    # Platform relay authentication must use verified implicit TLS, never port 2525.
+    grep -Fq "export SMTP_PORT=\"\${CLOUDRON_MAIL_SMTPS_PORT:?" start.sh || fail "relay must require the SMTPS port"
+    grep -Fq "export SMTP_HOST=\"\${CLOUDRON_MAIL_SMTP_SERVER}\"" start.sh || fail "relay must use the addon FQDN"
+    grep -Fq 'export SMTP_TLS=tls' start.sh || fail "relay must use implicit TLS"
+    if grep -Fq 'export SMTP_TLS=none' start.sh; then
+        fail "relay must not fall back to cleartext"
+    fi
     # HELP_DOMAIN follows Cloudron's wildcard alias, never a host Cloudron does not route.
     grep -Eq '^readonly PROTECTED_KEYS=.* HELP_DOMAIN ' start.sh || fail "HELP_DOMAIN must be package-owned"
     grep -Fq 'CLOUDRON_ALIAS_DOMAINS' start.sh || fail "HELP_DOMAIN must come from the app's alias domains"

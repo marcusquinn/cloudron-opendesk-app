@@ -5,7 +5,7 @@
   "description": "file://DESCRIPTION.md",
   "tagline": "Open-source helpdesk: shared inbox, live chat and help center",
   "version": "0.2.1",
-  "upstreamVersion": "66b15e5",
+  "upstreamVersion": "809b80d",
   "healthCheckPath": "/healthz",
   "httpPort": 8000,
   "multiDomain": true,
@@ -25,7 +25,7 @@
   "forumUrl": "https://forum.cloudron.io/topic/16150/opendesk-open-source-helpdesk-shared-inbox-live-chat-help-center-with-cloudron-sso-and-cloudron-mail",
   "upstreamLicense": {
     "name": "Apache-2.0",
-    "url": "https://github.com/useopendesk/opendesk/blob/66b15e544eb8a89eaaf51808a71fafc880d5c5d0/LICENSE"
+    "url": "https://github.com/useopendesk/opendesk/blob/809b80d16bd6a78126d9392ceb203a357e659742/LICENSE"
   },
   "minBoxVersion": "9.1.0",
   "memoryLimit": 1073741824,
@@ -38,7 +38,8 @@
       "tokenSignatureAlgorithm": "RS256"
     },
     "sendmail": {
-      "supportsDisplayName": true
+      "supportsDisplayName": true,
+      "requiresValidCertificate": true
     },
     "email": {}
   },

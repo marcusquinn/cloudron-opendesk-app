@@ -6,20 +6,25 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.2.1] - 2026-10-21
+## [0.2.1] - 2026-10-22
 
 ### Changed
 
 - Update opendesk from `f9471ba` to the immutable upstream commit
-  `66b15e544eb8a89eaaf51808a71fafc880d5c5d0`.
+  `809b80d16bd6a78126d9392ceb203a357e659742`.
 - Include upstream session and sign-in hardening, signed inbound email,
   webhook protections and release controls. This is not a claim of independent
   CASA certification for the Cloudron package.
 - Include side conversations, browser and Web Push notifications, chat-widget
   voice messages and attachment controls, import threading improvements,
   editing and deleting internal notes, and changing a ticket's contact.
+- Include resumable attachment imports, NUL-safe imports, shared reply drafts,
+  chat intro settings and Azerbaijani language support.
+- Use authenticated implicit TLS for the Cloudron platform-mail relay. Request
+  a valid certificate hostname from the sendmail addon and use its SMTPS port;
+  upstream's certificate verification and production validation remain enabled.
 - Retain the pinned Cloudron 6.0.0 base image, Cloudron 9.1 minimum, SSO,
-  internal mail routing and help-center domain support. Upstream's installer
+  mailbox routing and help-center domain support. Upstream's installer
   and release tooling are not installed; Cloudron manages package updates.
 - Prepare source only: release, image, catalog publication and deployment
   require separate operator authorization.
