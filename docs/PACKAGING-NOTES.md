@@ -99,13 +99,16 @@ aliases, and Cloudron issues each certificate.
 ## Mail
 
 - **Platform email** (`MAIL_DRIVER=smtp`) uses the `sendmail` addon relay
-  with implicit TLS on `CLOUDRON_MAIL_SMTPS_PORT`, not the plain relay port.
+  with STARTTLS on `CLOUDRON_MAIL_STARTTLS_PORT`, not the plain relay port.
   The manifest's `requiresValidCertificate` option supplies the mail server's
-  FQDN as `CLOUDRON_MAIL_SMTP_SERVER`; Cloudron resolves it inside the container,
-  including when incoming mail is disabled. Upstream verifies the certificate
-  against this hostname and keeps SMTP authentication enabled. The addon values
-  are read on every start; a missing SMTPS port stops startup rather than falling
-  back to cleartext. `MAIL_FROM` is the app's Cloudron address and display name.
+  FQDN as `CLOUDRON_MAIL_SMTP_SERVER`, and the container's `/etc/hosts` maps it
+  to the Docker host, even when incoming mail is disabled. The host forwards
+  only the STARTTLS port (2587) there; the SMTPS port (2465) is reachable only
+  as `mail`, whose name does not match the certificate (GH#25). Upstream
+  verifies the certificate against the FQDN, requires STARTTLS and keeps SMTP
+  authentication enabled. The addon values are read on every start; without a
+  STARTTLS port, platform mail stays on the log driver with a warning instead of
+  falling back to cleartext. `MAIL_FROM` is the app's Cloudron address and display name.
   An operator-configured SMTP server or SES/log driver remains an explicit
   alternative; upstream's production transport validation is not bypassed.
 - **Mailboxes** (support addresses) use the user's Cloudron mailbox credentials

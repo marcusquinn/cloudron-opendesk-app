@@ -39,12 +39,13 @@ main() {
     grep -Fq 'export SIGNUP_ENABLED=false' start.sh || fail "public signup must default off"
     grep -Fq 'unset INBOUND_SECRET INBOUND_SMTP_ADDR' start.sh || fail "forwarding must default off"
     grep -Fq 'PROTECTED_KEYS=' start.sh || fail "package-owned keys must be protected"
-    # Platform relay authentication must use verified implicit TLS, never port 2525.
-    grep -Fq "export SMTP_PORT=\"\${CLOUDRON_MAIL_SMTPS_PORT:?" start.sh || fail "relay must require the SMTPS port"
+    # Platform relay authentication must use verified STARTTLS on the port the
+    # Docker host forwards for the mail FQDN, never the plain port 2525.
+    grep -Fq "export SMTP_PORT=\"\${CLOUDRON_MAIL_STARTTLS_PORT}\"" start.sh || fail "relay must use the STARTTLS port"
     grep -Fq "export SMTP_HOST=\"\${CLOUDRON_MAIL_SMTP_SERVER}\"" start.sh || fail "relay must use the addon FQDN"
-    grep -Fq 'export SMTP_TLS=tls' start.sh || fail "relay must use implicit TLS"
-    if grep -Fq 'export SMTP_TLS=none' start.sh; then
-        fail "relay must not fall back to cleartext"
+    grep -Fq 'export SMTP_TLS=starttls' start.sh || fail "relay must use STARTTLS"
+    if grep -Fq 'export SMTP_TLS=none' start.sh || grep -Eq 'CLOUDRON_MAIL_SMTPS?_PORT' start.sh; then
+        fail "relay must not use the plain or SMTPS relay ports"
     fi
     # HELP_DOMAIN follows Cloudron's wildcard alias, never a host Cloudron does not route.
     grep -Eq '^readonly PROTECTED_KEYS=.* HELP_DOMAIN ' start.sh || fail "HELP_DOMAIN must be package-owned"

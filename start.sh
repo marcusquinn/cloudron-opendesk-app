@@ -160,15 +160,25 @@ fi
 # Platform email (sign-in links, invitations, notifications and replies from
 # mailboxes that send through opendesk) goes through the Cloudron mail relay,
 # unless the operator chose another MAIL_DRIVER/SMTP_HOST in /app/data/env.
+#
+# requiresValidCertificate makes CLOUDRON_MAIL_SMTP_SERVER the mail FQDN, which
+# the container's /etc/hosts maps to the Docker host. The host forwards only the
+# STARTTLS relay port there, not the SMTPS or plain ones (GH#25), so send with
+# STARTTLS: upstream verifies the certificate against the FQDN and refuses to
+# continue without TLS. Never fall back to the plain relay port.
+relay_port=""
 if [[ -z "${SMTP_HOST:-}" && "${MAIL_DRIVER:-}" != "ses" && "${MAIL_DRIVER:-}" != "log" && -n "${CLOUDRON_MAIL_SMTP_SERVER:-}" ]]; then
+	relay_port="${CLOUDRON_MAIL_STARTTLS_PORT:-}"
+	[[ -n "${relay_port}" ]] ||
+		log "WARNING: Cloudron provided no STARTTLS relay port; platform email is logged, not sent. Set SMTP_* in ${OPERATOR_ENV} to send it."
+fi
+if [[ -n "${relay_port}" ]]; then
 	export MAIL_DRIVER=smtp
 	export SMTP_HOST="${CLOUDRON_MAIL_SMTP_SERVER}"
-	export SMTP_PORT="${CLOUDRON_MAIL_SMTPS_PORT:?Cloudron sendmail SMTPS port is required}"
+	export SMTP_PORT="${CLOUDRON_MAIL_STARTTLS_PORT}"
 	export SMTP_USERNAME="${CLOUDRON_MAIL_SMTP_USERNAME}"
 	export SMTP_PASSWORD="${CLOUDRON_MAIL_SMTP_PASSWORD}"
-	# requiresValidCertificate supplies the mail FQDN for SNI and verification.
-	# Use implicit TLS: the separate plain relay port does not offer STARTTLS.
-	export SMTP_TLS=tls
+	export SMTP_TLS=starttls
 	export MAIL_FROM="${CLOUDRON_MAIL_FROM_DISPLAY_NAME:-opendesk} <${CLOUDRON_MAIL_FROM}>"
 fi
 export MAIL_DRIVER="${MAIL_DRIVER:-log}"
