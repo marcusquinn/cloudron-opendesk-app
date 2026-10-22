@@ -27,8 +27,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   the Cloudron 9.1 minimum, SSO,
   mailbox routing and help-center domain support. Upstream's installer
   and release tooling are not installed; Cloudron manages package updates.
-- Prepare source only: release, image, catalog publication and deployment
-  require separate operator authorization.
+
+### Fixed
+
+- Mailbox setup no longer offers email forwarding when the server has no
+  inbound route
+  ([#20](https://github.com/marcusquinn/cloudron-opendesk-app/issues/20)).
+  Missing or disabled connect options never imply forwarding. When no
+  receiving method is available, the wizard says so, and an existing mailbox's
+  settings no longer offer to switch it to forwarding.
 
 ## [0.2.0] - 2026-10-21
 
