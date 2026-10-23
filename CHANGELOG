@@ -47,3 +47,9 @@
 * Fix platform email (invitations, sign-in links, password resets, notifications) timing out in 0.2.1
 * Send through Cloudron's mail relay with STARTTLS, the port Cloudron forwards for the mail server's name; certificates are still verified and the password is never sent in clear text
 * No change to opendesk itself; it is still at upstream commit 809b80d
+
+[0.2.3]
+* Update opendesk to upstream commit 06ac9a9
+* Notify on new tickets and unassigned replies by email and in the browser, and show when each address last received mail
+* Let Ollie find and change resources through the API, with improved approval cards and long-text display
+* Keep verified STARTTLS for platform email, the pinned Cloudron base, SSO, mailbox routing and help-center domain support unchanged
