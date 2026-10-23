@@ -6,6 +6,24 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.3] - 2026-10-23
+
+### Changed
+
+- Update opendesk from `809b80d` to the immutable upstream commit
+  `06ac9a93386acf6ab7ea359e8b1ade3d04d4b30a`.
+- Include upstream email and browser notifications for new tickets and
+  unassigned replies, plus each address's last-received-mail timestamp and
+  notification preference improvements.
+- Include Ollie's API-backed resource lookup and changes, improved approval
+  cards, and long-text display within the assistant panel.
+- Keep platform email on authenticated STARTTLS with certificate hostname
+  verification and upstream production transport validation enabled. Retain
+  all four Cloudron patches, the pinned Cloudron 6.0.1 base, SSO, mailbox
+  routing and help-center domain support unchanged.
+- Prepare package source only; no image, catalog entry, release or deployment
+  is published by this update.
+
 ## [0.2.2] - 2026-10-22
 
 ### Fixed
