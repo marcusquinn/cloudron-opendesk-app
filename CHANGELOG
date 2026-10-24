@@ -53,3 +53,10 @@
 * Notify on new tickets and unassigned replies by email and in the browser, and show when each address last received mail
 * Let Ollie find and change resources through the API, with improved approval cards and long-text display
 * Keep verified STARTTLS for platform email, the pinned Cloudron base, SSO, mailbox routing and help-center domain support unchanged
+
+[0.2.4]
+* Update opendesk to upstream commit 7def3c4
+* Import older Collab mail on request with resumable checkpoints, storage allowances and search across messages; improve Gmail and Microsoft sync resumption
+* Add per-address and mailbox-alias signatures, richer mail details, conversation history and French agent translations
+* Include upstream reply undo and deletion markers, credential-key rotation support, backup checksums and support-channel workflow improvements
+* Keep verified STARTTLS, the pinned Cloudron base, all four Cloudron patches, SSO, mailbox routing and help-center domain support unchanged
