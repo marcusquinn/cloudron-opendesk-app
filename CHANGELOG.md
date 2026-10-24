@@ -6,6 +6,27 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.4] - 2026-10-24
+
+### Changed
+
+- Update opendesk from `06ac9a9` to the immutable upstream commit
+  `7def3c4d526c86e797b4682d81c82cd613eea995`.
+- Include on-request imports of older Collab mail with resumable checkpoints,
+  fair-use storage allowances and message search, plus Gmail and Microsoft
+  sync resumption fixes.
+- Include per-address and mailbox-alias signatures, folded quoted mail,
+  message details and sender warnings, conversation history and files, and
+  French translations for the agent interface.
+- Include upstream reply undo and deletion markers, credential-key rotation
+  support, backup checksums, attachment type detection and support-channel
+  workflow improvements. Cloudron continues to manage package backups and updates.
+- Retain all four Cloudron patches, authenticated STARTTLS with certificate
+  verification, the pinned Cloudron 6.0.1 base, SSO, mailbox routing and
+  help-center domain support unchanged.
+- Prepare package source only; no image, catalog entry, release or deployment
+  is published by this update.
+
 ## [0.2.3] - 2026-10-23
 
 ### Changed
