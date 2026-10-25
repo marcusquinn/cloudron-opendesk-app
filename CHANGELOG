@@ -60,3 +60,10 @@
 * Add per-address and mailbox-alias signatures, richer mail details, conversation history and French agent translations
 * Include upstream reply undo and deletion markers, credential-key rotation support, backup checksums and support-channel workflow improvements
 * Keep verified STARTTLS, the pinned Cloudron base, all four Cloudron patches, SSO, mailbox routing and help-center domain support unchanged
+
+[0.2.5]
+* Update opendesk to upstream commit 9cc0b4f
+* Let members answer email tickets from their own Collab addresses, with per-mailbox rules, a chosen Reply-To and replies brought back to the ticket
+* Let Ollie ask a teammate's Ollie about mail the teammate chose to share, with consent and audience controls
+* Improve admin session resilience and include upstream brand assets for email signatures
+* Keep verified STARTTLS, the pinned Cloudron base, all four Cloudron patches, SSO, mailbox routing and help-center domain support unchanged
