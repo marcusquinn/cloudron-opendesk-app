@@ -67,3 +67,10 @@
 * Let Ollie ask a teammate's Ollie about mail the teammate chose to share, with consent and audience controls
 * Improve admin session resilience and include upstream brand assets for email signatures
 * Keep verified STARTTLS, the pinned Cloudron base, all four Cloudron patches, SSO, mailbox routing and help-center domain support unchanged
+
+[0.2.6]
+* Update opendesk to upstream commit 2f4cb73
+* Add Spaces for sidebars across workspaces, My tickets under each mail account and per-team notification controls
+* Preview reply signatures and complete emails, import from Front, and choose a 12-hour or 24-hour clock
+* Include upstream realtime, inbound mail, webhook, OAuth and Ollie trust-boundary hardening, import fixes and dependency updates
+* Keep verified STARTTLS, the pinned Cloudron base, all four Cloudron patches, SSO, mailbox routing and help-center domain support unchanged
