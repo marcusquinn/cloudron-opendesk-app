@@ -73,10 +73,21 @@ main() {
         CloudronManifest.json >/dev/null || fail "store metadata incomplete or not commit-pinned"
     grep -Eq "^\[$(jq -r .version CloudronManifest.json)\]$" CHANGELOG || fail "CHANGELOG has no section for the manifest version"
 
-    # Only the authorized CLI publication writes the catalog; never hand-edit it.
+    # The managed publisher owns publication guards and release reconciliation.
+    # Keep its immutable source and package-specific inputs explicit in the caller.
     jq -e '.versions | type == "object"' CloudronVersions.json >/dev/null || fail "CloudronVersions.json malformed"
-    grep -Fq 'CLOUDRON_PUBLICATION_ENABLED' .github/workflows/cloudron-catalog-publish.yml || fail "publication opt-in missing"
-    grep -Fq 'scripts/create-github-release.sh' .github/workflows/cloudron-catalog-publish.yml || fail "release job missing"
+    local workflow pin
+    workflow=.github/workflows/cloudron-catalog-publish.yml
+    pin="$(sed -n 's|^    uses: marcusquinn/aidevops/.github/workflows/cloudron-catalog-publish-reusable.yml@\([0-9a-f]\{40\}\)$|\1|p' "$workflow")"
+    [[ "$pin" =~ ^[0-9a-f]{40}$ ]] || fail "managed publisher must be SHA-pinned"
+    grep -Fxq "      aidevops_ref: $pin" "$workflow" || fail "publisher source must match uses pin"
+    grep -Fxq '      image_repository: ghcr.io/marcusquinn/cloudron-opendesk-app' "$workflow" || fail "image repository changed"
+    grep -Fxq "      cli_version: '8.2.6'" "$workflow" || fail "Cloudron CLI version changed"
+    grep -Fxq '      cli_integrity: sha512-LHd+4u6pJxDtHX1JuVuWqrUuTbkDu+iH4jjNWW6JgB4+iDLusp08rpt6gifTFPbQjbCZHhnD8LbAGzM1NzDCXw==' "$workflow" || fail "Cloudron CLI integrity changed"
+    grep -Fxq '      package_checks: |' "$workflow" || fail "package checks input missing"
+    grep -Fxq '        bash test/package-test.sh' "$workflow" || fail "package static checks missing"
+    grep -Fxq '        shellcheck -x start.sh bin/run-realtime bin/opendesk-cli scripts/*.sh test/*.sh' "$workflow" || fail "package shell checks missing"
+    grep -Fq 'apply --recount --check' "$workflow" || fail "pinned-upstream patch checks missing"
 
     for script in start.sh bin/run-realtime bin/opendesk-cli scripts/*.sh; do
         bash -n "$script" || fail "syntax error in ${script}"
