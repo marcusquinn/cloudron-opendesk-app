@@ -1,7 +1,7 @@
 {
   "schema": "aidevops.repo-metrics.v1",
   "schema_version": 1,
-  "generated_at": "2026-10-25T02:22:10Z",
+  "generated_at": "2026-10-26T10:11:39Z",
   "tool": {
     "name": "aidevops repo-metrics",
     "version": "1.0.0"
@@ -12,7 +12,7 @@
   },
   "summary": {
     "source_files": 32,
-    "code": 2535,
+    "code": 2598,
     "comments": 149,
     "blanks": 414,
     "languages": 7,
@@ -25,16 +25,16 @@
       "code": 1188,
       "comments": 0,
       "blanks": 337,
-      "percentage": 46.86,
+      "percentage": 45.73,
       "color": "#083fa1"
     },
     {
       "name": "JSON",
       "files": 2,
-      "code": 556,
+      "code": 619,
       "comments": 0,
       "blanks": 0,
-      "percentage": 21.93,
+      "percentage": 23.83,
       "color": "#292929"
     },
     {
@@ -43,7 +43,7 @@
       "code": 338,
       "comments": 78,
       "blanks": 44,
-      "percentage": 13.33,
+      "percentage": 13.01,
       "color": "#89e051"
     },
     {
@@ -52,7 +52,7 @@
       "code": 296,
       "comments": 53,
       "blanks": 22,
-      "percentage": 11.68,
+      "percentage": 11.39,
       "color": "#cb171e"
     },
     {
@@ -61,7 +61,7 @@
       "code": 73,
       "comments": 16,
       "blanks": 11,
-      "percentage": 2.88,
+      "percentage": 2.81,
       "color": "#384d54"
     },
     {
@@ -70,7 +70,7 @@
       "code": 57,
       "comments": 2,
       "blanks": 0,
-      "percentage": 2.25,
+      "percentage": 2.19,
       "color": "#e34c26"
     },
     {
@@ -79,7 +79,7 @@
       "code": 27,
       "comments": 0,
       "blanks": 0,
-      "percentage": 1.07,
+      "percentage": 1.04,
       "color": "#6e7781"
     }
   ],
