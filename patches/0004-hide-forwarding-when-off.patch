@@ -75,13 +75,14 @@ diff --git a/web/src/components/mailboxes/connect.tsx b/web/src/components/mailb
 diff --git a/web/src/pages/settings/MailboxDetail.tsx b/web/src/pages/settings/MailboxDetail.tsx
 --- a/web/src/pages/settings/MailboxDetail.tsx
 +++ b/web/src/pages/settings/MailboxDetail.tsx
-@@ -30,6 +30,7 @@ import {
+@@ -30,7 +30,8 @@ import {
    apiOn,
    CauseCallout,
    connectFailure,
 +  forwardingOn,
    imapOn,
    sendProviders,
+   SyncStartField,
    syncOn,
 @@ -475,9 +476,11 @@ function MailboxEditor({ mailbox }: { mailbox: Mailbox }) {
              <div className="min-w-0 flex-1">
@@ -98,10 +99,10 @@ diff --git a/web/src/pages/settings/MailboxDetail.tsx b/web/src/pages/settings/M
              </div>
            </div>
          )}
-@@ -536,7 +537,7 @@ function MailboxEditor({ mailbox }: { mailbox: Mailbox }) {
+@@ -561,7 +564,7 @@ function MailboxEditor({ mailbox }: { mailbox: Mailbox }) {
            </Row>
          )}
-         {directOffered && directProvider && readDirect.data === null && <InBrowserNote name={providerName(directProvider)} opened className="my-3" />}
+         {syncWith && readSync.data === null && <InBrowserNote name={providerName(syncWith)} opened className="my-3" />}
 -        {receivesOverImap(mailbox) && !off && (
 +        {receivesOverImap(mailbox) && !off && forwardingOn(opts) && (
            <Row
