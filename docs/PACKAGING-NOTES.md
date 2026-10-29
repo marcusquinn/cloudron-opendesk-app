@@ -5,16 +5,17 @@
 | Process | Listens | Role |
 |---------|---------|------|
 | `opendesk serve` | `127.0.0.1:8080`, NATS `127.0.0.1:4222` | API, workers, web app, admin panel, embedded NATS JetStream (`/app/data/nats`) |
-| realtime (Phoenix release) | `:4000` | WebSocket gateway for `/socket` and `/socket/widget` |
+| realtime (Phoenix release) | `127.0.0.1:4000` | WebSocket gateway for `/socket` and `/socket/widget` |
 | nginx | `:8000` | Cloudron's `httpPort`; replaces upstream's Caddy |
 
 `start.sh` builds the environment, writes `/run/opendesk/env` (root, 0600) for
 `opendesk-cli`, and execs supervisord. Migrations run on every `opendesk serve`
 start (upstream `AUTO_MIGRATE` default).
 
-The realtime gateway binds all interfaces because upstream's `runtime.exs`
-hard-codes the address. It needs a signed token from the API for every socket,
-and `CHECK_ORIGINS` limits browser origins to the app's own.
+Upstream's `runtime.exs` hard-codes the realtime gateway to every interface;
+patch 0006 binds it to loopback, so only the internal nginx reaches it. It
+still needs a signed token from the API for every socket, and `CHECK_ORIGINS`
+limits browser origins to the app's own.
 
 ## Data
 
