@@ -24,10 +24,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Reachable through `/socket` WebSockets: EEF-CVE-2026-114213 (1-byte
     continuation frames bypass `max_fragmented_message_size`) and
     EEF-CVE-2026-110314 (frames delivered after a server-initiated close).
-  - Unreachable, because the internal nginx speaks HTTP/1.1 to the gateway
-    (`proxy_http_version 1.1`): the HTTP/2 advisories EEF-CVE-2026-110499,
-    EEF-CVE-2026-111103, EEF-CVE-2026-115269, EEF-CVE-2026-108525,
-    EEF-CVE-2026-116078, EEF-CVE-2026-109584 and EEF-CVE-2026-108529.
+  - Not reachable from the app's public domain, because the internal nginx
+    speaks HTTP/1.1 to the gateway (`proxy_http_version 1.1`): the HTTP/2
+    advisories EEF-CVE-2026-110499, EEF-CVE-2026-111103,
+    EEF-CVE-2026-115269, EEF-CVE-2026-108525, EEF-CVE-2026-116078,
+    EEF-CVE-2026-109584 and EEF-CVE-2026-108529. The gateway listens on all
+    interfaces at port 4000 (upstream `config/runtime.exs`), so clients on the
+    Cloudron internal network could still reach it directly over cleartext
+    HTTP/2.
 - All 8 `jose` advisories are fixed by 1.11.13. None were on the gateway's
   code path: it only calls
   `JOSE.JWT.verify_strict(JOSE.JWK.from_oct(secret), ["HS256"], token)`, with
