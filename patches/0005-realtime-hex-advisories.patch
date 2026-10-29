@@ -1,0 +1,27 @@
+Lock the realtime gateway to bandit and jose releases without known advisories.
+
+Upstream realtime/mix.lock pins bandit 1.13.1 (12 EEF advisories, including
+HTTP/1.1 chunked-body memory amplification, chunk-extension request smuggling
+and WebSocket fragment/close handling) and jose 1.11.12 (8 EEF advisories).
+`mix deps.update bandit jose` moves them to bandit 1.14.1 and jose 1.11.13
+inside the existing mix.exs constraints, so only the lock changes. Drop this
+patch once upstream's lock carries these versions or newer.
+
+--- a/realtime/mix.lock
++++ b/realtime/mix.lock
+@@ -1,5 +1,5 @@
+ %{
+-  "bandit": {:hex, :bandit, "1.13.1", "1ce25a7beb750ed3fa2e905962f1f9a679cb585f1da0ae45637d06e385ce2eae", [:mix], [{:hpax, "~> 1.1", [hex: :hpax, repo: "hexpm", optional: false]}, {:plug, "~> 1.18", [hex: :plug, repo: "hexpm", optional: false]}, {:telemetry, "~> 0.4 or ~> 1.0", [hex: :telemetry, repo: "hexpm", optional: false]}, {:thousand_island, "~> 1.6", [hex: :thousand_island, repo: "hexpm", optional: false]}, {:websock, "~> 0.5", [hex: :websock, repo: "hexpm", optional: false]}], "hexpm", "39028f0b5a21404661410a6c19275060a9822c9dcca70b7c3e4e4fa50b11da58"},
++  "bandit": {:hex, :bandit, "1.14.1", "5fb450e2360faf03d9b9fb45cfe52e14197f62d376c34781219bec0f9bc7ca06", [:mix], [{:hpax, "~> 1.1", [hex: :hpax, repo: "hexpm", optional: false]}, {:plug, "~> 1.18", [hex: :plug, repo: "hexpm", optional: false]}, {:telemetry, "~> 0.4 or ~> 1.0", [hex: :telemetry, repo: "hexpm", optional: false]}, {:thousand_island, "~> 1.6", [hex: :thousand_island, repo: "hexpm", optional: false]}, {:websock, "~> 0.5", [hex: :websock, repo: "hexpm", optional: false]}], "hexpm", "87c7ee5e08fb5f22d4e072e681e1101266a21432889b08ef8d0cb0c1450f8bba"},
+   "bunt": {:hex, :bunt, "1.0.0", "081c2c665f086849e6d57900292b3a161727ab40431219529f13c4ddcf3e7a44", [:mix], [], "hexpm", "dc5f86aa08a5f6fa6b8096f0735c4e76d54ae5c9fa2c143e5a1fc7c1cd9bb6b5"},
+   "chacha20": {:hex, :chacha20, "1.0.4", "0359d8f9a32269271044c1b471d5cf69660c362a7c61a98f73a05ef0b5d9eb9e", [:mix], [], "hexpm", "2027f5d321ae9903f1f0da7f51b0635ad6b8819bc7fe397837930a2011bc2349"},
+   "connection": {:hex, :connection, "1.1.0", "ff2a49c4b75b6fb3e674bfc5536451607270aac754ffd1bdfe175abe4a6d7a68", [:mix], [], "hexpm", "722c1eb0a418fbe91ba7bd59a47e28008a189d47e37e0e7bb85585a016b2869c"},
+@@ -12,7 +12,7 @@
+   "gnat": {:hex, :gnat, "1.18.1", "9301dee9478ace0460e3fdc4e9d67c3d208c29ff1bec4141f62a8cbaead1cd26", [:mix], [{:connection, "~> 1.1", [hex: :connection, repo: "hexpm", optional: false]}, {:jason, "~> 1.1", [hex: :jason, repo: "hexpm", optional: false]}, {:nimble_parsec, "~> 0.5 or ~> 1.0", [hex: :nimble_parsec, repo: "hexpm", optional: false]}, {:nkeys, "~> 0.2", [hex: :nkeys, repo: "hexpm", optional: false]}, {:telemetry, "~> 0.4 or ~> 1.0", [hex: :telemetry, repo: "hexpm", optional: false]}], "hexpm", "6191d511f3e5e4302292e001eef2b680b678fbd87fc481f68f37653d950beaf1"},
+   "hpax": {:hex, :hpax, "1.1.0", "782931867cc23217c68fb5f68fe1a11f5e7544c7fda82c8a7019a5df5a4a1cdf", [:mix], [], "hexpm", "0b8d0f05832f55571d65ac720f79bf8994138ffbb133209dc4685eae0ad456a8"},
+   "jason": {:hex, :jason, "1.4.5", "2e3a008590b0b8d7388c20293e9dcc9cf3e5d642fd2a114e4cbbb52e595d940a", [:mix], [{:decimal, "~> 1.0 or ~> 2.0 or ~> 3.0", [hex: :decimal, repo: "hexpm", optional: true]}], "hexpm", "b0c823996102bcd0239b3c2444eb00409b72f6a140c1950bc8b457d836b30684"},
+-  "jose": {:hex, :jose, "1.11.12", "06e62b467b61d3726cbc19e9b5489f7549c37993de846dfb3ee8259f9ed208b3", [:mix, :rebar3], [], "hexpm", "31e92b653e9210b696765cdd885437457de1add2a9011d92f8cf63e4641bab7b"},
++  "jose": {:hex, :jose, "1.11.13", "94abcd8bf98eb9f007272918bd3f5ffb613e8d250567de233e6c2b2456319005", [:mix, :rebar3], [], "hexpm", "15d8bd0f01ab29d1771e8da1f60f9c98725b23a17f7312cdd40e8e2757bd98c7"},
+   "kcl": {:hex, :kcl, "1.5.2", "016073a22958098a084abdafe0629c78db26d5a1b075c363fa34ba6df899a77a", [:mix], [{:curve25519, ">= 1.0.4", [hex: :curve25519, repo: "hexpm", optional: false]}, {:ed25519, ">= 1.5.0", [hex: :ed25519, repo: "hexpm", optional: false]}, {:poly1305, "~> 1.0", [hex: :poly1305, repo: "hexpm", optional: false]}, {:salsa20, "~> 1.0", [hex: :salsa20, repo: "hexpm", optional: false]}], "hexpm", "91e6a872d6f1640c928d7087b572db37c04ab8189dfa66634fe54b8573ff3427"},
+   "libcluster": {:hex, :libcluster, "3.5.0", "5ee4cfde4bdf32b2fef271e33ce3241e89509f4344f6c6a8d4069937484866ba", [:mix], [{:jason, "~> 1.1", [hex: :jason, repo: "hexpm", optional: false]}, {:telemetry, "~> 1.3", [hex: :telemetry, repo: "hexpm", optional: false]}], "hexpm", "ebf6561fcedd765a4cd43b4b8c04b1c87f4177b5fb3cbdfe40a780499d72f743"},
+   "logger_json": {:hex, :logger_json, "7.0.4", "e315f2b9a755504658a745f3eab90d88d2cd7ac2ecfd08c8da94d8893965ab5c", [:mix], [{:decimal, ">= 0.0.0", [hex: :decimal, repo: "hexpm", optional: true]}, {:ecto, "~> 3.11", [hex: :ecto, repo: "hexpm", optional: true]}, {:jason, "~> 1.4", [hex: :jason, repo: "hexpm", optional: true]}, {:plug, "~> 1.15", [hex: :plug, repo: "hexpm", optional: true]}, {:telemetry, "~> 1.0", [hex: :telemetry, repo: "hexpm", optional: true]}], "hexpm", "d1369f8094e372db45d50672c3b91e8888bcd695fdc444a37a0734e96717c45c"},

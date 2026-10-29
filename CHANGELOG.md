@@ -6,6 +6,31 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.7] - 2026-10-29
+
+### Security
+
+- Add `patches/0005-realtime-hex-advisories.patch`, which locks the realtime
+  gateway to `bandit` 1.14.1 and `jose` 1.11.13 (issue #41). Upstream
+  `realtime/mix.lock` still pins `bandit` 1.13.1 and `jose` 1.11.12, including
+  at upstream `main`. Both new versions sit inside upstream's `mix.exs`
+  constraints, so only the lock changes, and `mix deps.get` reports no
+  advisories after the update.
+- All 12 `bandit` advisories are fixed. HTTP/1.1 chunked-body amplification
+  (EEF-CVE-2026-111101), chunk-extension smuggling (EEF-CVE-2026-114216),
+  Content-Length/Host bignum parsing (EEF-CVE-2026-113436) and the WebSocket
+  fragment and post-close issues (EEF-CVE-2026-114213, EEF-CVE-2026-110314)
+  were reachable, or potentially reachable, through `/socket`. The seven
+  HTTP/2 advisories were not,
+  because the internal nginx speaks HTTP/1.1 to the gateway.
+- All 8 `jose` advisories (EEF-CVE-2026-65625 to 65632) are fixed. They were
+  largely unreachable: the gateway only verifies HS256 JWTs with
+  `JOSE.JWT.verify_strict/3` and uses no JWE, RSA, ECDSA, X25519 or key export.
+- opendesk stays at upstream `f38d6f7`. Patches 0001 to 0004, the Cloudron
+  6.0.1 base, SSO, mailbox routing and help-center domain support are
+  unchanged.
+- Merge and publication require signed release approval.
+
 ## [0.2.6] - 2026-10-28
 
 ### Changed

@@ -44,6 +44,13 @@ Applied to the pinned upstream commit at build time with `git apply --recount`.
    first sign-in that needs no server settings (Email password on a detected
    host) is marked Recommended, and the mailbox page hides "switch to
    forwarding". `start.sh` leaves both variables unset.
+5. **0005-realtime-hex-advisories** — locks the realtime gateway to `bandit`
+   1.14.1 and `jose` 1.11.13 (from 1.13.1 and 1.11.12), which clears the EEF
+   advisories `mix deps.get` reports for upstream's lock. Only
+   `realtime/mix.lock` changes; the versions sit inside upstream's `mix.exs`
+   constraints. Drop the patch once upstream's lock carries these versions or
+   newer. If it stops applying after an upstream bump, regenerate it with
+   `mix deps.update bandit jose` against the new lock.
 
 ### Security design for 0003
 
