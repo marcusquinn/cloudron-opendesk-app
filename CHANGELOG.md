@@ -16,16 +16,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   at upstream `main`. Both new versions sit inside upstream's `mix.exs`
   constraints, so only the lock changes, and `mix deps.get` reports no
   advisories after the update.
-- All 12 `bandit` advisories are fixed. HTTP/1.1 chunked-body amplification
-  (EEF-CVE-2026-111101), chunk-extension smuggling (EEF-CVE-2026-114216),
-  Content-Length/Host bignum parsing (EEF-CVE-2026-113436) and the WebSocket
-  fragment and post-close issues (EEF-CVE-2026-114213, EEF-CVE-2026-110314)
-  were reachable, or potentially reachable, through `/socket`. The seven
-  HTTP/2 advisories were not,
-  because the internal nginx speaks HTTP/1.1 to the gateway.
-- All 8 `jose` advisories (EEF-CVE-2026-65625 to 65632) are fixed. They were
-  largely unreachable: the gateway only verifies HS256 JWTs with
-  `JOSE.JWT.verify_strict/3` and uses no JWE, RSA, ECDSA, X25519 or key export.
+- All 12 `bandit` advisories are fixed by 1.14.1. Exposure before the fix:
+  - Reachable, or potentially reachable, through `/socket` over HTTP/1.1:
+    EEF-CVE-2026-111101 (chunked-body memory amplification),
+    EEF-CVE-2026-114216 (chunk-extension request smuggling) and
+    EEF-CVE-2026-113436 (Content-Length/Host bignum parsing).
+  - Reachable through `/socket` WebSockets: EEF-CVE-2026-114213 (1-byte
+    continuation frames bypass `max_fragmented_message_size`) and
+    EEF-CVE-2026-110314 (frames delivered after a server-initiated close).
+  - Unreachable, because the internal nginx speaks HTTP/1.1 to the gateway
+    (`proxy_http_version 1.1`): the HTTP/2 advisories EEF-CVE-2026-110499,
+    EEF-CVE-2026-111103, EEF-CVE-2026-115269, EEF-CVE-2026-108525,
+    EEF-CVE-2026-116078, EEF-CVE-2026-109584 and EEF-CVE-2026-108529.
+- All 8 `jose` advisories are fixed by 1.11.13. None were on the gateway's
+  code path: it only calls
+  `JOSE.JWT.verify_strict(JOSE.JWK.from_oct(secret), ["HS256"], token)`, with
+  the key taken from `AUTH_SECRET`, never from the token.
+  - Unreachable, no JWE decryption: EEF-CVE-2026-65625 (AES-GCM tag length),
+    EEF-CVE-2026-65626 (RSAES-PKCS1-v1_5 padding oracle) and
+    EEF-CVE-2026-65627 (JWE zip decompression bomb).
+  - Unreachable, no key agreement, key export or asymmetric keys:
+    EEF-CVE-2026-65628 (`JOSE.JWK.shared_secret/2` recursion),
+    EEF-CVE-2026-65629 (PBKDF2 key-export parameters), EEF-CVE-2026-65630
+    (X25519 timing) and EEF-CVE-2026-65631 (RSA JWK modulus factoring).
+  - Unreachable, because `verify_strict` accepts only HS256:
+    EEF-CVE-2026-65632 (ECDSA signature length).
 - opendesk stays at upstream `f38d6f7`. Patches 0001 to 0004, the Cloudron
   6.0.1 base, SSO, mailbox routing and help-center domain support are
   unchanged.
