@@ -11,23 +11,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Update opendesk from `9cc0b4f` to the immutable upstream commit
-  `f38d6f70796f1cd5db1f183ff068bb49e7ff9b3b` identified in issue #39.
+  `f38d6f70796f1cd5db1f183ff068bb49e7ff9b3b` (issue #39), which also covers
+  `2f4cb73` (issue #34).
 - Include ticket panels for Shopify customer details and recent orders, or
   workspace-provided sections from a signed URL.
 - Include cross-workspace Spaces, an internal team wiki, public help-center
   changelogs, per-agent reports and German agent translations.
+- Include My tickets under each mail account, per-team notification controls,
+  reply signature and full-email previews, and a 12-hour or 24-hour clock
+  preference.
 - Include Front imports, Google Chat support, mailbox sync improvements,
   richer ticket filters and automation actions.
 - Include upstream realtime, inbound-email, Ollie, webhook, OAuth and Collab
   trust-boundary hardening, plus fixes for malformed email CSS, inbound NUL
   bytes and downgraded import source links.
+- Refresh the context of `patches/0004-hide-forwarding-when-off.patch` for
+  upstream's new mailbox sync-start control; its forwarding guards are
+  unchanged.
 - Retain all four Cloudron patches, authenticated STARTTLS with certificate
   verification, the pinned Cloudron 6.0.1 base, SSO, mailbox routing and
-  help-center domain support unchanged. Desktop and iPhone changes are not
-  built by this package.
-- Prepare package source only; no image, catalog entry, release or deployment
-  is published by this update. Merge and publication require signed release
-  approval.
+  help-center domain support. Desktop and iPhone changes are not built by
+  this package.
+- Merge and publication require signed release approval.
 
 ## [0.2.5] - 2026-10-25
 
