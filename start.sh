@@ -197,7 +197,8 @@ else
 	unset MAILHOST_SELF MAILHOST_SELF_ROUTE
 fi
 
-# Realtime gateway (Phoenix) on 127.0.0.1:4000, fed by the embedded NATS.
+# Realtime gateway (Phoenix) on 127.0.0.1:4000 (loopback bind: patch 0006),
+# fed by the embedded NATS.
 export PORT=4000
 export PHX_SERVER=true
 export CHECK_ORIGINS="${CLOUDRON_APP_ORIGIN}"

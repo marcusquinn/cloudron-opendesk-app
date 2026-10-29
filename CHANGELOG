@@ -76,3 +76,9 @@
 * Include Front imports, Google Chat support, mailbox sync improvements, richer ticket filters and automation actions
 * Include upstream trust-boundary hardening and fixes for malformed email CSS, inbound NUL bytes and import source links
 * Keep verified STARTTLS, the pinned Cloudron base, all four Cloudron patches (forwarding patch context refreshed, behaviour unchanged), SSO, mailbox routing and help-center domain support
+
+[0.2.7]
+* Security: update the realtime gateway's web server, Bandit, from 1.13.1 to 1.14.1, fixing HTTP/1.1 chunked-body memory amplification, chunk-extension request smuggling and WebSocket fragment and close handling, plus several HTTP/2 issues
+* Security: update the realtime gateway's JOSE library from 1.11.12 to 1.11.13, fixing eight advisories
+* Security: the realtime gateway now listens only on 127.0.0.1, so other apps on the Cloudron internal network can no longer connect to it directly; browsers still reach it through the app's /socket path
+* opendesk stays at upstream commit f38d6f7, and Cloudron patches 0001 to 0004 are unchanged

@@ -4,7 +4,7 @@
   "author": "Marcus Quinn <marcus@marcusquinn.com>",
   "description": "file://DESCRIPTION.md",
   "tagline": "Open-source helpdesk: shared inbox, live chat and help center",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "upstreamVersion": "f38d6f7",
   "healthCheckPath": "/healthz",
   "httpPort": 8000,

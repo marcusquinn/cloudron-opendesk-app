@@ -5,16 +5,17 @@
 | Process | Listens | Role |
 |---------|---------|------|
 | `opendesk serve` | `127.0.0.1:8080`, NATS `127.0.0.1:4222` | API, workers, web app, admin panel, embedded NATS JetStream (`/app/data/nats`) |
-| realtime (Phoenix release) | `:4000` | WebSocket gateway for `/socket` and `/socket/widget` |
+| realtime (Phoenix release) | `127.0.0.1:4000` | WebSocket gateway for `/socket` and `/socket/widget` |
 | nginx | `:8000` | Cloudron's `httpPort`; replaces upstream's Caddy |
 
 `start.sh` builds the environment, writes `/run/opendesk/env` (root, 0600) for
 `opendesk-cli`, and execs supervisord. Migrations run on every `opendesk serve`
 start (upstream `AUTO_MIGRATE` default).
 
-The realtime gateway binds all interfaces because upstream's `runtime.exs`
-hard-codes the address. It needs a signed token from the API for every socket,
-and `CHECK_ORIGINS` limits browser origins to the app's own.
+Upstream's `runtime.exs` hard-codes the realtime gateway to every interface;
+patch 0006 binds it to loopback, so only the internal nginx reaches it. It
+still needs a signed token from the API for every socket, and `CHECK_ORIGINS`
+limits browser origins to the app's own.
 
 ## Data
 
@@ -44,6 +45,18 @@ Applied to the pinned upstream commit at build time with `git apply --recount`.
    first sign-in that needs no server settings (Email password on a detected
    host) is marked Recommended, and the mailbox page hides "switch to
    forwarding". `start.sh` leaves both variables unset.
+5. **0005-realtime-hex-advisories** — locks the realtime gateway to `bandit`
+   1.14.1 and `jose` 1.11.13 (from 1.13.1 and 1.11.12), which clears the EEF
+   advisories `mix deps.get` reports for upstream's lock. Only
+   `realtime/mix.lock` changes; the versions sit inside upstream's `mix.exs`
+   constraints. Drop the patch once upstream's lock carries these versions or
+   newer. If it stops applying after an upstream bump, regenerate it with
+   `mix deps.update bandit jose` against the new lock.
+6. **0006-realtime-bind-loopback** — binds the realtime gateway to
+   `127.0.0.1:4000` instead of every interface, so only the internal nginx
+   (`/socket`) reaches it, matching `HTTP_ADDR` and `NATS_LISTEN`. Upstream's
+   `realtime/config/runtime.exs` has no bind-address setting; drop the patch
+   and set the address from `start.sh` once it does.
 
 ### Security design for 0003
 

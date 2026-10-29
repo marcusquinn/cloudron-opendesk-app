@@ -1,0 +1,22 @@
+Bind the realtime gateway to loopback.
+
+Upstream realtime/config/runtime.exs hard-codes the endpoint to every
+interface (`ip: {0, 0, 0, 0, 0, 0, 0, 0}`), so clients on the Cloudron
+internal network could reach port 4000 directly, bypassing the internal
+nginx and its HTTP/1.1-only, header-normalising proxy. In this package the
+only client is that nginx (`upstream realtime { server 127.0.0.1:4000; }`)
+and clustering is off (RELEASE_DISTRIBUTION=none), so the gateway listens on
+127.0.0.1 like the API (HTTP_ADDR) and NATS (NATS_LISTEN). Drop this patch if
+upstream makes the bind address configurable; then set it from start.sh.
+
+--- a/realtime/config/runtime.exs
++++ b/realtime/config/runtime.exs
+@@ -72,7 +72,7 @@
+ port = int.("PORT", 4000)
+ 
+ config :realtime, RealtimeWeb.Endpoint,
+-  http: [ip: {0, 0, 0, 0, 0, 0, 0, 0}, port: port],
++  http: [ip: {127, 0, 0, 1}, port: port],
+   secret_key_base: secret_key_base
+ 
+ if config_env() == :test do

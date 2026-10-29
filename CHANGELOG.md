@@ -6,6 +6,54 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.7] - 2026-10-29
+
+### Security
+
+- Add `patches/0005-realtime-hex-advisories.patch`, which locks the realtime
+  gateway to `bandit` 1.14.1 and `jose` 1.11.13 (issue #41). Upstream
+  `realtime/mix.lock` still pins `bandit` 1.13.1 and `jose` 1.11.12, including
+  at upstream `main`. Both new versions sit inside upstream's `mix.exs`
+  constraints, so only the lock changes, and `mix deps.get` reports no
+  advisories after the update.
+- All 12 `bandit` advisories are fixed by 1.14.1. Exposure before the fix:
+  - Reachable, or potentially reachable, through `/socket` over HTTP/1.1:
+    EEF-CVE-2026-111101 (chunked-body memory amplification),
+    EEF-CVE-2026-114216 (chunk-extension request smuggling) and
+    EEF-CVE-2026-113436 (Content-Length/Host bignum parsing).
+  - Reachable through `/socket` WebSockets: EEF-CVE-2026-114213 (1-byte
+    continuation frames bypass `max_fragmented_message_size`) and
+    EEF-CVE-2026-110314 (frames delivered after a server-initiated close).
+  - Not reachable from the app's public domain, because the internal nginx
+    speaks HTTP/1.1 to the gateway (`proxy_http_version 1.1`): the HTTP/2
+    advisories EEF-CVE-2026-110499, EEF-CVE-2026-111103,
+    EEF-CVE-2026-115269, EEF-CVE-2026-108525, EEF-CVE-2026-116078,
+    EEF-CVE-2026-109584 and EEF-CVE-2026-108529. Before 0.2.7 the gateway
+    listened on all interfaces at port 4000 (upstream `config/runtime.exs`),
+    so clients on the Cloudron internal network could reach it directly over
+    cleartext HTTP/2. Patch 0006 below closes that path.
+- Add `patches/0006-realtime-bind-loopback.patch`, which binds the realtime
+  gateway to `127.0.0.1:4000` instead of every interface (issue #45). Only the
+  internal nginx reaches it now, through `/socket`, matching the API
+  (`HTTP_ADDR`) and NATS (`NATS_LISTEN`), which already listen on loopback.
+- All 8 `jose` advisories are fixed by 1.11.13. None were on the gateway's
+  code path: it only calls
+  `JOSE.JWT.verify_strict(JOSE.JWK.from_oct(secret), ["HS256"], token)`, with
+  the key taken from `AUTH_SECRET`, never from the token.
+  - Unreachable, no JWE decryption: EEF-CVE-2026-65625 (AES-GCM tag length),
+    EEF-CVE-2026-65626 (RSAES-PKCS1-v1_5 padding oracle) and
+    EEF-CVE-2026-65627 (JWE zip decompression bomb).
+  - Unreachable, no key agreement, key export or asymmetric keys:
+    EEF-CVE-2026-65628 (`JOSE.JWK.shared_secret/2` recursion),
+    EEF-CVE-2026-65629 (PBKDF2 key-export parameters), EEF-CVE-2026-65630
+    (X25519 timing) and EEF-CVE-2026-65631 (RSA JWK modulus factoring).
+  - Unreachable, because `verify_strict` accepts only HS256:
+    EEF-CVE-2026-65632 (ECDSA signature length).
+- opendesk stays at upstream `f38d6f7`. Patches 0001 to 0004, the Cloudron
+  6.0.1 base, SSO, mailbox routing and help-center domain support are
+  unchanged.
+- Merge and publication require signed release approval.
+
 ## [0.2.6] - 2026-10-28
 
 ### Changed
