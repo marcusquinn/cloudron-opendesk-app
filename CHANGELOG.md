@@ -6,6 +6,37 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.8] - 2026-10-29
+
+### Changed
+
+- Update opendesk from `f38d6f7` to the immutable upstream commit
+  `44408774119bd64aced7c85288ef17893f87db19` (issue #47).
+- Include a phone channel: connect Aircall so every call lands on the
+  caller's ticket, with `call_ended` automations, call insight cards and click
+  to call.
+- Include AI drafts in the Collab composer, and let a `collab:draft` API key
+  claim, draft or hand back the longest-waiting Needs action conversation for
+  a person to send.
+- Include sidebar view sections that fold per member and can be pinned to
+  Favorites, per-view icons and colours, and view duplication.
+- Let a workspace hide unused statuses from agents' status menus, and put Send
+  and solve (or Send and close) on its own button segment.
+- Include optional searchable ticket aliases, support-channel routing by
+  priority, ticket panels that receive the reader's language, and an Odoo
+  logo for panel card links.
+- Include import sync fixes: a sync now follows the source's ticket merges,
+  label removals and customer moves, keeping labels and customers the team
+  set here.
+- Upstream adds seven database migrations (000693 to 000701); they run
+  automatically on start. No new settings are needed.
+- Retain all six Cloudron patches unchanged: none of the files they touch
+  changed upstream, including the realtime gateway, so the Hex advisory lock
+  (0005) and loopback bind (0006) still apply. The pinned Cloudron 6.0.1
+  base, SSO, mailbox routing and help-center domain support are unchanged.
+  Desktop and iPhone changes are not built by this package.
+- Merge and publication require signed release approval.
+
 ## [0.2.7] - 2026-10-29
 
 ### Security

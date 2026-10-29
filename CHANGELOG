@@ -82,3 +82,13 @@
 * Security: update the realtime gateway's JOSE library from 1.11.12 to 1.11.13, fixing eight advisories
 * Security: the realtime gateway now listens only on 127.0.0.1, so other apps on the Cloudron internal network can no longer connect to it directly; browsers still reach it through the app's /socket path
 * opendesk stays at upstream commit f38d6f7, and Cloudron patches 0001 to 0004 are unchanged
+
+[0.2.8]
+* Update opendesk to upstream commit 4440877
+* Add a phone channel: connect Aircall so calls land on the caller's ticket, with call automations, call insight cards and click to call
+* Offer AI drafts in the Collab composer, and let a Collab draft API key claim and draft waiting conversations for a person to send
+* Group sidebar views into folding sections that can be pinned to Favorites, give each view an icon and colour, and duplicate views
+* Let a workspace hide unused statuses from agents and give Send and solve its own button
+* Add optional searchable ticket aliases, support-channel routing by priority and language-aware ticket panels
+* Fix import syncs so they follow the source's ticket merges, label removals and customer moves
+* Keep the pinned Cloudron base, all six Cloudron patches (unchanged), the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
