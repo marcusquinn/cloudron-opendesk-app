@@ -67,3 +67,12 @@
 * Let Ollie ask a teammate's Ollie about mail the teammate chose to share, with consent and audience controls
 * Improve admin session resilience and include upstream brand assets for email signatures
 * Keep verified STARTTLS, the pinned Cloudron base, all four Cloudron patches, SSO, mailbox routing and help-center domain support unchanged
+
+[0.2.6]
+* Update opendesk to upstream commit f38d6f7
+* Add ticket panels for Shopify customer details and recent orders, or workspace-provided sections from a signed URL
+* Include cross-workspace Spaces, an internal team wiki, public help-center changelogs, per-agent reports and German agent translations
+* Show My tickets under each mail account, let members turn off a team's notifications, preview reply signatures and complete emails, and choose a 12-hour or 24-hour clock
+* Include Front imports, Google Chat support, mailbox sync improvements, richer ticket filters and automation actions
+* Include upstream trust-boundary hardening and fixes for malformed email CSS, inbound NUL bytes and import source links
+* Keep verified STARTTLS, the pinned Cloudron base, all four Cloudron patches (forwarding patch context refreshed, behaviour unchanged), SSO, mailbox routing and help-center domain support
