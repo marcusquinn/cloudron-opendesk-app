@@ -70,6 +70,8 @@ Format: `- [ ] tN Description @owner #tag ~estimate risk:level logged:date`
 <!--TOON:backlog[0]{id,desc,owner,tags,est,risk,logged,status}:
 -->
 
+- [ ] t4 realtime gateway: bind to loopback like the other internal listeners #auto-dispatch #type:maintenance ref:GH#45
+
 ## In Progress
 
 <!--TOON:in_progress[0]{id,desc,owner,tags,est,risk,logged,started,status}:
