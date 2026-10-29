@@ -70,8 +70,6 @@ Format: `- [ ] tN Description @owner #tag ~estimate risk:level logged:date`
 <!--TOON:backlog[0]{id,desc,owner,tags,est,risk,logged,status}:
 -->
 
-- [ ] t4 realtime gateway: bind to loopback like the other internal listeners #auto-dispatch #type:maintenance ref:GH#45
-
 ## In Progress
 
 <!--TOON:in_progress[0]{id,desc,owner,tags,est,risk,logged,started,status}:
@@ -83,6 +81,8 @@ Format: `- [ ] tN Description @owner #tag ~estimate risk:level logged:date`
 
 <!--TOON:in_review[0]{id,desc,owner,tags,est,pr_url,started,pr_created,status}:
 -->
+
+- [ ] t4 realtime gateway: bind to loopback like the other internal listeners #auto-dispatch #type:maintenance ref:GH#45 pr:#43 started:2026-10-29
 
 ## Done
 

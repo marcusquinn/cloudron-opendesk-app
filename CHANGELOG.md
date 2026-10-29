@@ -28,10 +28,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     speaks HTTP/1.1 to the gateway (`proxy_http_version 1.1`): the HTTP/2
     advisories EEF-CVE-2026-110499, EEF-CVE-2026-111103,
     EEF-CVE-2026-115269, EEF-CVE-2026-108525, EEF-CVE-2026-116078,
-    EEF-CVE-2026-109584 and EEF-CVE-2026-108529. The gateway listens on all
-    interfaces at port 4000 (upstream `config/runtime.exs`), so clients on the
-    Cloudron internal network could still reach it directly over cleartext
-    HTTP/2.
+    EEF-CVE-2026-109584 and EEF-CVE-2026-108529. Before 0.2.7 the gateway
+    listened on all interfaces at port 4000 (upstream `config/runtime.exs`),
+    so clients on the Cloudron internal network could reach it directly over
+    cleartext HTTP/2. Patch 0006 below closes that path.
+- Add `patches/0006-realtime-bind-loopback.patch`, which binds the realtime
+  gateway to `127.0.0.1:4000` instead of every interface (issue #45). Only the
+  internal nginx reaches it now, through `/socket`, matching the API
+  (`HTTP_ADDR`) and NATS (`NATS_LISTEN`), which already listen on loopback.
 - All 8 `jose` advisories are fixed by 1.11.13. None were on the gateway's
   code path: it only calls
   `JOSE.JWT.verify_strict(JOSE.JWK.from_oct(secret), ["HS256"], token)`, with

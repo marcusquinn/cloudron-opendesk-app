@@ -51,6 +51,11 @@ Applied to the pinned upstream commit at build time with `git apply --recount`.
    constraints. Drop the patch once upstream's lock carries these versions or
    newer. If it stops applying after an upstream bump, regenerate it with
    `mix deps.update bandit jose` against the new lock.
+6. **0006-realtime-bind-loopback** — binds the realtime gateway to
+   `127.0.0.1:4000` instead of every interface, so only the internal nginx
+   (`/socket`) reaches it, matching `HTTP_ADDR` and `NATS_LISTEN`. Upstream's
+   `realtime/config/runtime.exs` has no bind-address setting; drop the patch
+   and set the address from `start.sh` once it does.
 
 ### Security design for 0003
 
