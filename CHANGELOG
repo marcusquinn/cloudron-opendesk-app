@@ -92,3 +92,13 @@
 * Add optional searchable ticket aliases, support-channel routing by priority and language-aware ticket panels
 * Fix import syncs so they follow the source's ticket merges, label removals and customer moves
 * Keep the pinned Cloudron base, all six Cloudron patches (unchanged), the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
+[0.2.9]
+* Update opendesk to upstream commit a8bdb2a
+* Add skill-based ticket routing with workspace skills, member assignments and routing-rule skill requirements
+* Add a customer ticket portal for ticket history and replies
+* Sync Gmail inbox categories in both directions and add Ollie summaries, suggested replies and warnings to support channels
+* Open tickets, contacts and pages in new tabs through real links; optionally advance to the next ticket after sending and solving or closing
+* Let a workspace disable agents' online-time tracking and delete previously recorded online time
+* Include database migrations 000702 to 000705, applied automatically on start
+* Keep the pinned Cloudron base, all six Cloudron patches (unchanged), verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
