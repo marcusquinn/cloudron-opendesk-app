@@ -6,6 +6,29 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.9] - 2026-10-30
+
+### Changed
+
+- Update opendesk from `4440877` to the immutable upstream commit
+  `a8bdb2ad02ad131ae70cb0e565f7861d1d635c9d` (issue #50).
+- Include skill-based ticket routing: workspace skills, member assignments,
+  routing-rule skill requirements and ticket skill requirements for assignment.
+- Include a customer ticket portal for customer sign-in, ticket history and replies.
+- Sync Gmail inbox categories in both directions.
+- Add Ollie summaries, suggested replies, warnings and per-channel settings to
+  support channels, respecting ticket visibility.
+- Use real links for tickets, contacts and pages in the command menu, ticket list
+  and notifications, so they can open in a new tab. Add an optional preference to
+  advance to the next ticket after sending and solving, closing or leaving a list.
+- Let a workspace disable agents' online-time recording, delete previous records
+  and omit online time from the agents report.
+- Include database migrations `000702` to `000705`, applied automatically on start.
+- Retain all six Cloudron patches unchanged; they still apply to the new pin.
+  Keep the pinned Cloudron 6.0.1 base, verified STARTTLS, loopback-only realtime
+  gateway, SSO, mailbox routing and help-center domain support unchanged.
+- Merge and publication require signed release approval.
+
 ## [0.2.8] - 2026-10-29
 
 ### Changed
