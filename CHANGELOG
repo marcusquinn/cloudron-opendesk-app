@@ -102,3 +102,12 @@
 * Let a workspace disable agents' online-time tracking and delete previously recorded online time
 * Include database migrations 000702 to 000705, applied automatically on start
 * Keep the pinned Cloudron base, all six Cloudron patches (unchanged), verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
+[0.2.10]
+* Update opendesk to upstream commit 3bca4a0
+* Let a Collab mail account default to Reply all for everyone answering from it, including shared conversations
+* Optionally show editable ticket properties above the conversation, and remember ticket-list sort order per folder, view and team inbox
+* Keep ticket panel cards folded or open across refreshes and updated answers
+* Fix focused-button keyboard handling and keep a newly opened ticket at its latest message until the agent scrolls up
+* Include database migration 000706, applied automatically on start; iPhone builds are not part of this package
+* Keep the pinned Cloudron base, all six Cloudron patches (unchanged), verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
