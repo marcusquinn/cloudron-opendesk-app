@@ -111,3 +111,8 @@
 * Fix focused-button keyboard handling and keep a newly opened ticket at its latest message until the agent scrolls up
 * Include database migration 000706, applied automatically on start; iPhone builds are not part of this package
 * Keep the pinned Cloudron base, all six Cloudron patches (unchanged), verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
+[0.2.11]
+* Link the Community Apps Package button to this package's repository
+* Requires Cloudron 10.0.0 or later; Cloudron 9 servers can no longer read this catalog
+* No change to opendesk itself; it is still at upstream commit 3bca4a0

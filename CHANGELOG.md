@@ -6,6 +6,16 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.11] - 2026-11-01
+
+### Changed
+
+- Set `packageUrl` so the Community Apps Package button opens this repository;
+  `packagerUrl` still links the maintainer (issue #60).
+- Require Cloudron 10.0.0 (`minBoxVersion`). Cloudron 9 rejects `packageUrl`
+  anywhere in `CloudronVersions.json`, so 9.x servers can no longer read this
+  catalog. opendesk stays at upstream commit `3bca4a0`; no app change.
+
 ## [0.2.10] - 2026-10-31
 
 ### Changed
