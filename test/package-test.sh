@@ -16,7 +16,9 @@ main() {
     cd "$root"
 
     jq -e '.manifestVersion == 2 and .httpPort == 8000 and .healthCheckPath == "/healthz"
-        and .minBoxVersion == "9.1.0" and .optionalSso == true and .multiDomain == true
+        and .minBoxVersion == "10.0.0" and .optionalSso == true and .multiDomain == true
+        and .packagerUrl == "https://github.com/marcusquinn"
+        and .packageUrl == "https://github.com/marcusquinn/cloudron-opendesk-app"
         and (.addons | has("localstorage") and has("postgresql") and has("oidc") and has("sendmail") and has("email"))
         and .addons.oidc.loginRedirectUri == "/v1/auth/oauth/oidc/callback"
         and .addons.sendmail.requiresValidCertificate == true' CloudronManifest.json >/dev/null ||

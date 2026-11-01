@@ -73,7 +73,7 @@ cloudron update --app support.example.com --force \
   --versions-url https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/main/CloudronVersions.json
 ```
 
-Requirements: Cloudron 9.1 or later, 1 GiB of memory for the app (raise it in
+Requirements: Cloudron 10.0 or later, 1 GiB of memory for the app (raise it in
 the app's *Resources* for large teams or heavy AI use).
 
 ## Set up
