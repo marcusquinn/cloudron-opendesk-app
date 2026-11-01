@@ -4,8 +4,8 @@
   "author": "Marcus Quinn <marcus@marcusquinn.com>",
   "description": "file://DESCRIPTION.md",
   "tagline": "Open-source helpdesk: shared inbox, live chat and help center",
-  "version": "0.2.9",
-  "upstreamVersion": "a8bdb2a",
+  "version": "0.2.10",
+  "upstreamVersion": "3bca4a0",
   "healthCheckPath": "/healthz",
   "httpPort": 8000,
   "multiDomain": true,
@@ -25,7 +25,7 @@
   "forumUrl": "https://forum.cloudron.io/topic/16150/opendesk-open-source-helpdesk-shared-inbox-live-chat-help-center-with-cloudron-sso-and-cloudron-mail",
   "upstreamLicense": {
     "name": "Apache-2.0",
-    "url": "https://github.com/useopendesk/opendesk/blob/a8bdb2ad02ad131ae70cb0e565f7861d1d635c9d/LICENSE"
+    "url": "https://github.com/useopendesk/opendesk/blob/3bca4a0d2146ff95f2a9d53a38f166941a09ba77/LICENSE"
   },
   "minBoxVersion": "9.1.0",
   "memoryLimit": 1073741824,

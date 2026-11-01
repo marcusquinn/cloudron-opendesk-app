@@ -6,6 +6,30 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.10] - 2026-10-31
+
+### Changed
+
+- Update opendesk from `a8bdb2a` to the immutable upstream commit
+  `3bca4a0d2146ff95f2a9d53a38f166941a09ba77` (issue #55).
+- Let a Collab mail account put Reply all first for everyone answering from it,
+  including shared conversations.
+- Offer an editable ticket-properties bar above the conversation in Profile →
+  Appearance, leaving the details column to start with the customer and panels.
+- Remember each member's ticket-list sort order per folder, view and team inbox.
+- Let agents fold ticket panel cards and retain their choice across refreshes and
+  newer answers, with optional card IDs supplied by integrations.
+- Fix Enter and Space on focused buttons and links, and stop ticket-list shortcuts
+  taking Enter and arrow keys while a ticket is open.
+- Open tickets at the latest message and keep them there while content settles,
+  until the agent scrolls up.
+- Include database migration `000706`, applied automatically on start.
+- Retain all six Cloudron patches unchanged, the pinned Cloudron 6.0.1 base,
+  verified STARTTLS, loopback-only realtime gateway, SSO, mailbox routing and
+  help-center domain support. Build dependency manifests and realtime sources are
+  unchanged upstream. The upstream iPhone changes are not built by this package.
+- Merge and publication require signed release approval.
+
 ## [0.2.9] - 2026-10-30
 
 ### Changed
