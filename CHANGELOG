@@ -120,3 +120,11 @@
 [0.2.12]
 * The Community Apps Package link now opens this repository. The listing builds that link from packagerUrl, so the 0.2.11 packageUrl change had no visible effect.
 * No change to opendesk itself; it is still at upstream commit 3bca4a0.
+
+[0.2.13]
+* Update opendesk to upstream commit 5d99c4c
+* Keep the desktop badge and notification bell in sync when notifications are read or removed in another window or device
+* Connect Voys phone accounts, with call details and Voys Intelligence transcripts and summaries on tickets
+* Give Ollie scoped AI procedures and let ticket automations run a procedure with internal notes, labels, priority updates and connected tools without asking
+* Include database migrations 000707 and 000708, applied automatically on start; iPhone builds are not part of this package
+* Keep the pinned Cloudron base, all six Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
