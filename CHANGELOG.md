@@ -6,6 +6,26 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.13] - 2026-11-02
+
+### Changed
+
+- Update opendesk from `3bca4a0` to the immutable upstream commit
+  `5d99c4cf5b41cd255712fb5dce5403eaf8aaccf8` (issue #67).
+- Keep the desktop badge and notification bell in sync when notifications are
+  read or removed in another window or on another device.
+- Connect Voys phone accounts, with call details and Voys Intelligence transcripts
+  and summaries on the caller's ticket.
+- Give Ollie scoped AI procedures selected by their "use this when" descriptions.
+  Ticket automations can run a procedure with internal notes, label and priority
+  updates, and connected tools without asking for confirmation.
+- Include database migrations `000707` and `000708`, applied automatically on start.
+- Retain all six Cloudron patches unchanged, the pinned Cloudron 6.0.1 base,
+  verified STARTTLS, loopback-only realtime gateway, SSO, mailbox routing and
+  help-center domain support. Build dependency manifests and realtime sources are
+  unchanged upstream. The upstream iPhone changes are not built by this package.
+- Merge and publication require signed release approval.
+
 ## [0.2.12] - 2026-11-02
 
 ### Changed
