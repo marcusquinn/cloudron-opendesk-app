@@ -116,3 +116,7 @@
 * Link the Community Apps Package button to this package's repository
 * Requires Cloudron 10.0.0 or later; Cloudron 9 servers can no longer read this catalog
 * No change to opendesk itself; it is still at upstream commit 3bca4a0
+
+[0.2.12]
+* The Community Apps Package link now opens this repository. The listing builds that link from packagerUrl, so the 0.2.11 packageUrl change had no visible effect.
+* No change to opendesk itself; it is still at upstream commit 3bca4a0.

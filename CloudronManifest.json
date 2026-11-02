@@ -4,7 +4,7 @@
   "author": "Marcus Quinn <marcus@marcusquinn.com>",
   "description": "file://DESCRIPTION.md",
   "tagline": "Open-source helpdesk: shared inbox, live chat and help center",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "upstreamVersion": "3bca4a0",
   "healthCheckPath": "/healthz",
   "httpPort": 8000,
@@ -53,6 +53,6 @@
   "postInstallMessage": "file://POSTINSTALL.md",
   "changelog": "file://CHANGELOG",
   "packagerName": "Marcus Quinn",
-  "packagerUrl": "https://github.com/marcusquinn",
+  "packagerUrl": "https://github.com/marcusquinn/cloudron-opendesk-app",
   "packageUrl": "https://github.com/marcusquinn/cloudron-opendesk-app"
 }

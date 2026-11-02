@@ -6,6 +6,16 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.12] - 2026-11-02
+
+### Changed
+
+- Set `packagerUrl` to this repository so the Community Apps Package link opens it.
+  ca.cloudron.io builds the Package link (and the "By" link) from `packagerUrl`
+  and ignores `packageUrl`, so the 0.2.11 change had no visible effect
+  (marcusquinn/aidevops#36428). `packageUrl` and `minBoxVersion` 10.0.0 are unchanged.
+- No change to opendesk itself; it is still at upstream commit 3bca4a0.
+
 ## [0.2.11] - 2026-11-01
 
 ### Changed
