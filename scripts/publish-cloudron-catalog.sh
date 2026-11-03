@@ -24,10 +24,21 @@ main() {
     fi
     cloudron versions add --state testing --image "$image" || return 1
     jq -e --arg version "$version" --arg image "$image" \
-        '.versions[$version].manifest.version == $version and .versions[$version].manifest.dockerImage == $image and .versions[$version].publishState == "testing"' "$catalog" >/dev/null || return 1
+        --slurpfile manifest CloudronManifest.json \
+        '.versions[$version].manifest.version == $version
+        and .versions[$version].manifest.dockerImage == $image
+        and .versions[$version].manifest.minBoxVersion == $manifest[0].minBoxVersion
+        and .versions[$version].manifest.packageUrl == $manifest[0].packageUrl
+        and .versions[$version].manifest.packagerUrl == $manifest[0].packagerUrl
+        and .versions[$version].publishState == "testing"' "$catalog" >/dev/null || return 1
     cloudron versions update --version="$version" --state=published --image "$image" || return 1
     jq -e --arg version "$version" --arg image "$image" \
-        '.versions[$version].manifest.dockerImage == $image and .versions[$version].publishState == "published"' "$catalog" >/dev/null || return 1
+        --slurpfile manifest CloudronManifest.json \
+        '.versions[$version].manifest.dockerImage == $image
+        and .versions[$version].manifest.minBoxVersion == $manifest[0].minBoxVersion
+        and .versions[$version].manifest.packageUrl == $manifest[0].packageUrl
+        and .versions[$version].manifest.packagerUrl == $manifest[0].packagerUrl
+        and .versions[$version].publishState == "published"' "$catalog" >/dev/null || return 1
     cloudron versions verify || return 1
     return 0
 }
