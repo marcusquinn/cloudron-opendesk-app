@@ -128,3 +128,10 @@
 * Give Ollie scoped AI procedures and let ticket automations run a procedure with internal notes, labels, priority updates and connected tools without asking
 * Include database migrations 000707 and 000708, applied automatically on start; iPhone builds are not part of this package
 * Keep the pinned Cloudron base, all six Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
+[0.2.14]
+* Update opendesk to upstream commit 98c7ae1
+* Route support-channel tickets by conditions, business hours and copies, and choose which threads mirror into the support channel
+* Let workspaces turn ticket severity off, removing it from the app and keeping AI from setting or suggesting it
+* Include database migration 000712 for support-channel routing, applied automatically on start; iPhone builds are not part of this package
+* Keep the pinned Cloudron base, all six Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support

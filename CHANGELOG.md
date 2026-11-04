@@ -6,6 +6,24 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.14] - 2026-11-04
+
+### Changed
+
+- Update opendesk from `5d99c4c` to the immutable upstream commit
+  `98c7ae1a23ed3a7490e2abd10be6e66bd06ef20b` (issue #73).
+- Route support-channel tickets by conditions, business hours and copies, and
+  choose which threads mirror into the channel.
+- Let a workspace turn ticket severity off, removing it from the app and keeping
+  AI from setting or suggesting it.
+- Include database migration `000712` for support-channel routing, applied
+  automatically on start.
+- Retain all six Cloudron patches unchanged, the pinned Cloudron 6.0.1 base,
+  verified STARTTLS, loopback-only realtime gateway, SSO, mailbox routing and
+  help-center domain support. Build dependency manifests and realtime sources are
+  unchanged upstream. The upstream iPhone changes are not built by this package.
+- Merge and publication require signed release approval.
+
 ## [0.2.13] - 2026-11-02
 
 ### Changed
