@@ -18,10 +18,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   AI from setting or suggesting it.
 - Include database migration `000712` for support-channel routing, applied
   automatically on start.
-- Retain all six Cloudron patches unchanged, the pinned Cloudron 6.0.1 base,
-  verified STARTTLS, loopback-only realtime gateway, SSO, mailbox routing and
-  help-center domain support. Build dependency manifests and realtime sources are
-  unchanged upstream. The upstream iPhone changes are not built by this package.
+- Upstream now carries the Bandit and JOSE dependency locks formerly supplied by
+  the advisory patch, so remove that obsolete patch. Retain the five remaining
+  Cloudron patches, pinned Cloudron 6.0.1 base, verified STARTTLS, loopback-only
+  realtime gateway, SSO, mailbox routing and help-center domain support. The
+  upstream iPhone changes are not built by this package.
 - Merge and publication require signed release approval.
 
 ## [0.2.13] - 2026-11-02
