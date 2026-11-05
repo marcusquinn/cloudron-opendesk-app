@@ -1128,6 +1128,70 @@
             "creationDate": "Wed, 04 Nov 2026 14:22:25 GMT",
             "ts": "Wed, 04 Nov 2026 14:22:25 GMT",
             "publishState": "published"
+        },
+        "0.2.15": {
+            "manifest": {
+                "id": "sh.opendesk.cloudronapp",
+                "title": "opendesk",
+                "author": "Marcus Quinn <marcus@marcusquinn.com>",
+                "description": "opendesk is an open-source helpdesk. Support email and live chat arrive as\ntickets in one shared inbox, updated live for the whole team, alongside a\npublic help center, automations, SLAs and reports.\n\n### Features\n\n* **Shared inbox** for email and chat: assignment, teams, labels, custom\n  fields, internal notes, saved replies and views.\n* **Live chat widget** for your websites, in 13 languages.\n* **Help center:** a public knowledge base with articles in collections.\n* **Automations and SLAs:** rules that route, tag, escalate and reopen\n  tickets; response targets with business hours.\n* **Reports** on ticket volume, solve rate and satisfaction surveys.\n* **Optional AI** drafts, summaries and translation with your own Anthropic,\n  OpenAI or OpenRouter key. Off until a key is set.\n\n### Cloudron integration\n\n* **Single sign-on:** Cloudron users sign in with their Cloudron account.\n  Password registration is off by default.\n* **Outgoing mail:** sign-in links, invitations and notifications go through\n  the Cloudron mail relay.\n* **Mailboxes on Cloudron Mail:** connect a support address hosted on this\n  Cloudron with its password. The server settings fill in, and the connection\n  stays on the internal network with TLS verified.\n* **Help centers on your own domain:** add `help.example.com` as an alias of\n  the app, or `*.help.example.com` to give every brand its own subdomain.\n  Cloudron issues the certificates.\n* **Backups:** the PostgreSQL database and attachments are in Cloudron backups.\n\nReceiving mail by forwarding to opendesk is not available in this package; use\nIMAP (Email password) instead.\n\n[opendesk](https://github.com/useopendesk/opendesk) is open source under the\nApache-2.0 licence. This package is maintained independently of the opendesk\nproject.\n",
+                "tagline": "Open-source helpdesk: shared inbox, live chat and help center",
+                "version": "0.2.15",
+                "upstreamVersion": "30e9eb5",
+                "healthCheckPath": "/healthz",
+                "httpPort": 8000,
+                "multiDomain": true,
+                "manifestVersion": 2,
+                "website": "https://opendesk.sh",
+                "contactEmail": "marcus@marcusquinn.com",
+                "icon": "file://logo.png",
+                "iconUrl": "https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/f6e44e24f81d9ed501cbcd8a3f821d61be261c49/logo.png",
+                "mediaLinks": [
+                    "https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/98b89d4eaf8a0c9e8d2745e1f42afa2d501ad0cf/media/listing-1-inbox.png",
+                    "https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/98b89d4eaf8a0c9e8d2745e1f42afa2d501ad0cf/media/listing-2-chat.png",
+                    "https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/98b89d4eaf8a0c9e8d2745e1f42afa2d501ad0cf/media/listing-3-help-center.png",
+                    "https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/98b89d4eaf8a0c9e8d2745e1f42afa2d501ad0cf/media/listing-4-automations.png",
+                    "https://raw.githubusercontent.com/marcusquinn/cloudron-opendesk-app/98b89d4eaf8a0c9e8d2745e1f42afa2d501ad0cf/media/listing-5-reports.png"
+                ],
+                "documentationUrl": "https://github.com/marcusquinn/cloudron-opendesk-app/blob/main/README.md",
+                "forumUrl": "https://forum.cloudron.io/topic/16150/opendesk-open-source-helpdesk-shared-inbox-live-chat-help-center-with-cloudron-sso-and-cloudron-mail",
+                "upstreamLicense": {
+                    "name": "Apache-2.0",
+                    "url": "https://github.com/useopendesk/opendesk/blob/30e9eb5e3693bb84ce9638bdf89f1f3e3052dc74/LICENSE"
+                },
+                "minBoxVersion": "10.0.0",
+                "memoryLimit": 1073741824,
+                "optionalSso": true,
+                "addons": {
+                    "localstorage": {},
+                    "postgresql": {},
+                    "oidc": {
+                        "loginRedirectUri": "/v1/auth/oauth/oidc/callback",
+                        "tokenSignatureAlgorithm": "RS256"
+                    },
+                    "sendmail": {
+                        "supportsDisplayName": true,
+                        "requiresValidCertificate": true
+                    },
+                    "email": {}
+                },
+                "tags": [
+                    "helpdesk",
+                    "support",
+                    "email",
+                    "chat",
+                    "crm"
+                ],
+                "postInstallMessage": "opendesk is running. Open the app and sign in.\n\n<sso>\nChoose **Continue with** your Cloudron. Every Cloudron user allowed by this\napp's access control can sign in; the first one creates the workspace and\ninvites the team.\n\nTo open the instance admin panel (`/admin/`), grant yourself admin in the app's\nTerminal:\n\n    opendesk-cli admin grant you@example.com\n</sso>\n\n<nosso>\nPassword registration is off by default. Set `SIGNUP_ENABLED=true` in\n`/app/data/env`, restart the app, create your account, then turn it off again\nand invite the rest of the team from opendesk.\n</nosso>\n\n**Support mailbox on Cloudron Mail:** create the mailbox (and any aliases) in\nCloudron, then in opendesk open **Settings → Mailboxes → Add mailbox**, enter\nthe address, choose **Email password** and enter its Cloudron password. The\nIMAP and SMTP settings fill in automatically.\n\nSettings live in `/app/data/env`. Keep backups: `/app/data/.secrets.env` holds\nthe key that decrypts stored mailbox passwords.\n\nSetup guide: [README](https://github.com/marcusquinn/cloudron-opendesk-app/blob/main/README.md).\n",
+                "changelog": "* Update opendesk to upstream commit 30e9eb5\n* Let admins move an existing API key's expiry, later or never with a fresh sign-in and earlier at once; record each key's requests for 90 days and reorganise the API keys list\n* Let a workspace turn Tickets and Mail on or off, carry linked issue state on ticket links, and show internal notes in the app theme\n* Include database migrations 000713 to 000715, applied automatically on start; iPhone builds are not part of this package\n* Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support\n",
+                "packagerName": "Marcus Quinn",
+                "packagerUrl": "https://github.com/marcusquinn/cloudron-opendesk-app",
+                "packageUrl": "https://github.com/marcusquinn/cloudron-opendesk-app",
+                "dockerImage": "ghcr.io/marcusquinn/cloudron-opendesk-app@sha256:bd2f677114ea5f7b3cbd2f7b50d892e7b6c87b1789a79945b491d73a8deed077"
+            },
+            "creationDate": "Thu, 05 Nov 2026 17:16:08 GMT",
+            "ts": "Thu, 05 Nov 2026 17:16:08 GMT",
+            "publishState": "published"
         }
     }
 }
