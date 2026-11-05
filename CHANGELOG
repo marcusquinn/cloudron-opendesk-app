@@ -135,3 +135,10 @@
 * Let workspaces turn ticket severity off, removing it from the app and keeping AI from setting or suggesting it
 * Include database migration 000712 for support-channel routing, applied automatically on start; iPhone builds are not part of this package
 * Upstream now carries the patched Bandit and JOSE dependency locks, so remove the obsolete advisory-lock patch; retain the five remaining Cloudron patches, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
+[0.2.15]
+* Update opendesk to upstream commit 30e9eb5
+* Let admins move an existing API key's expiry, later or never with a fresh sign-in and earlier at once; record each key's requests for 90 days and reorganise the API keys list
+* Let a workspace turn Tickets and Mail on or off, carry linked issue state on ticket links, and show internal notes in the app theme
+* Include database migrations 000713 to 000715, applied automatically on start; iPhone builds are not part of this package
+* Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support

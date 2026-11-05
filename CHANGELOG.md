@@ -6,6 +6,24 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.15] - 2026-11-05
+
+### Changed
+
+- Update opendesk from `98c7ae1` to the immutable upstream commit
+  `30e9eb5e3693bb84ce9638bdf89f1f3e3052dc74` (issue #75).
+- Let admins move an existing API key's expiry, later or never with a fresh
+  sign-in and earlier at once; record each key's requests for 90 days and
+  reorganise the API keys list.
+- Let a workspace turn Tickets and Mail on or off, carry linked issue state on
+  ticket links, and show internal notes in the app theme.
+- Include database migrations `000713` to `000715`, applied automatically on
+  start. The upstream iPhone changes are not built by this package.
+- Retain the five Cloudron patches (all apply unchanged), pinned Cloudron 6.0.1
+  base, verified STARTTLS, loopback-only realtime gateway, SSO, mailbox routing
+  and help-center domain support.
+- Merge and publication require signed release approval.
+
 ## [0.2.14] - 2026-11-04
 
 ### Changed
