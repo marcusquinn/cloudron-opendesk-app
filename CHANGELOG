@@ -142,3 +142,9 @@
 * Let a workspace turn Tickets and Mail on or off, carry linked issue state on ticket links, and show internal notes in the app theme
 * Include database migrations 000713 to 000715, applied automatically on start; iPhone builds are not part of this package
 * Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
+[0.2.16]
+* Update opendesk to upstream commit b52c9a8
+* Show the sender's address in the quote line, forward one whole email into a side conversation, show each ticket's latest note in the list, and print or save a conversation as a PDF
+* Include database migrations 000716 and 000717, applied automatically on start; iPhone builds are not part of this package
+* Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
