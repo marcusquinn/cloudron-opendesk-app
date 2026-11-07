@@ -148,3 +148,9 @@
 * Show the sender's address in the quote line, forward one whole email into a side conversation, show each ticket's latest note in the list, and print or save a conversation as a PDF
 * Include database migrations 000716 and 000717, applied automatically on start; iPhone builds are not part of this package
 * Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
+[0.2.17]
+* Update opendesk to upstream commit 3cbd9fa
+* Show each agent's name in full in the Reports per-agent table, in a column that stays in view when the figures scroll sideways, and refine Gmail category sync, closed-ticket follow-ups and chat read state
+* Include database migrations 000718 and 000719, applied automatically on start; iPhone builds are not part of this package
+* Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
