@@ -6,6 +6,21 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.18] - 2026-11-08
+
+### Changed
+
+- Update opendesk from `3cbd9fa` to the immutable upstream commit
+  `e1bbe0c4866f731934624ebec8946226a8199da9` (issue #86).
+- Show a mail account as syncing after Sync now until that try ends, and when a
+  failing account is tried again; tell a Gmail rate limit on one message apart
+  from Gmail refusing every read.
+- No database migrations; the upstream iPhone changes are not built here.
+- Retain the five Cloudron patches (none of their files are touched upstream),
+  pinned Cloudron 6.0.1 base, verified STARTTLS, loopback-only realtime
+  gateway, SSO, mailbox routing and help-center domain support.
+- Merge and publication require signed release approval.
+
 ## [0.2.17] - 2026-11-07
 
 ### Changed
