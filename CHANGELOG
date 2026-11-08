@@ -154,3 +154,9 @@
 * Show each agent's name in full in the Reports per-agent table, in a column that stays in view when the figures scroll sideways, and refine Gmail category sync, closed-ticket follow-ups and chat read state
 * Include database migrations 000718 and 000719, applied automatically on start; iPhone builds are not part of this package
 * Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
+[0.2.18]
+* Update opendesk to upstream commit e1bbe0c
+* Show a mail account as syncing after Sync now until that try ends, and when a failing account is tried again; tell a Gmail rate limit on one message apart from Gmail refusing every read
+* No database migrations; iPhone builds are not part of this package
+* Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
