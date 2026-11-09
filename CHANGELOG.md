@@ -29,8 +29,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Post-install message and README *Set up*: the admin panel signs in with
   email, an opendesk password and a two-factor code, so a Cloudron sign-in
   account turns on two-factor and sets a password with *Forgot password*
-  first; two Troubleshooting rows cover the panel's sign-in errors
-  (issue #92).
+  first. The guide also says to revoke a departing admin with
+  `opendesk-cli admin revoke`, since that password works without Cloudron, and
+  two Troubleshooting rows cover the panel's sign-in errors (issue #92,
+  PR #93).
 - Retain the five Cloudron patches (none of their files are touched upstream;
   all apply to `82525df`), pinned Cloudron 6.0.1 base, verified STARTTLS,
   loopback-only realtime gateway, SSO, mailbox routing and help-center domain
