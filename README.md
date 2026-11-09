@@ -95,10 +95,16 @@ the app's *Resources* for large teams or heavy AI use).
    first:
    1. In opendesk, *Settings → Security*: turn on two-factor authentication.
    2. Sign out, choose *Forgot password* on the sign-in page and follow the
-      emailed link to set a password. The email goes out through Cloudron, so
-      check *Email → Outbound* if it does not arrive.
+      emailed link to set a password. By default the email goes out through
+      Cloudron, so check *Email → Outbound* if it does not arrive (or your own
+      server, if `/app/data/env` sets `SMTP_HOST`).
    3. Open `/admin/` and sign in with the email, the new password and a
       two-factor code. *Continue with Cloudron* keeps working for the app.
+
+   The password also signs in to the app without Cloudron, so removing someone
+   from the app's *Access control* does not lock them out. When an admin
+   leaves, also run `opendesk-cli admin revoke <email>` and remove them under
+   *Settings → Members* in opendesk.
 
 3. **Connect a support mailbox.**
    1. In Cloudron, *Email → your domain*: create the mailbox, e.g.
