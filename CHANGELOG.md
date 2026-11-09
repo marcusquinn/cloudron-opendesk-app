@@ -6,6 +6,39 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.20] - 2026-11-09
+
+### Added
+
+- Pages, upstream's new product beside Tickets and Mail: docs, databases and
+  canvases on the wiki's engine, edited together live, with comments, links,
+  templates and import and export. It is on by default and switched per
+  workspace under *Settings → Pages*. Its live editing uses the existing
+  realtime gateway; no new Cloudron addon, port or setting is needed.
+
+### Changed
+
+- Update opendesk from `6a961d4` to the immutable upstream commit
+  `82525dfe4246c1cf3800953680f2992a6365c929` (issue #90).
+- The wiki grows into a full workspace, members can arrange their own sidebar,
+  and wiki embed blocks load players and documents from an upstream allowlist
+  (YouTube, Vimeo, Loom, Figma, Google, Miro and others) through the app's own
+  Content-Security-Policy.
+- Database migrations 000720 to 000730 run automatically on start; the
+  upstream iPhone changes are not built here.
+- Post-install message and README *Set up*: the admin panel signs in with
+  email, an opendesk password and a two-factor code, so a Cloudron sign-in
+  account turns on two-factor and sets a password with *Forgot password*
+  first. The guide also says to revoke a departing admin with
+  `opendesk-cli admin revoke`, since that password works without Cloudron, and
+  two Troubleshooting rows cover the panel's sign-in errors (issue #92,
+  PR #93).
+- Retain the five Cloudron patches (none of their files are touched upstream;
+  all apply to `82525df`), pinned Cloudron 6.0.1 base, verified STARTTLS,
+  loopback-only realtime gateway, SSO, mailbox routing and help-center domain
+  support.
+- Merge and publication require signed release approval.
+
 ## [0.2.19] - 2026-11-09
 
 ### Changed

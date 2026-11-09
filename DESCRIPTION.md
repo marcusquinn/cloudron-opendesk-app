@@ -8,6 +8,8 @@ public help center, automations, SLAs and reports.
   fields, internal notes, saved replies and views.
 * **Live chat widget** for your websites, in 13 languages.
 * **Help center:** a public knowledge base with articles in collections.
+* **Pages:** the team's docs, databases and canvases, edited together live,
+  beside tickets and mail.
 * **Automations and SLAs:** rules that route, tag, escalate and reopen
   tickets; response targets with business hours.
 * **Reports** on ticket volume, solve rate and satisfaction surveys.
