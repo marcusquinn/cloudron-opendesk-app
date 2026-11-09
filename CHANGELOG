@@ -160,3 +160,9 @@
 * Show a mail account as syncing after Sync now until that try ends, and when a failing account is tried again; tell a Gmail rate limit on one message apart from Gmail refusing every read
 * No database migrations; iPhone builds are not part of this package
 * Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
+[0.2.19]
+* Update opendesk to upstream commit 6a961d4
+* Mark the email on the web sign-in and sign-up forms as the username so browsers save it with the password
+* No database migrations; iPhone builds are not part of this package
+* Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
