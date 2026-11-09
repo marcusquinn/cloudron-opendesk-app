@@ -89,6 +89,17 @@ the app's *Resources* for large teams or heavy AI use).
    cloudron exec --app support.example.com -- opendesk-cli admin list
    ```
 
+   The admin panel does not offer *Continue with Cloudron*: it signs in with
+   email, an opendesk password and a two-factor code, every time. An account
+   created through Cloudron sign-in has no opendesk password, so set one up
+   first:
+   1. In opendesk, *Settings → Security*: turn on two-factor authentication.
+   2. Sign out, choose *Forgot password* on the sign-in page and follow the
+      emailed link to set a password. The email goes out through Cloudron, so
+      check *Email → Outbound* if it does not arrive.
+   3. Open `/admin/` and sign in with the email, the new password and a
+      two-factor code. *Continue with Cloudron* keeps working for the app.
+
 3. **Connect a support mailbox.**
    1. In Cloudron, *Email → your domain*: create the mailbox, e.g.
       `support@example.com`, and any aliases such as `help@example.com`.
@@ -318,6 +329,8 @@ mailbox passwords. Without it, every mailbox must be reconnected.
 | App will not start | *Logs* in the dashboard, or `cloudron logs --app <app>`; a malformed `/app/data/env` line is reported and skipped. |
 | No *Continue with Cloudron* button | The app was installed without Cloudron user management; use password sign-in (`SIGNUP_ENABLED=true` to register, then turn it off). |
 | Sign-in emails do not arrive | *Email → Outbound* status in Cloudron; the log line at start shows `platform mail: smtp`. |
+| Admin panel says the email or password is incorrect | An account created through Cloudron sign-in has no opendesk password yet: sign out of the app and use *Forgot password* (see [Set up](#set-up), step 2). Also confirm the account appears in `opendesk-cli admin list`. |
+| Admin panel asks to turn on two-factor authentication | Turn it on in the app under *Settings → Security*, then sign in to `/admin/` again. |
 | Mailbox shows *Needs attention* | The mailbox password changed in Cloudron; open the mailbox and reconnect. |
 | Custom domain stays *Waiting for DNS* | The `_opendesk-verify` TXT record is missing, or the host does not resolve to this server. `dig +short TXT _opendesk-verify.help.example.com` and `dig +short help.example.com`. |
 | Help center domain shows Cloudron's "no app" page or a certificate error | The alias is not in the app's *Location*, or its certificate is still being issued. For `*.help` aliases, the domain needs a DNS API provider. |

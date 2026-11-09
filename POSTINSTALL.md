@@ -9,6 +9,13 @@ To open the instance admin panel (`/admin/`), grant yourself admin in the app's
 Terminal:
 
     opendesk-cli admin grant you@example.com
+
+The admin panel does not offer Cloudron sign-in: it asks for your email, an
+opendesk password and a two-factor code. Your Cloudron sign-in account has no
+opendesk password yet. In opendesk, turn on two-factor authentication under
+**Settings → Security**, sign out, then use **Forgot password** on the sign-in
+page to set a password. The reset email goes out through Cloudron
+(**Email → Outbound**). Cloudron sign-in keeps working afterwards.
 </sso>
 
 <nosso>
