@@ -6,6 +6,36 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.22] - 2026-11-10
+
+### Added
+
+- Customers can sign in to a brand's help center through the brand's own
+  identity provider, start a request with a subject, a message and attached
+  files, and admins can set the sign-in per brand.
+- Admins can merge two contacts, label, move or delete several people or
+  companies at once, and filter People, Companies and Members.
+- Live chat: returning visitors see open chats first, chats can go to one
+  available teammate with a pop-up, links in replies get short labels, and the
+  team sees whether the visitor is still on the page.
+- Saved replies can add labels, move or assign the ticket; view sections get
+  icons and drag and drop.
+
+### Changed
+
+- Update opendesk from `ce0ff21` to the immutable upstream commit
+  `b761cc86f5bb7e20660f1d27d24b40325099e807` (issue #98).
+- Ticket search uses one index per source; an optional setting leaves ticket
+  numbers out of customer email subjects; Voys call summaries and
+  transcripts that arrive with a status are read correctly.
+- Database migrations 000738 to 000744 run automatically on start; the
+  upstream iPhone changes are not built here.
+- Retain the five Cloudron patches (only `MailboxDetail.tsx`, touched by
+  patch 0004, changed upstream, in separate hunks), pinned Cloudron 6.0.1
+  base, verified STARTTLS, loopback-only realtime gateway, SSO, mailbox
+  routing and help-center domain support.
+- Merge and publication require signed release approval.
+
 ## [0.2.21] - 2026-11-10
 
 ### Added

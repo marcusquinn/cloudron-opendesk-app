@@ -167,6 +167,14 @@
 * No database migrations; iPhone builds are not part of this package
 * Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
 
+[0.2.22]
+* Update opendesk to upstream commit b761cc8
+* Customers can sign in to a brand's help center through the brand's own identity provider, and start requests with a subject, a message and attached files; admins can merge two contacts, label, move or delete several at once, and filter People, Companies and Members
+* Live chat: returning visitors see their open chats first, chats can go to one available teammate with a pop-up, links in replies get short labels, and the team sees whether the visitor is still on the page; saved replies can add labels, move or assign the ticket; view sections get icons and drag and drop
+* Faster ticket search, optional ticket numbers left out of customer email subjects, and Voys call summaries and transcripts that arrive with a status
+* Include database migrations 000738 to 000744, applied automatically on start; iPhone builds are not part of this package
+* Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
 [0.2.21]
 * Update opendesk to upstream commit ce0ff21
 * Contacts can have several email addresses, so mail from a work and a private address lands on one contact; agents' unsent replies are saved on the server and follow them to another device; a Ready for review box lists conversations with an AI draft waiting for a person
