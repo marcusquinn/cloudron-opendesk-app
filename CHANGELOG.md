@@ -25,7 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update opendesk from `ce0ff21` to the immutable upstream commit
   `b761cc86f5bb7e20660f1d27d24b40325099e807` (issue #98).
-- Ticket search uses one index per source; Voys call summaries and
+- Ticket search uses one index per source; an optional setting leaves ticket
+  numbers out of customer email subjects; Voys call summaries and
   transcripts that arrive with a status are read correctly.
 - Database migrations 000738 to 000744 run automatically on start; the
   upstream iPhone changes are not built here.
