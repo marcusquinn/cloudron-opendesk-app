@@ -6,6 +6,35 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.21] - 2026-11-10
+
+### Added
+
+- Contacts can have several email addresses, so mail from a work and a private
+  address lands on one contact.
+- A *Ready for review* box for conversations with an AI draft waiting for a
+  person, with a count and a Mail sidebar row.
+- An agent's unsent reply is saved on the server as they write, so it follows
+  them to another device and survives a refresh.
+- First run asks whether a workspace is a shared inbox, a help desk or both.
+- A shared mail account can start with no one added yet.
+- The chat widget can be restyled with documented `--opendesk` CSS variables.
+- The API can record a ticket message as the customer's own (direction
+  inbound), and a company can be created from a contact's Company field.
+
+### Changed
+
+- Update opendesk from `82525df` to the immutable upstream commit
+  `ce0ff211b9c442735679740a40d3ec8dc4d0c47c` (issue #96).
+- Mail, Pages and settings keep loading while a workspace has Tickets off.
+- Database migrations 000732 and 000733 run automatically on start; the
+  upstream iPhone changes are not built here.
+- Retain the five Cloudron patches (none of their files are touched upstream;
+  all apply to `ce0ff21`), pinned Cloudron 6.0.1 base, verified STARTTLS,
+  loopback-only realtime gateway, SSO, mailbox routing and help-center domain
+  support.
+- Merge and publication require signed release approval.
+
 ## [0.2.20] - 2026-11-09
 
 ### Added
