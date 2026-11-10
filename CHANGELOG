@@ -167,6 +167,14 @@
 * No database migrations; iPhone builds are not part of this package
 * Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
 
+[0.2.21]
+* Update opendesk to upstream commit ce0ff21
+* Contacts can have several email addresses, so mail from a work and a private address lands on one contact; agents' unsent replies are saved on the server and follow them to another device; a Ready for review box lists conversations with an AI draft waiting for a person
+* First run asks whether a workspace is a shared inbox, a help desk or both; a shared mail account can start with no one added; Mail, Pages and settings keep loading while Tickets is off
+* The chat widget can be restyled with documented CSS variables, the API can record a ticket message as the customer's own, and a company can be created from a contact's Company field
+* Include database migrations 000732 and 000733, applied automatically on start; iPhone builds are not part of this package
+* Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
 [0.2.20]
 * Update opendesk to upstream commit 82525df
 * New Pages product beside Tickets and Mail: docs, databases and canvases on the wiki's engine, edited together live, with comments, links, templates and import and export; on by default and switched per workspace under Settings, Pages
