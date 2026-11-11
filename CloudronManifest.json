@@ -53,6 +53,6 @@
   "postInstallMessage": "file://POSTINSTALL.md",
   "changelog": "file://CHANGELOG",
   "packagerName": "Marcus Quinn",
-  "packagerUrl": "https://github.com/marcusquinn/cloudron-opendesk-app",
+  "packagerUrl": "https://github.com/marcusquinn",
   "packageUrl": "https://github.com/marcusquinn/cloudron-opendesk-app"
 }
