@@ -167,6 +167,15 @@
 * No database migrations; iPhone builds are not part of this package
 * Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
 
+[0.2.23]
+* Update opendesk to upstream commit 7a47f44
+* Agents choose who an email reply goes to, with the customer's address and their Reply-To one click away; replies go to a Reply-To at the sender's own organisation
+* Invite contacts to the customer portal and take access away; a trash for deleted tickets with restore for admins; knowledge base articles get addresses under their collection
+* IMAP mailboxes can read from folders an admin picks and keep a copy of sent email in a folder on their server; right-click triage, drag to sidebar and Snooze in shared mail lists
+* Filter People and Companies by company and custom field, and set or clear a custom field on many records at once
+* Include database migrations 000745 to 000748, applied automatically on start; iPhone builds are not part of this package
+* Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
 [0.2.22]
 * Update opendesk to upstream commit b761cc8
 * Customers can sign in to a brand's help center through the brand's own identity provider, and start requests with a subject, a message and attached files; admins can merge two contacts, label, move or delete several at once, and filter People, Companies and Members

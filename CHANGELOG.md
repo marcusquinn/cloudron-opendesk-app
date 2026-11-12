@@ -6,6 +6,34 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.23] - 2026-11-12
+
+### Added
+
+- Agents choose who an email reply goes to, with the customer's address and
+  their Reply-To one click away; replies go to a Reply-To at the sender's own
+  organisation.
+- Invite contacts to the customer portal, see who has access and remove it.
+- A trash for deleted tickets, with who deleted each and a restore for admins.
+- IMAP mailboxes read from the folders an admin picks and can keep a copy of
+  sent email in a folder on their server.
+- Knowledge base articles get addresses under their collection, with old
+  addresses redirecting.
+- Filter People and Companies by company and custom field, and set or clear a
+  custom field on many records at once.
+
+### Changed
+
+- Update opendesk from `b761cc8` to the immutable upstream commit
+  `7a47f4459d8f2b35f2fa94a543bb70a29f0afe90` (issue #103).
+- Database migrations 000745 to 000748 run automatically on start; the
+  upstream iPhone changes are not built here.
+- Retain the five Cloudron patches (only `MailboxDetail.tsx`, touched by
+  patch 0004, changed upstream, in separate hunks), pinned Cloudron 6.0.1
+  base, verified STARTTLS, loopback-only realtime gateway, SSO, mailbox
+  routing and help-center domain support.
+- Merge and publication require signed release approval.
+
 ## [0.2.22] - 2026-11-10
 
 ### Added
