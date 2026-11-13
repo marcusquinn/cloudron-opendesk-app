@@ -167,6 +167,12 @@
 * No database migrations; iPhone builds are not part of this package
 * Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
 
+[0.2.24]
+* Update opendesk to upstream commit 08b28ba
+* Invite people by email and create a team from the sharing pickers
+* Include database migration 000749, applied automatically on start
+* Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
 [0.2.23]
 * Update opendesk to upstream commit 7a47f44
 * Agents choose who an email reply goes to, with the customer's address and their Reply-To one click away; replies go to a Reply-To at the sender's own organisation
