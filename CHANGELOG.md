@@ -6,6 +6,22 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.24] - 2026-11-13
+
+### Added
+
+- Invite people by email and create a team from the sharing pickers.
+
+### Changed
+
+- Update opendesk from `7a47f44` to the immutable upstream commit
+  `08b28ba918f1595644c0b459ac1fd9a3548008be` (issue #105).
+- Database migration 000749 runs automatically on start.
+- Retain the five Cloudron patches unchanged (none of their files changed
+  upstream), pinned Cloudron 6.0.1 base, verified STARTTLS, loopback-only
+  realtime gateway, SSO, mailbox routing and help-center domain support.
+- Merge and publication require signed release approval.
+
 ## [0.2.23] - 2026-11-12
 
 ### Added
