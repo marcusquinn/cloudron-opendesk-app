@@ -6,6 +6,28 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.25] - 2026-11-15
+
+### Added
+
+- Schedule ticket replies and manage pending sends.
+- Import FreeScout conversations with replies, notes and attachments.
+- Give feedback on an AI draft before sending it, or after it was discarded,
+  replaced or abandoned (notes up to 2,000 characters).
+- Select every conversation in a Collab mail folder from a select-all bar.
+- Czech for the help center, customer portal, satisfaction survey and chat
+  widget.
+
+### Changed
+
+- Update opendesk from `08b28ba` to the immutable upstream commit
+  `cf3a811f92ef4aecaa17c3ad01d56f5b056afcfb` (issue #109).
+- Database migrations 000750, 000752 and 000756 run automatically on start.
+- Retain the five Cloudron patches unchanged (they apply cleanly at the new
+  commit), pinned Cloudron 6.0.1 base, verified STARTTLS, loopback-only
+  realtime gateway, SSO, mailbox routing and help-center domain support.
+- Merge and publication require signed release approval.
+
 ## [0.2.24] - 2026-11-13
 
 ### Added

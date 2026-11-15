@@ -167,6 +167,13 @@
 * No database migrations; iPhone builds are not part of this package
 * Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
 
+[0.2.25]
+* Update opendesk to upstream commit cf3a811
+* Schedule ticket replies and manage pending sends; import FreeScout conversations with replies, notes and attachments
+* Give feedback on an AI draft before sending it or after it was discarded, replaced or abandoned; select every conversation in a Collab mail folder; Czech for the help center, customer portal, satisfaction survey and chat widget
+* Include database migrations 000750, 000752 and 000756, applied automatically on start
+* Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
 [0.2.24]
 * Update opendesk to upstream commit 08b28ba
 * Invite people by email and create a team from the sharing pickers

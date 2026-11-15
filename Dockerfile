@@ -6,7 +6,7 @@
 # commit with the patches in patches/, behind an internal nginx on port 8000.
 # Every stage avoids BuildKit-only syntax so Cloudron's on-server build works.
 
-ARG OPENDESK_COMMIT=08b28ba918f1595644c0b459ac1fd9a3548008be
+ARG OPENDESK_COMMIT=cf3a811f92ef4aecaa17c3ad01d56f5b056afcfb
 
 # ── source: the pinned upstream checkout with the Cloudron patches applied ───
 # The Debian golang image ships git, so no unpinned package install is needed.
