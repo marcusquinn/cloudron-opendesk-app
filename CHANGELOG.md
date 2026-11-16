@@ -6,6 +6,26 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.26] - 2026-11-16
+
+### Added
+
+- Customer portal sign-in through a SAML 2.0 identity provider, beside OIDC.
+- Mattermost as a support channel.
+- Collab offered to every workspace, with Gmail sync on push.
+- Instance-wide AI agent instructions.
+
+### Changed
+
+- Update opendesk from `cf3a811` to the immutable upstream commit
+  `2f08424c33a8c289179f91ed721adbca98bd0100` (issue #112).
+- Database migrations 000757, 000758 and 000759 run automatically on start.
+- Rebase the forwarding patch onto the new mailbox wizard; the other four
+  Cloudron patches apply unchanged. Pinned Cloudron 6.0.1 base, verified
+  STARTTLS, loopback-only realtime gateway, SSO, mailbox routing and help-center
+  domain support are retained.
+- Merge and publication require signed release approval.
+
 ## [0.2.25] - 2026-11-15
 
 ### Added

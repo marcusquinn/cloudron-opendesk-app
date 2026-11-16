@@ -13,7 +13,7 @@ diff --git a/web/src/components/mailboxes/AddMailboxWizard.tsx b/web/src/compone
 @@ -28,6 +28,7 @@ import {
    connectFailure,
    DetectionCard,
-   ExternalButton,
+   GmailAppPasswordGuide,
 +  forwardingOn,
    imapOn,
    isGuideHost,
