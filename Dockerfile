@@ -19,7 +19,9 @@ RUN git init -q . \
     && git checkout -q FETCH_HEAD \
     && test "$(git rev-parse HEAD)" = "${OPENDESK_COMMIT}"
 COPY patches/ /patches/
-RUN for p in /patches/*.patch; do git apply --recount -v "$p"; done \
+# Stop at the first patch that does not apply: a for loop's status is only its
+# last command's, and set -e is ignored on the left of &&.
+RUN for p in /patches/*.patch; do git apply --recount -v "$p" || exit 1; done \
     && rm -rf .git
 
 # ── web: the React app, chat widget and help center ─────────────────────────
