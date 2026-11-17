@@ -6,6 +6,33 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.27] - 2026-11-17
+
+### Added
+
+- View a message's original source, with its headers, and copy or download it
+  as an `.eml` file.
+- Show who an inbound email was written to when that is not the address that
+  received it.
+- Let an admin limit who may act from a support channel's threads.
+- Czech and Chinese translations for the agent web app.
+
+### Fixed
+
+- Knowledge base and changelog images keep working: they are stored as plain
+  file paths and served from the help center at `/_help/files/<id>`.
+- Plain email replies follow the reader's light or dark theme.
+- The active workspace is kept per browser tab.
+
+### Changed
+
+- Update opendesk from `2f08424` to the immutable upstream commit
+  `f43d9562a05241b79d3f6d8488ff943ba778ebd6` (issue #115).
+- Database migrations 000764 and 000765 run automatically on start.
+- All five Cloudron patches apply unchanged. Pinned Cloudron 6.0.1 base,
+  verified STARTTLS, loopback-only realtime gateway, SSO, mailbox routing and
+  help-center domain support are retained.
+
 ## [0.2.26] - 2026-11-16
 
 ### Added
