@@ -167,6 +167,14 @@
 * No database migrations; iPhone builds are not part of this package
 * Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
 
+[0.2.27]
+* Update opendesk to upstream commit f43d956
+* Knowledge base and changelog images keep working: they are stored as plain file paths and served from the help center at /_help/files/<id>
+* View a message's original source with its headers, and copy or download it as .eml; show who an inbound email was written to when that differs from the receiving address
+* An admin can limit who may act from a support channel's threads; Czech and Chinese translations for the agent web app; Collab list, sync and snooze improvements
+* Include database migrations 000764 and 000765, applied automatically on start
+* Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
 [0.2.26]
 * Update opendesk to upstream commit 2f08424
 * A brand's customer portal can sign in through a SAML 2.0 identity provider, beside OIDC; Mattermost as a support channel; Collab offered to every workspace with Gmail sync on push; instance-wide AI agent instructions
