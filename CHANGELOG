@@ -167,6 +167,12 @@
 * No database migrations; iPhone builds are not part of this package
 * Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
 
+[0.2.26]
+* Update opendesk to upstream commit 2f08424
+* A brand's customer portal can sign in through a SAML 2.0 identity provider, beside OIDC; Mattermost as a support channel; Collab offered to every workspace with Gmail sync on push; instance-wide AI agent instructions
+* Include database migrations 000757, 000758 and 000759, applied automatically on start
+* Keep the pinned Cloudron base, all five Cloudron patches (the forwarding patch is rebased onto the new mailbox wizard), verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
 [0.2.25]
 * Update opendesk to upstream commit cf3a811
 * Schedule ticket replies and manage pending sends; import FreeScout conversations with replies, notes and attachments
