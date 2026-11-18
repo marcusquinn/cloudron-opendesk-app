@@ -167,6 +167,13 @@
 * No database migrations; iPhone builds are not part of this package
 * Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
 
+[0.2.28]
+* Update opendesk to upstream commit 76fa2b1
+* Mail: one Compose button at the top of the sidebar, as in Gmail and Outlook, with an icon on the collapsed rail
+* Reply like Gmail with plain Reply, Forward and Comment buttons; Undo send keeps a sent reply for the workspace's undo window; a reply sent right after the last keystroke is no longer saved back as a draft
+* No database migrations
+* Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
 [0.2.27]
 * Update opendesk to upstream commit f43d956
 * Knowledge base and changelog images keep working: they are stored as plain file paths and served from the help center at /_help/files/<id>

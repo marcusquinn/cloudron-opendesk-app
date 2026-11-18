@@ -6,6 +6,29 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.28] - 2026-11-18
+
+### Added
+
+- Mail has one Compose button at the top of the sidebar, as in Gmail and
+  Outlook, with an icon on the collapsed rail.
+- Reply like Gmail with plain Reply, Forward and Comment buttons.
+- Undo send: a sent reply waits the workspace's undo window, with Undo and
+  Send now.
+
+### Fixed
+
+- A reply sent right after its last keystroke is no longer saved back as the
+  agent's draft when they leave the ticket.
+
+### Changed
+
+- Update opendesk from `f43d956` to the immutable upstream commit
+  `76fa2b1ee17e2ffb2adbcf47825ae287a114f0f0` (issue #121).
+- No database migrations. All five Cloudron patches apply unchanged. Pinned
+  Cloudron 6.0.1 base, verified STARTTLS, loopback-only realtime gateway, SSO,
+  mailbox routing and help-center domain support are retained.
+
 ## [0.2.27] - 2026-11-17
 
 ### Added
