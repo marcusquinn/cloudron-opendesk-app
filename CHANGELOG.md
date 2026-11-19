@@ -6,6 +6,28 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.29] - 2026-11-19
+
+### Added
+
+- Search every settings section and field from the settings page and the
+  command menu, and get answers to how-to questions from opendesk's settings
+  and docs.
+- Collab has a Mentions box; the agent app is translated into Spanish.
+
+### Fixed
+
+- Sign-in works with OIDC providers that advertise their issuer with a
+  trailing slash, such as authentik.
+
+### Changed
+
+- Update opendesk from `76fa2b1` to the immutable upstream commit
+  `3f971949b0433bd5800687f610947060b5a9b51a` (issue #124).
+- No database migrations. All five Cloudron patches apply unchanged. Pinned
+  Cloudron 6.0.1 base, verified STARTTLS, loopback-only realtime gateway, SSO,
+  mailbox routing and help-center domain support are retained.
+
 ## [0.2.28] - 2026-11-18
 
 ### Added
