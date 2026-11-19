@@ -30,6 +30,8 @@ ENV CI=true
 WORKDIR /src
 COPY --from=src /src/brand/ brand/
 COPY --from=src /src/contracts/ contracts/
+# The settings and docs search index is built from the docs site's pages.
+COPY --from=src /src/docs/src/content/docs/ docs/src/content/docs/
 COPY --from=src /src/web/ web/
 WORKDIR /src/web
 RUN npm install -g --silent corepack@0.36.0 && corepack enable \
