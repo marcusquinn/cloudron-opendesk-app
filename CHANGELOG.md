@@ -6,6 +6,40 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.29] - 2026-11-21
+
+### Added
+
+- Search every settings section and field from the settings page and the
+  command menu, and get answers to how-to questions from opendesk's settings
+  and docs.
+- Collab has a Mentions box that keeps conversations where a teammate mentions
+  or answers you; teammates can reply to a specific comment, quoting it.
+- Drag conversations onto a Collab category tab, reorder category tabs by
+  dragging or by keyboard, and use up to 10 categories.
+- The agent app is translated into Spanish.
+
+### Fixed
+
+- Sign-in works with OIDC providers that advertise their issuer with a
+  trailing slash, such as authentik.
+- Page shortcuts no longer act behind an open dialog, drawer or the command
+  menu; a member who is not an admin sees only their own row in the Reports
+  overview.
+- Compose moves back from the Mail sidebar to the list header, and a sidebar
+  section's title folds on every click.
+
+### Changed
+
+- Update opendesk from `76fa2b1` to the immutable upstream commit
+  `a0544e81849e6db84f16924b63b0e7c6f4a18b01` (issues #124 and #129).
+- The web build now includes the docs site's pages, from which upstream builds
+  the settings and docs search index.
+- Database migrations 000770 to 000772 run automatically on start.
+- All five Cloudron patches apply unchanged. Pinned Cloudron 6.0.1 base,
+  verified STARTTLS, loopback-only realtime gateway, SSO, mailbox routing and
+  help-center domain support are retained.
+
 ## [0.2.28] - 2026-11-18
 
 ### Added
