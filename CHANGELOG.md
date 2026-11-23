@@ -6,6 +6,27 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.30] - 2026-11-23
+
+### Fixed
+
+- Reordering or recolouring inbox categories sorts again only the mail those
+  changes can affect, so nothing else moves; Ollie prefers a category other
+  than Primary.
+
+### Added
+
+- Collab keeps AI notes and shows visible AI skips.
+
+### Changed
+
+- Update opendesk from `a0544e8` to the immutable upstream commit
+  `b3cefe99bc08f3be218573530d3a865daee2cd38` (issue #133).
+- Database migrations 000773 and 000774 run automatically on start.
+- All five Cloudron patches apply unchanged. Pinned Cloudron 6.0.1 base,
+  verified STARTTLS, loopback-only realtime gateway, SSO, mailbox routing and
+  help-center domain support are retained.
+
 ## [0.2.29] - 2026-11-21
 
 ### Added

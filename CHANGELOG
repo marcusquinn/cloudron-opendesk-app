@@ -167,6 +167,13 @@
 * No database migrations; iPhone builds are not part of this package
 * Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
 
+[0.2.30]
+* Update opendesk to upstream commit b3cefe9
+* Changing inbox categories (reordering or recolouring) sorts again only the mail it can affect, so nothing else moves; Ollie prefers a category other than Primary
+* Collab keeps AI notes and shows visible AI skips
+* Include database migrations 000773 and 000774, applied automatically on start
+* Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
 [0.2.29]
 * Update opendesk to upstream commit a0544e8
 * Search every settings section and field from the settings page and the command menu, and get answers to how-to questions from opendesk's settings and docs
