@@ -169,7 +169,7 @@
 
 [0.2.31]
 * Update opendesk to upstream commit 1d6e6fa
-* MCP clients can sync contacts and companies by external id, log customer messages, attach files and reach every API route through a scoped bridge
+* MCP clients can sync contacts and companies by external id, log customer messages, attach files and reach supported API routes through a scoped bridge
 * No database migrations
 * Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
 

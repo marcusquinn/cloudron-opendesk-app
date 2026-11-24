@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - MCP clients can sync contacts and companies by external id, log customer
-  messages, attach files and reach every API route through a scoped bridge.
+  messages, attach files and reach supported API routes through a scoped bridge.
 
 ## [0.2.30] - 2026-11-23
 
