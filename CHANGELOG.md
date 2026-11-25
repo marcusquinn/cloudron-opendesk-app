@@ -6,6 +6,17 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.32] - 2026-11-25
+
+### Changed
+
+- A conversation stays unread while its AI draft is reviewed or discarded, and
+  a discarded AI draft asks for feedback at once.
+- Saved replies are available in the Mail composer, and searching from Unread
+  finds read conversations too.
+- Give feedback sits beside Comment while an AI draft is open, and a click on an
+  AI draft strip opens the conversation.
+
 ## [0.2.31] - 2026-11-24
 
 ### Added
