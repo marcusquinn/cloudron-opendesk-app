@@ -167,6 +167,12 @@
 * No database migrations; iPhone builds are not part of this package
 * Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
 
+[0.2.32]
+* Update opendesk to upstream commit ab64fda
+* A conversation stays unread while its AI draft is reviewed or discarded, and a discarded AI draft asks for feedback at once
+* No database migrations
+* Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
 [0.2.31]
 * Update opendesk to upstream commit 1d6e6fa
 * MCP clients can sync contacts and companies by external id, log customer messages, attach files and reach supported API routes through a scoped bridge
