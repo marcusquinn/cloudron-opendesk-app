@@ -6,6 +6,21 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.33] - 2026-11-27
+
+### Changed
+
+- A new ticket can go to several people with Cc and Bcc from the dialog, reply
+  drafts keep their recipients and sending address, and new ticket drafts
+  survive reloads.
+- A ticket, message or Mail conversation can be copied as a prompt for an AI
+  agent, and attachment images, PDFs and text preview in a shared lightbox.
+- Tickets are found by sender and recipient addresses in search and Ask AI;
+  Reply all offers Cc to the other recipients of the customer's latest email.
+- Forwarded mail counts as verified when compauth or a trusted ARC chain shows
+  the original passed DMARC.
+- Two small additive database migrations run automatically on start.
+
 ## [0.2.32] - 2026-11-25
 
 ### Changed
