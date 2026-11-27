@@ -167,6 +167,14 @@
 * No database migrations; iPhone builds are not part of this package
 * Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
 
+[0.2.33]
+* Update opendesk to upstream commit 83df824
+* Send a new ticket to several people with Cc and Bcc from the dialog; reply drafts keep their recipients and sending address, and new ticket drafts survive reloads
+* Copy a ticket, a message or a Mail conversation as a prompt for an AI agent; preview attachment images, PDFs and text in a shared lightbox; Reply all offers Cc to the other recipients of the customer's latest email
+* Find tickets by sender and recipient addresses in search and Ask AI; forwarded mail counts as verified when compauth or a trusted ARC chain shows the original passed DMARC
+* Two small additive database migrations (address search, reply draft recipients) run automatically on start
+* Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
 [0.2.32]
 * Update opendesk to upstream commit ab64fda
 * A conversation stays unread while its AI draft is reviewed or discarded, and a discarded AI draft asks for feedback at once
