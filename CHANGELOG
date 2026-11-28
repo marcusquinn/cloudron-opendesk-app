@@ -167,6 +167,14 @@
 * No database migrations; iPhone builds are not part of this package
 * Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
 
+[0.2.34]
+* Update opendesk to upstream commit 98e211f
+* Import people from a CSV file with field mapping and duplicate handling, export them by selection or filter, and send one message to many customers from the People list
+* Take WhatsApp messages as tickets through Meta's Cloud API; verify a chat visitor's address with an emailed link; play a Voys call recording from its ticket
+* Narrow Reports to one mailbox, one person or a team's members; add pictures to signatures; edit address chips in place; write ticket summaries in the reader's language
+* Include database migrations 000777 to 000783, applied automatically on start
+* Keep the pinned Cloudron base, all five Cloudron patches unchanged, verified STARTTLS, the loopback-only realtime gateway, SSO, mailbox routing and help-center domain support
+
 [0.2.33]
 * Update opendesk to upstream commit 83df824
 * Send a new ticket to several people with Cc and Bcc from the dialog; reply drafts keep their recipients and sending address, and new ticket drafts survive reloads

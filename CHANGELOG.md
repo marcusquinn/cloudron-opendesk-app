@@ -6,6 +6,21 @@ reads the `[X.Y.Z]` sections of [`CHANGELOG`](CHANGELOG); keep both in step.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.34] - 2026-11-28
+
+### Changed
+
+- People can be imported from a CSV file with field mapping and duplicate
+  handling, exported by selection or filter, and sent one message to many
+  customers from the People list.
+- WhatsApp messages become tickets through Meta's Cloud API, a chat visitor's
+  address is verified with an emailed link, and a Voys call recording plays
+  from its ticket.
+- Reports narrow to one mailbox, one person or a team's members; signatures
+  take pictures, address chips edit in place and ticket summaries follow the
+  reader's language.
+- Database migrations 000777 to 000783 run automatically on start.
+
 ## [0.2.33] - 2026-11-27
 
 ### Changed
